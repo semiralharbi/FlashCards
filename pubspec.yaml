@@ -1,0 +1,104 @@
+name: flash_cards
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.14.0 <3.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+
+  #native_splash
+  flutter_native_splash: ^2.1.2+1
+
+  # database
+  hive: ^2.0.4
+  hive_flutter: ^1.0.0
+
+  # auto_route
+  auto_route: ^3.2.4
+
+  # immutable_classes
+  freezed: ^1.1.1
+  freezed_annotation: ^1.1.0
+
+  # serialization
+  json_serializable: ^6.0.0
+  json_annotation: ^4.4.0
+
+  # http client
+  dio: ^4.0.0
+  retrofit: ^3.0.1+1
+  pretty_dio_logger: ^1.1.1
+
+  # dependency injection
+  get_it: ^7.2.0
+  injectable: ^1.5.0
+
+  # internationalization and localization
+  intl: ^0.17.0
+  intl_utils: ^2.4.1
+  flutter_localizations:
+    sdk: flutter
+
+  # ephemeral state
+  flutter_hooks: ^0.18.2+1
+
+  # ui
+  flutter_svg: ^1.0.3
+
+  # functional programming
+  dartz: ^0.10.0
+
+  # business logic
+  flutter_bloc: ^8.0.1
+
+  # firebase
+  firebase_core: ^1.13.1
+  firebase_crashlytics: ^2.5.3
+
+  #secure storage
+  flutter_secure_storage: ^5.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.4
+  auto_route_generator: ^3.2.3
+  retrofit_generator: ^4.0.1
+  injectable_generator: ^1.5.2
+  hive_generator: ^1.1.0
+  build_runner: ^2.1.4
+  flutter_launcher_icons: ^0.9.2
+  analyzer: ^3.3.1
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Montserrat-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Montserrat-Medium.ttf
+          weight: 500
+
+flutter_intl:
+  enabled: true
+  class_name: Translation
+  main_locale: pl
+  arb_dir: lib/app/utils/translation/l10n
+  output_dir: lib/src/core/translation/generated
