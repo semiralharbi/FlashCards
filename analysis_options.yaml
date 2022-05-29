@@ -1,0 +1,25 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    use_key_in_widget_constructors: false
+    # for JsonKey annotations to be used in freezed
+    invalid_annotation_target: false
+    must_be_immutable: false
+    
+  exclude:
+    - lib/src/core/translation/**
+    - lib/src/**/*.g.dart
+    - lib/src/**/*.gr.dart
+    - lib/src/**/*.freezed.dart
+    - lib/src/core/injectable/injectable.config.dart
+    - lib/src/core/logger/logger.dart
+
+linter:
+  rules:
+    join_return_with_assignment: true
+    prefer_relative_imports: true
+    avoid_void_async: true
+    directives_ordering: true
+    prefer_expression_function_bodies: false
+    sort_constructors_first: true
