@@ -11,18 +11,23 @@ if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
+def commitsOnBranchCount = extractVersionCode()
+def version = "grep -h version ../version.properties | sed 's/version=//'".execute().text.trim()
 
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+int extractVersionCode() {
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        workingDir projectDir
+        executable 'git'
+        args 'rev-list', '--count', 'HEAD'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim().toInteger()
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
@@ -42,12 +47,11 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.flash_cards"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        applicationId "com.flash_cards"
+        minSdkVersion 23
+        targetSdkVersion 32
+        versionCode commitsOnBranchCount
+        versionName version
     }
 
     buildTypes {

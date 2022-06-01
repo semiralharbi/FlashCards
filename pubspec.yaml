@@ -66,6 +66,7 @@ dependencies:
   # firebase
   firebase_core: ^1.13.1
   firebase_crashlytics: ^2.5.3
+  firebase_auth: ^3.3.19
 
   #secure storage
   flutter_secure_storage: ^5.0.2
@@ -89,11 +90,11 @@ flutter:
   fonts:
     - family: Montserrat
       fonts:
-        - asset: assets/fonts/Montserrat-Bold.ttf
+        - asset: lib/app/assets/fonts/Montserrat-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Montserrat-Regular.ttf
+        - asset: lib/app/assets/fonts/Montserrat-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Montserrat-Medium.ttf
+        - asset: lib/app/assets/fonts/Montserrat-Medium.ttf
           weight: 500
 
 flutter_intl:
@@ -101,4 +102,4 @@ flutter_intl:
   class_name: Translation
   main_locale: pl
   arb_dir: lib/app/utils/translation/l10n
-  output_dir: lib/src/core/translation/generated
+  output_dir: lib/app/utils/translation/generated

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flash_cards">
+    package="com.flash_cards">
    <application
         android:label="flash_cards"
         android:name="${applicationName}"
