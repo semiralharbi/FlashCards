@@ -1,1 +1,19 @@
-{}
+{
+  "registration": "Rejestracja",
+  "login": "Logowanie",
+  "username": "Nazwa użytkownika",
+  "usernameInsert": "Wprowadź swoją nazwę użytkownika",
+  "password": "Hasło",
+  "passwordRepeat": "Powtórz hasło",
+  "passwordInsert": "Wprowadź swoje hasło",
+  "continueNav": "Kontynuuj",
+  "createAcc": "Stwórz konto",
+  "goToRegister": "Przejdź do rejestracji",
+  "undo": "Cofnij",
+  "email": "E-mail",
+  "emailInsert": "Wprowadź swój e-mail",
+  "logIn": "Zaloguj się",
+  "goToLogin": "Przejdź do logowania",
+  "somethingWentWrong": "Coś poszło nie tak!",
+  "welcome": "Witaj w FlashCards!\nZaloguj się lub stwórz konto aby kontynuować"
+}

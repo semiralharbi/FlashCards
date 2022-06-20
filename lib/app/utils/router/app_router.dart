@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
 
-import '../../pages/home_page.dart';
+import '../../pages/home_page/home_page.dart';
 
 export 'app_router.gr.dart';
 

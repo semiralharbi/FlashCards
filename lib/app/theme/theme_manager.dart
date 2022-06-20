@@ -12,30 +12,38 @@ class ThemeManager {
     scaffoldBackgroundColor: AppColors.white,
     primaryColor: AppColors.pacificBlue,
     textTheme: TextTheme(
-      headline1: AppFonts.boldMontserrat.copyWith(
+      headline1: AppFonts.boldPermanentMarker.copyWith(
         color: AppColors.black,
         fontSize: AppDimensions.d24,
       ),
-      headline2: AppFonts.boldMontserrat.copyWith(
+      headline2: AppFonts.boldJoan.copyWith(
         color: AppColors.regalBlue,
       ),
-      headline3: AppFonts.regularMontserrat.copyWith(
+      headline3: AppFonts.regularJoan.copyWith(
         color: AppColors.regalBlue,
       ),
-      button: AppFonts.boldMontserrat.copyWith(
+      button: AppFonts.boldJoan.copyWith(
         color: AppColors.white,
         fontSize: AppDimensions.d12,
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
+        shadowColor: MaterialStateProperty.resolveWith<Color>((states) {
+          if (states.contains(MaterialState.disabled)) {
+            return AppColors.gallery;
+          } else if (states.contains(MaterialState.pressed)) {
+            return AppColors.black;
+          }
+          return AppColors.black;
+        }),
         backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
           if (states.contains(MaterialState.disabled)) {
             return AppColors.gallery;
           } else if (states.contains(MaterialState.pressed)) {
-            return AppColors.regalBlue;
+            return AppColors.confetti;
           }
-          return AppColors.pacificBlue;
+          return AppColors.whiteSmoke;
         }),
       ),
     ),

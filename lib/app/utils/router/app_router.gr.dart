@@ -11,7 +11,7 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i2;
-import 'package:flash_cards/app/pages/home_page.dart' as _i1;
+import 'package:flash_cards/app/pages/home_page/home_page.dart' as _i1;
 import 'package:flutter/material.dart' as _i3;
 
 class AppRouter extends _i2.RootStackRouter {
