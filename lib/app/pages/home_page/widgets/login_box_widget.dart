@@ -8,20 +8,17 @@ import '../../../widgets/upper_box.dart';
 
 class LoginBoxWidget extends StatelessWidget {
   const LoginBoxWidget({
-    required this.loginAnimationValue,
     required this.onTap,
   });
 
-  final bool loginAnimationValue;
   final Function() onTap;
 
   @override
   Widget build(BuildContext context) => UpperBox(
-        animationValue: loginAnimationValue,
         child: Stack(
           children: [
             Positioned(
-              top: AppDimensions.d4,
+              top: AppDimensions.d10,
               right: AppDimensions.d1,
               left: AppDimensions.d1,
               child: Align(
@@ -49,7 +46,7 @@ class LoginBoxWidget extends StatelessWidget {
             Positioned(
               right: AppDimensions.d1,
               left: AppDimensions.d1,
-              bottom: AppDimensions.d24,
+              top: AppDimensions.d110,
               child: TextFieldWidget(
                 iconData: Icons.lock,
                 controller: TextEditingController(),
@@ -59,7 +56,7 @@ class LoginBoxWidget extends StatelessWidget {
             Positioned(
               right: AppDimensions.d1,
               left: AppDimensions.d1,
-              bottom: AppDimensions.d8,
+              bottom: AppDimensions.d20,
               child: GestureDetector(
                 onTap: onTap,
                 child: Padding(
@@ -81,7 +78,7 @@ class LoginBoxWidget extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 86,
+              top: AppDimensions.d86,
               right: AppDimensions.d4,
               left: 0,
               child: Align(

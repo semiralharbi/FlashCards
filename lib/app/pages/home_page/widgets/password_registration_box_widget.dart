@@ -8,16 +8,17 @@ import '../../../widgets/textfield_widget.dart';
 
 class PasswordRegistrationBoxWidget extends StatelessWidget {
   const PasswordRegistrationBoxWidget({
-    required this.loginAnimationValue,
+    required this.passwordAnimationValue,
     required this.onTap,
+    required this.onPressed,
   });
 
-  final bool loginAnimationValue;
+  final bool passwordAnimationValue;
   final Function() onTap;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) => LowerBox(
-        animationValue: loginAnimationValue,
         child: Stack(
           children: [
             Positioned(
@@ -27,7 +28,7 @@ class PasswordRegistrationBoxWidget extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  Translation.of(context).login,
+                  Translation.of(context).registration,
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimensions.d20,
@@ -81,15 +82,13 @@ class PasswordRegistrationBoxWidget extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 86,
+              top: AppDimensions.d86,
               right: AppDimensions.d4,
               left: 0,
               child: Align(
                 alignment: Alignment.centerRight,
                 child: FloatingActionButton(
-                  onPressed: () {
-                    //TODO: add cubit state for login
-                  },
+                  onPressed: () => onPressed,
                   foregroundColor: AppColors.whiteSmoke,
                   backgroundColor: AppColors.cinnamon,
                   splashColor: AppColors.black,

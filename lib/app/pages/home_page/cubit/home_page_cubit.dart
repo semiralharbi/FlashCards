@@ -10,16 +10,22 @@ class HomePageCubit extends Cubit<HomePageState> {
   void onEmailRegisterClick({
     String? email,
     String? username,
-    required bool loginAnimationValue,
-    required bool registrationAnimationValue,
   }) {
     emit(HomePageState.passwordRegistration(
-      registrationAnimationValue: registrationAnimationValue,
-      loginAnimationValue: loginAnimationValue,
       email: email,
       username: username,
     ));
   }
 
-  void onPasswordRegisterClick() {}
+  void onGoToLoginClick(){
+    emit(const HomePageState.initial());
+  }
+
+  void onGoToRegisterClick(){
+    emit(const HomePageState.register());
+  }
+
+  void onLoginClick() {
+    emit(const HomePageState.loginSuccess());
+  }
 }

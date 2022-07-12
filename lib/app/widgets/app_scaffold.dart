@@ -10,20 +10,24 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-            image: AssetImage(
-              AppPaths.woodCards,
+        body: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    AppPaths.wood,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            fit: BoxFit.cover,
-          )),
-          child: SafeArea(
-            minimum: const EdgeInsets.all(
-              AppDimensions.d16,
-            ),
-            child: child,
-          ),
+            SafeArea(
+                minimum: const EdgeInsets.all(
+                  AppDimensions.d20,
+                ),
+                child: child),
+          ],
         ),
       );
 }

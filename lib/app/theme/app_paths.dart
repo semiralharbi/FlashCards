@@ -6,5 +6,5 @@ class AppPaths {
 
   //PNG
 static const logo = '$pngPath/flash_cards_logo.png';
-static const woodCards = '$pngPath/wood_cards.png';
+static const wood = '$pngPath/wood.png';
 }

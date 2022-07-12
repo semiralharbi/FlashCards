@@ -7,9 +7,11 @@ class AppProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SpinKitCubeGrid(
-      color: AppColors.electricViolet,
-      duration: Duration(milliseconds: 800),
+    return const Center(
+      child: SpinKitCubeGrid(
+        color: AppColors.electricViolet,
+        duration: Duration(milliseconds: 800),
+      ),
     );
   }
 }

@@ -45,6 +45,7 @@ class TextFieldWidget extends StatelessWidget {
                 top: AppDimensions.d12,
                 bottom: AppDimensions.d8,
                 right: AppDimensions.d12,
+                left: AppDimensions.d12,
               ),
               child: TextField(
                 textInputAction: textInputAction,

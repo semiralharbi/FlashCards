@@ -26,21 +26,16 @@ class _$HomePageStateTearOff {
     return const _Fail();
   }
 
+  _Register register() {
+    return const _Register();
+  }
+
   _PasswordRegistration passwordRegistration(
-      {String? username,
-      String? email,
-      required bool loginAnimationValue,
-      required bool registrationAnimationValue}) {
+      {String? username, String? email}) {
     return _PasswordRegistration(
       username: username,
       email: email,
-      loginAnimationValue: loginAnimationValue,
-      registrationAnimationValue: registrationAnimationValue,
     );
-  }
-
-  _CreateAccount createAccount() {
-    return const _CreateAccount();
   }
 
   _LoginSuccess loginSuccess() {
@@ -57,10 +52,9 @@ mixin _$HomePageState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() fail,
-    required TResult Function(String? username, String? email,
-            bool loginAnimationValue, bool registrationAnimationValue)
+    required TResult Function() register,
+    required TResult Function(String? username, String? email)
         passwordRegistration,
-    required TResult Function() createAccount,
     required TResult Function() loginSuccess,
   }) =>
       throw _privateConstructorUsedError;
@@ -68,10 +62,8 @@ mixin _$HomePageState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
     TResult Function()? loginSuccess,
   }) =>
       throw _privateConstructorUsedError;
@@ -79,10 +71,8 @@ mixin _$HomePageState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
     TResult Function()? loginSuccess,
     required TResult orElse(),
   }) =>
@@ -91,8 +81,8 @@ mixin _$HomePageState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Fail value) fail,
+    required TResult Function(_Register value) register,
     required TResult Function(_PasswordRegistration value) passwordRegistration,
-    required TResult Function(_CreateAccount value) createAccount,
     required TResult Function(_LoginSuccess value) loginSuccess,
   }) =>
       throw _privateConstructorUsedError;
@@ -100,8 +90,8 @@ mixin _$HomePageState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
     TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
     TResult Function(_LoginSuccess value)? loginSuccess,
   }) =>
       throw _privateConstructorUsedError;
@@ -109,8 +99,8 @@ mixin _$HomePageState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
     TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
     TResult Function(_LoginSuccess value)? loginSuccess,
     required TResult orElse(),
   }) =>
@@ -174,10 +164,9 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() fail,
-    required TResult Function(String? username, String? email,
-            bool loginAnimationValue, bool registrationAnimationValue)
+    required TResult Function() register,
+    required TResult Function(String? username, String? email)
         passwordRegistration,
-    required TResult Function() createAccount,
     required TResult Function() loginSuccess,
   }) {
     return initial();
@@ -188,10 +177,8 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
     TResult Function()? loginSuccess,
   }) {
     return initial?.call();
@@ -202,10 +189,8 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
     TResult Function()? loginSuccess,
     required TResult orElse(),
   }) {
@@ -220,8 +205,8 @@ class _$_Initial implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Fail value) fail,
+    required TResult Function(_Register value) register,
     required TResult Function(_PasswordRegistration value) passwordRegistration,
-    required TResult Function(_CreateAccount value) createAccount,
     required TResult Function(_LoginSuccess value) loginSuccess,
   }) {
     return initial(this);
@@ -232,8 +217,8 @@ class _$_Initial implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
     TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
     TResult Function(_LoginSuccess value)? loginSuccess,
   }) {
     return initial?.call(this);
@@ -244,8 +229,8 @@ class _$_Initial implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
     TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
     TResult Function(_LoginSuccess value)? loginSuccess,
     required TResult orElse(),
   }) {
@@ -300,10 +285,9 @@ class _$_Fail implements _Fail {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() fail,
-    required TResult Function(String? username, String? email,
-            bool loginAnimationValue, bool registrationAnimationValue)
+    required TResult Function() register,
+    required TResult Function(String? username, String? email)
         passwordRegistration,
-    required TResult Function() createAccount,
     required TResult Function() loginSuccess,
   }) {
     return fail();
@@ -314,10 +298,8 @@ class _$_Fail implements _Fail {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
     TResult Function()? loginSuccess,
   }) {
     return fail?.call();
@@ -328,10 +310,8 @@ class _$_Fail implements _Fail {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
     TResult Function()? loginSuccess,
     required TResult orElse(),
   }) {
@@ -346,8 +326,8 @@ class _$_Fail implements _Fail {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Fail value) fail,
+    required TResult Function(_Register value) register,
     required TResult Function(_PasswordRegistration value) passwordRegistration,
-    required TResult Function(_CreateAccount value) createAccount,
     required TResult Function(_LoginSuccess value) loginSuccess,
   }) {
     return fail(this);
@@ -358,8 +338,8 @@ class _$_Fail implements _Fail {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
     TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
     TResult Function(_LoginSuccess value)? loginSuccess,
   }) {
     return fail?.call(this);
@@ -370,8 +350,8 @@ class _$_Fail implements _Fail {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
     TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
     TResult Function(_LoginSuccess value)? loginSuccess,
     required TResult orElse(),
   }) {
@@ -387,15 +367,132 @@ abstract class _Fail implements HomePageState {
 }
 
 /// @nodoc
+abstract class _$RegisterCopyWith<$Res> {
+  factory _$RegisterCopyWith(_Register value, $Res Function(_Register) then) =
+      __$RegisterCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$RegisterCopyWithImpl<$Res> extends _$HomePageStateCopyWithImpl<$Res>
+    implements _$RegisterCopyWith<$Res> {
+  __$RegisterCopyWithImpl(_Register _value, $Res Function(_Register) _then)
+      : super(_value, (v) => _then(v as _Register));
+
+  @override
+  _Register get _value => super._value as _Register;
+}
+
+/// @nodoc
+
+class _$_Register implements _Register {
+  const _$_Register();
+
+  @override
+  String toString() {
+    return 'HomePageState.register()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Register);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fail,
+    required TResult Function() register,
+    required TResult Function(String? username, String? email)
+        passwordRegistration,
+    required TResult Function() loginSuccess,
+  }) {
+    return register();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fail,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
+    TResult Function()? loginSuccess,
+  }) {
+    return register?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fail,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
+    TResult Function()? loginSuccess,
+    required TResult orElse(),
+  }) {
+    if (register != null) {
+      return register();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Fail value) fail,
+    required TResult Function(_Register value) register,
+    required TResult Function(_PasswordRegistration value) passwordRegistration,
+    required TResult Function(_LoginSuccess value) loginSuccess,
+  }) {
+    return register(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
+    TResult Function(_PasswordRegistration value)? passwordRegistration,
+    TResult Function(_LoginSuccess value)? loginSuccess,
+  }) {
+    return register?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
+    TResult Function(_PasswordRegistration value)? passwordRegistration,
+    TResult Function(_LoginSuccess value)? loginSuccess,
+    required TResult orElse(),
+  }) {
+    if (register != null) {
+      return register(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Register implements HomePageState {
+  const factory _Register() = _$_Register;
+}
+
+/// @nodoc
 abstract class _$PasswordRegistrationCopyWith<$Res> {
   factory _$PasswordRegistrationCopyWith(_PasswordRegistration value,
           $Res Function(_PasswordRegistration) then) =
       __$PasswordRegistrationCopyWithImpl<$Res>;
-  $Res call(
-      {String? username,
-      String? email,
-      bool loginAnimationValue,
-      bool registrationAnimationValue});
+  $Res call({String? username, String? email});
 }
 
 /// @nodoc
@@ -413,8 +510,6 @@ class __$PasswordRegistrationCopyWithImpl<$Res>
   $Res call({
     Object? username = freezed,
     Object? email = freezed,
-    Object? loginAnimationValue = freezed,
-    Object? registrationAnimationValue = freezed,
   }) {
     return _then(_PasswordRegistration(
       username: username == freezed
@@ -425,14 +520,6 @@ class __$PasswordRegistrationCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      loginAnimationValue: loginAnimationValue == freezed
-          ? _value.loginAnimationValue
-          : loginAnimationValue // ignore: cast_nullable_to_non_nullable
-              as bool,
-      registrationAnimationValue: registrationAnimationValue == freezed
-          ? _value.registrationAnimationValue
-          : registrationAnimationValue // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -440,24 +527,16 @@ class __$PasswordRegistrationCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PasswordRegistration implements _PasswordRegistration {
-  const _$_PasswordRegistration(
-      {this.username,
-      this.email,
-      required this.loginAnimationValue,
-      required this.registrationAnimationValue});
+  const _$_PasswordRegistration({this.username, this.email});
 
   @override
   final String? username;
   @override
   final String? email;
-  @override
-  final bool loginAnimationValue;
-  @override
-  final bool registrationAnimationValue;
 
   @override
   String toString() {
-    return 'HomePageState.passwordRegistration(username: $username, email: $email, loginAnimationValue: $loginAnimationValue, registrationAnimationValue: $registrationAnimationValue)';
+    return 'HomePageState.passwordRegistration(username: $username, email: $email)';
   }
 
   @override
@@ -466,20 +545,14 @@ class _$_PasswordRegistration implements _PasswordRegistration {
         (other.runtimeType == runtimeType &&
             other is _PasswordRegistration &&
             const DeepCollectionEquality().equals(other.username, username) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality()
-                .equals(other.loginAnimationValue, loginAnimationValue) &&
-            const DeepCollectionEquality().equals(
-                other.registrationAnimationValue, registrationAnimationValue));
+            const DeepCollectionEquality().equals(other.email, email));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(username),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(loginAnimationValue),
-      const DeepCollectionEquality().hash(registrationAnimationValue));
+      const DeepCollectionEquality().hash(email));
 
   @JsonKey(ignore: true)
   @override
@@ -492,14 +565,12 @@ class _$_PasswordRegistration implements _PasswordRegistration {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() fail,
-    required TResult Function(String? username, String? email,
-            bool loginAnimationValue, bool registrationAnimationValue)
+    required TResult Function() register,
+    required TResult Function(String? username, String? email)
         passwordRegistration,
-    required TResult Function() createAccount,
     required TResult Function() loginSuccess,
   }) {
-    return passwordRegistration(
-        username, email, loginAnimationValue, registrationAnimationValue);
+    return passwordRegistration(username, email);
   }
 
   @override
@@ -507,14 +578,11 @@ class _$_PasswordRegistration implements _PasswordRegistration {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
     TResult Function()? loginSuccess,
   }) {
-    return passwordRegistration?.call(
-        username, email, loginAnimationValue, registrationAnimationValue);
+    return passwordRegistration?.call(username, email);
   }
 
   @override
@@ -522,16 +590,13 @@ class _$_PasswordRegistration implements _PasswordRegistration {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
     TResult Function()? loginSuccess,
     required TResult orElse(),
   }) {
     if (passwordRegistration != null) {
-      return passwordRegistration(
-          username, email, loginAnimationValue, registrationAnimationValue);
+      return passwordRegistration(username, email);
     }
     return orElse();
   }
@@ -541,8 +606,8 @@ class _$_PasswordRegistration implements _PasswordRegistration {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Fail value) fail,
+    required TResult Function(_Register value) register,
     required TResult Function(_PasswordRegistration value) passwordRegistration,
-    required TResult Function(_CreateAccount value) createAccount,
     required TResult Function(_LoginSuccess value) loginSuccess,
   }) {
     return passwordRegistration(this);
@@ -553,8 +618,8 @@ class _$_PasswordRegistration implements _PasswordRegistration {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
     TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
     TResult Function(_LoginSuccess value)? loginSuccess,
   }) {
     return passwordRegistration?.call(this);
@@ -565,8 +630,8 @@ class _$_PasswordRegistration implements _PasswordRegistration {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
     TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
     TResult Function(_LoginSuccess value)? loginSuccess,
     required TResult orElse(),
   }) {
@@ -578,148 +643,14 @@ class _$_PasswordRegistration implements _PasswordRegistration {
 }
 
 abstract class _PasswordRegistration implements HomePageState {
-  const factory _PasswordRegistration(
-      {String? username,
-      String? email,
-      required bool loginAnimationValue,
-      required bool registrationAnimationValue}) = _$_PasswordRegistration;
+  const factory _PasswordRegistration({String? username, String? email}) =
+      _$_PasswordRegistration;
 
   String? get username;
   String? get email;
-  bool get loginAnimationValue;
-  bool get registrationAnimationValue;
   @JsonKey(ignore: true)
   _$PasswordRegistrationCopyWith<_PasswordRegistration> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$CreateAccountCopyWith<$Res> {
-  factory _$CreateAccountCopyWith(
-          _CreateAccount value, $Res Function(_CreateAccount) then) =
-      __$CreateAccountCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$CreateAccountCopyWithImpl<$Res>
-    extends _$HomePageStateCopyWithImpl<$Res>
-    implements _$CreateAccountCopyWith<$Res> {
-  __$CreateAccountCopyWithImpl(
-      _CreateAccount _value, $Res Function(_CreateAccount) _then)
-      : super(_value, (v) => _then(v as _CreateAccount));
-
-  @override
-  _CreateAccount get _value => super._value as _CreateAccount;
-}
-
-/// @nodoc
-
-class _$_CreateAccount implements _CreateAccount {
-  const _$_CreateAccount();
-
-  @override
-  String toString() {
-    return 'HomePageState.createAccount()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _CreateAccount);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() fail,
-    required TResult Function(String? username, String? email,
-            bool loginAnimationValue, bool registrationAnimationValue)
-        passwordRegistration,
-    required TResult Function() createAccount,
-    required TResult Function() loginSuccess,
-  }) {
-    return createAccount();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
-    TResult Function()? loginSuccess,
-  }) {
-    return createAccount?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
-    TResult Function()? loginSuccess,
-    required TResult orElse(),
-  }) {
-    if (createAccount != null) {
-      return createAccount();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Fail value) fail,
-    required TResult Function(_PasswordRegistration value) passwordRegistration,
-    required TResult Function(_CreateAccount value) createAccount,
-    required TResult Function(_LoginSuccess value) loginSuccess,
-  }) {
-    return createAccount(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Fail value)? fail,
-    TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
-    TResult Function(_LoginSuccess value)? loginSuccess,
-  }) {
-    return createAccount?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Fail value)? fail,
-    TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
-    TResult Function(_LoginSuccess value)? loginSuccess,
-    required TResult orElse(),
-  }) {
-    if (createAccount != null) {
-      return createAccount(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _CreateAccount implements HomePageState {
-  const factory _CreateAccount() = _$_CreateAccount;
 }
 
 /// @nodoc
@@ -765,10 +696,9 @@ class _$_LoginSuccess implements _LoginSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() fail,
-    required TResult Function(String? username, String? email,
-            bool loginAnimationValue, bool registrationAnimationValue)
+    required TResult Function() register,
+    required TResult Function(String? username, String? email)
         passwordRegistration,
-    required TResult Function() createAccount,
     required TResult Function() loginSuccess,
   }) {
     return loginSuccess();
@@ -779,10 +709,8 @@ class _$_LoginSuccess implements _LoginSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
     TResult Function()? loginSuccess,
   }) {
     return loginSuccess?.call();
@@ -793,10 +721,8 @@ class _$_LoginSuccess implements _LoginSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? fail,
-    TResult Function(String? username, String? email, bool loginAnimationValue,
-            bool registrationAnimationValue)?
-        passwordRegistration,
-    TResult Function()? createAccount,
+    TResult Function()? register,
+    TResult Function(String? username, String? email)? passwordRegistration,
     TResult Function()? loginSuccess,
     required TResult orElse(),
   }) {
@@ -811,8 +737,8 @@ class _$_LoginSuccess implements _LoginSuccess {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Fail value) fail,
+    required TResult Function(_Register value) register,
     required TResult Function(_PasswordRegistration value) passwordRegistration,
-    required TResult Function(_CreateAccount value) createAccount,
     required TResult Function(_LoginSuccess value) loginSuccess,
   }) {
     return loginSuccess(this);
@@ -823,8 +749,8 @@ class _$_LoginSuccess implements _LoginSuccess {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
     TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
     TResult Function(_LoginSuccess value)? loginSuccess,
   }) {
     return loginSuccess?.call(this);
@@ -835,8 +761,8 @@ class _$_LoginSuccess implements _LoginSuccess {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Fail value)? fail,
+    TResult Function(_Register value)? register,
     TResult Function(_PasswordRegistration value)? passwordRegistration,
-    TResult Function(_CreateAccount value)? createAccount,
     TResult Function(_LoginSuccess value)? loginSuccess,
     required TResult orElse(),
   }) {
