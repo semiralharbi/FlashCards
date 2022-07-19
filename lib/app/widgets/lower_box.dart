@@ -6,6 +6,7 @@ import '../theme/app_dimensions.dart';
 class LowerBox extends StatelessWidget {
   const LowerBox({
     required this.child,
+    Key? key,
   });
 
   final Widget child;

@@ -15,5 +15,6 @@
   "logIn": "Zaloguj się",
   "goToLogin": "Przejdź do logowania",
   "somethingWentWrong": "Coś poszło nie tak!",
-  "welcome": "Witaj w FlashCards!\nZaloguj się lub stwórz konto aby kontynuować"
+  "welcome": "Witaj w FlashCards!\nZaloguj się lub stwórz konto aby kontynuować",
+  "createAccount": "Nie masz konto? Stwórz je tutaj"
 }

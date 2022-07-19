@@ -9,11 +9,13 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../app/pages/home_page/cubit/home_page_cubit.dart' as _i5;
-import '../app/theme/theme_manager.dart' as _i6;
+import '../app/pages/registration_page/cubit/registration_page_cubit.dart'
+    as _i6;
+import '../app/theme/theme_manager.dart' as _i7;
 import '../app/utils/router/app_router.gr.dart' as _i3;
-import 'modules/app_router_module.dart' as _i7;
+import 'modules/app_router_module.dart' as _i8;
 import 'modules/flutter_secure_storage_module.dart'
-    as _i8; // ignore_for_file: unnecessary_lambdas
+    as _i9; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -26,10 +28,11 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i4.FlutterSecureStorage>(
       () => flutterSecureStorageModule.instance);
   gh.factory<_i5.HomePageCubit>(() => _i5.HomePageCubit());
-  gh.singleton<_i6.ThemeManager>(_i6.ThemeManager());
+  gh.factory<_i6.RegistrationPageCubit>(() => _i6.RegistrationPageCubit());
+  gh.singleton<_i7.ThemeManager>(_i7.ThemeManager());
   return get;
 }
 
-class _$AppRouterModule extends _i7.AppRouterModule {}
+class _$AppRouterModule extends _i8.AppRouterModule {}
 
-class _$FlutterSecureStorageModule extends _i8.FlutterSecureStorageModule {}
+class _$FlutterSecureStorageModule extends _i9.FlutterSecureStorageModule {}

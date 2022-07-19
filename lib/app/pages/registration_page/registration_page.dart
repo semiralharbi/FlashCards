@@ -1,35 +1,32 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
-import '../../utils/router/app_router.dart';
 import '../../utils/translation/generated/l10n.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/progress_indicator.dart';
 import '../../widgets/textfield_widget.dart';
-import 'cubit/home_page_cubit.dart';
-import 'cubit/home_page_state.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+import 'cubit/registration_page_cubit.dart';
+import 'cubit/registration_page_state.dart';
+
+class RegistrationPage extends StatelessWidget {
+  const RegistrationPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       child: BlocProvider(
-        create: (context) => getIt<HomePageCubit>(),
-        child: BlocConsumer<HomePageCubit, HomePageState>(
+        create: (context) => getIt<RegistrationPageCubit>(),
+        child: BlocConsumer<RegistrationPageCubit, RegistrationPageState>(
           listener: (context, state) => state.mapOrNull(
-            loginSuccess: (_) => const AppProgressIndicator(),
-            register: (_) => context.router.push(const RegistrationRoute()),
+            registerSuccess: (_) => const AppProgressIndicator(),
           ),
           builder: (context, state) => state.maybeWhen(
             initial: () => _Body(),
-
             orElse: () => const SizedBox.shrink(),
           ),
         ),
@@ -67,14 +64,14 @@ class _Body extends StatelessWidget {
               ),
               const Spacer(),
               GestureDetector(
-                onTap: (){},
+                onTap: () {},
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Container(
                     padding: const EdgeInsets.only(right: AppDimensions.d12),
                     width: AppDimensions.d110,
                     child: Text(
-                      Translation.of(context).createAccount,
+                      Translation.of(context).login,
                       style: Theme.of(context).textTheme.subtitle1!.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: AppDimensions.d12,
@@ -92,13 +89,17 @@ class _Body extends StatelessWidget {
                 controller: TextEditingController(),
                 hintText: Translation.of(context).password,
               ),
+              TextFieldWidget(
+                controller: TextEditingController(),
+                hintText: Translation.of(context).passwordRepeat,
+              ),
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppDimensions.d10,
                 ),
                 child: AppElevatedButton(
-                  text: Translation.of(context).logIn,
+                  text: Translation.of(context).registration,
                 ),
               ),
               const Spacer(flex: 3),

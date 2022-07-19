@@ -17,6 +17,7 @@ class TextFieldWidget extends StatelessWidget {
     this.suffixIcon,
     this.textInputAction,
     this.iconData,
+    Key? key,
   });
 
   final TextEditingController? controller;

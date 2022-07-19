@@ -219,6 +219,16 @@ class Translation {
       args: [],
     );
   }
+
+  /// `Nie masz konto? Stwórz je tutaj`
+  String get createAccount {
+    return Intl.message(
+      'Nie masz konto? Stwórz je tutaj',
+      name: 'createAccount',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Translation> {

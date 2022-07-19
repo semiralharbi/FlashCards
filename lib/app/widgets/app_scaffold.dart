@@ -4,7 +4,10 @@ import '../theme/app_dimensions.dart';
 import '../theme/app_paths.dart';
 
 class AppScaffold extends StatelessWidget {
-  const AppScaffold({required this.child});
+  const AppScaffold({
+    required this.child,
+    Key? key,
+  });
 
   final Widget child;
 

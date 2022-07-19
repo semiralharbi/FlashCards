@@ -7,6 +7,7 @@ import '../theme/app_fonts.dart';
 class AppElevatedButton extends StatelessWidget {
   const AppElevatedButton({
     required this.text,
+    Key? key,
   });
 
   final String text;

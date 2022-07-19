@@ -17,10 +17,6 @@ class HomePageCubit extends Cubit<HomePageState> {
     ));
   }
 
-  void onGoToLoginClick(){
-    emit(const HomePageState.initial());
-  }
-
   void onGoToRegisterClick(){
     emit(const HomePageState.register());
   }

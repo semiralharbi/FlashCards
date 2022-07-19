@@ -9,6 +9,7 @@ import '../../../widgets/upper_box.dart';
 class LoginBoxWidget extends StatelessWidget {
   const LoginBoxWidget({
     required this.onTap,
+    Key? key,
   });
 
   final Function() onTap;

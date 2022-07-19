@@ -12,7 +12,7 @@ Future<void> main() async {
   configureDependencies();
   await _configureSystemUIOverlays();
   await _configureServices();
-  runApp(FlashCardsApp());
+  runApp(const FlashCardsApp());
 }
 
 Future<void> _configureSystemUIOverlays() async {
@@ -25,6 +25,8 @@ Future<void> _configureServices() async {
 }
 
 class FlashCardsApp extends StatelessWidget {
+  const FlashCardsApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(

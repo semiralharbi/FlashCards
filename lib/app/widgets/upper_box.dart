@@ -6,6 +6,7 @@ import '../theme/app_dimensions.dart';
 class UpperBox extends StatelessWidget {
   const UpperBox({
     required this.child,
+    Key? key,
   });
 
   final Widget child;
