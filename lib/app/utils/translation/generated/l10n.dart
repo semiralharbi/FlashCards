@@ -230,16 +230,6 @@ class Translation {
     );
   }
 
-  /// `Nie znaleziono użytkownika, zaloguj się ponownie.`
-  String get userNotFound {
-    return Intl.message(
-      'Nie znaleziono użytkownika, zaloguj się ponownie.',
-      name: 'userNotFound',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Wystąpił nieznany błąd`
   String get unknownError {
     return Intl.message(
@@ -325,6 +315,36 @@ class Translation {
     return Intl.message(
       'Hasła nie pasują do siebie',
       name: 'passwordsMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Użytkownik został usunięty`
+  String get userDisabled {
+    return Intl.message(
+      'Użytkownik został usunięty',
+      name: 'userDisabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nie znaleziono użytkownika`
+  String get userNotFound {
+    return Intl.message(
+      'Nie znaleziono użytkownika',
+      name: 'userNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Błędne hasło`
+  String get wrongPassword {
+    return Intl.message(
+      'Błędne hasło',
+      name: 'wrongPassword',
       desc: '',
       args: [],
     );

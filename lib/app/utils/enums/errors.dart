@@ -14,6 +14,8 @@ enum Errors {
   invalidEmail,
   fieldCantBeEmpty,
   passwordMatch,
+  userDisabled,
+  wrongPassword,
 }
 
 extension ErrorsExtension on Errors {
@@ -41,7 +43,10 @@ extension ErrorsExtension on Errors {
         return Translation.of(context).fieldCantBeEmpty;
       case Errors.passwordMatch:
         return Translation.of(context).passwordsMatch;
-
+      case Errors.wrongPassword:
+        return Translation.of(context).wrongPassword;
+      case Errors.userDisabled:
+        return Translation.of(context).userDisabled;
       default:
         return Translation.of(context).unknownError;
     }

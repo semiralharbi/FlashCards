@@ -59,14 +59,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "undo": MessageLookupByLibrary.simpleMessage("Cofnij"),
         "unknownError":
             MessageLookupByLibrary.simpleMessage("Wystąpił nieznany błąd"),
-        "userNotFound": MessageLookupByLibrary.simpleMessage(
-            "Nie znaleziono użytkownika, zaloguj się ponownie."),
+        "userDisabled":
+            MessageLookupByLibrary.simpleMessage("Użytkownik został usunięty"),
+        "userNotFound":
+            MessageLookupByLibrary.simpleMessage("Nie znaleziono użytkownika"),
         "username": MessageLookupByLibrary.simpleMessage("Nazwa użytkownika"),
         "usernameInsert": MessageLookupByLibrary.simpleMessage(
             "Wprowadź swoją nazwę użytkownika"),
         "weakPassword":
             MessageLookupByLibrary.simpleMessage("Hasło jest zbyt słabe"),
         "welcome": MessageLookupByLibrary.simpleMessage(
-            "Witaj w FlashCards!\nZaloguj się lub stwórz konto aby kontynuować")
+            "Witaj w FlashCards!\nZaloguj się lub stwórz konto aby kontynuować"),
+        "wrongPassword": MessageLookupByLibrary.simpleMessage("Błędne hasło")
       };
 }

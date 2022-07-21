@@ -17,7 +17,6 @@
   "welcome": "Witaj w FlashCards!\nZaloguj się lub stwórz konto aby kontynuować",
   "createAccount": "Nie masz konta? Stwórz je tutaj",
   "somethingWentWrong": "Coś poszło nie tak!",
-  "userNotFound": "Nie znaleziono użytkownika, zaloguj się ponownie.",
   "unknownError": "Wystąpił nieznany błąd",
   "tryAgainLater": "Spróbuj ponownie później",
   "checkInternetConnetction": "Sprawdź połączenie internetowe",
@@ -26,5 +25,8 @@
   "operationNotAllowed": "Konto nie zostało potwierdzone",
   "weakPassword": "Hasło jest zbyt słabe",
   "fieldCantBeEmpty": "To pole musi zostać wypełnione",
-  "passwordsMatch": "Hasła nie pasują do siebie"
+  "passwordsMatch": "Hasła nie pasują do siebie",
+  "userDisabled": "Użytkownik został usunięty",
+  "userNotFound": "Nie znaleziono użytkownika",
+  "wrongPassword": "Błędne hasło"
 }
