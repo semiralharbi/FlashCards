@@ -22,30 +22,50 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "checkInternetConnetction": MessageLookupByLibrary.simpleMessage(
+            "Sprawdź połączenie internetowe"),
         "continueNav": MessageLookupByLibrary.simpleMessage("Kontynuuj"),
         "createAcc": MessageLookupByLibrary.simpleMessage("Stwórz konto"),
         "createAccount": MessageLookupByLibrary.simpleMessage(
-            "Nie masz konto? Stwórz je tutaj"),
+            "Nie masz konta? Stwórz je tutaj"),
         "email": MessageLookupByLibrary.simpleMessage("E-mail"),
+        "emailInUse": MessageLookupByLibrary.simpleMessage(
+            "Użytkownik z tym adresem e-mail już istnieje"),
         "emailInsert":
             MessageLookupByLibrary.simpleMessage("Wprowadź swój e-mail"),
-        "goToLogin":
-            MessageLookupByLibrary.simpleMessage("Przejdź do logowania"),
+        "fieldCantBeEmpty": MessageLookupByLibrary.simpleMessage(
+            "To pole musi zostać wypełnione"),
+        "goToLogin": MessageLookupByLibrary.simpleMessage(
+            "Masz już konto?\nPrzejdź do logowania"),
         "goToRegister":
             MessageLookupByLibrary.simpleMessage("Przejdź do rejestracji"),
+        "invalidEmail":
+            MessageLookupByLibrary.simpleMessage("Nieprawidłowy adres e-mail"),
         "logIn": MessageLookupByLibrary.simpleMessage("Zaloguj się"),
         "login": MessageLookupByLibrary.simpleMessage("Logowanie"),
+        "operationNotAllowed": MessageLookupByLibrary.simpleMessage(
+            "Konto nie zostało potwierdzone"),
         "password": MessageLookupByLibrary.simpleMessage("Hasło"),
         "passwordInsert":
             MessageLookupByLibrary.simpleMessage("Wprowadź swoje hasło"),
         "passwordRepeat": MessageLookupByLibrary.simpleMessage("Powtórz hasło"),
+        "passwordsMatch":
+            MessageLookupByLibrary.simpleMessage("Hasła nie pasują do siebie"),
         "registration": MessageLookupByLibrary.simpleMessage("Rejestracja"),
         "somethingWentWrong":
             MessageLookupByLibrary.simpleMessage("Coś poszło nie tak!"),
+        "tryAgainLater":
+            MessageLookupByLibrary.simpleMessage("Spróbuj ponownie później"),
         "undo": MessageLookupByLibrary.simpleMessage("Cofnij"),
+        "unknownError":
+            MessageLookupByLibrary.simpleMessage("Wystąpił nieznany błąd"),
+        "userNotFound": MessageLookupByLibrary.simpleMessage(
+            "Nie znaleziono użytkownika, zaloguj się ponownie."),
         "username": MessageLookupByLibrary.simpleMessage("Nazwa użytkownika"),
         "usernameInsert": MessageLookupByLibrary.simpleMessage(
             "Wprowadź swoją nazwę użytkownika"),
+        "weakPassword":
+            MessageLookupByLibrary.simpleMessage("Hasło jest zbyt słabe"),
         "welcome": MessageLookupByLibrary.simpleMessage(
             "Witaj w FlashCards!\nZaloguj się lub stwórz konto aby kontynuować")
       };

@@ -10,7 +10,7 @@ class LoginBoxWidget extends StatelessWidget {
   const LoginBoxWidget({
     required this.onTap,
     Key? key,
-  });
+  }) : super(key: key);
 
   final Function() onTap;
 

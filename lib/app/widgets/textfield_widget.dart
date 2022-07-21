@@ -18,7 +18,7 @@ class TextFieldWidget extends StatelessWidget {
     this.textInputAction,
     this.iconData,
     Key? key,
-  });
+  }) : super(key: key);
 
   final TextEditingController? controller;
   final String hintText;

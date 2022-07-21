@@ -9,6 +9,7 @@ import '../../utils/router/app_router.dart';
 import '../../utils/translation/generated/l10n.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
+import '../../widgets/password_texfield_widget.dart';
 import '../../widgets/progress_indicator.dart';
 import '../../widgets/textfield_widget.dart';
 import 'cubit/home_page_cubit.dart';
@@ -29,7 +30,6 @@ class HomePage extends StatelessWidget {
           ),
           builder: (context, state) => state.maybeWhen(
             initial: () => _Body(),
-
             orElse: () => const SizedBox.shrink(),
           ),
         ),
@@ -50,7 +50,7 @@ class _Body extends StatelessWidget {
               ),
             ),
           ),
-          height: MediaQuery.of(context).size.height / 1.3,
+          height: MediaQuery.of(context).size.height / 1.6,
           width: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +67,7 @@ class _Body extends StatelessWidget {
               ),
               const Spacer(),
               GestureDetector(
-                onTap: (){},
+                onTap: () => context.router.push(const RegistrationRoute()),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Container(
@@ -88,20 +88,21 @@ class _Body extends StatelessWidget {
                 controller: TextEditingController(),
                 hintText: Translation.of(context).email,
               ),
-              TextFieldWidget(
+              PasswordTextFieldWidget(
                 controller: TextEditingController(),
                 hintText: Translation.of(context).password,
               ),
-              const Spacer(),
+              const Spacer(flex: 2),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppDimensions.d10,
                 ),
                 child: AppElevatedButton(
+                  onPressed: () {},
                   text: Translation.of(context).logIn,
                 ),
               ),
-              const Spacer(flex: 3),
+              const Spacer(),
             ],
           ),
         ),

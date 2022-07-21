@@ -190,21 +190,11 @@ class Translation {
     );
   }
 
-  /// `Przejdź do logowania`
+  /// `Masz już konto?\nPrzejdź do logowania`
   String get goToLogin {
     return Intl.message(
-      'Przejdź do logowania',
+      'Masz już konto?\nPrzejdź do logowania',
       name: 'goToLogin',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Coś poszło nie tak!`
-  String get somethingWentWrong {
-    return Intl.message(
-      'Coś poszło nie tak!',
-      name: 'somethingWentWrong',
       desc: '',
       args: [],
     );
@@ -220,11 +210,121 @@ class Translation {
     );
   }
 
-  /// `Nie masz konto? Stwórz je tutaj`
+  /// `Nie masz konta? Stwórz je tutaj`
   String get createAccount {
     return Intl.message(
-      'Nie masz konto? Stwórz je tutaj',
+      'Nie masz konta? Stwórz je tutaj',
       name: 'createAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Coś poszło nie tak!`
+  String get somethingWentWrong {
+    return Intl.message(
+      'Coś poszło nie tak!',
+      name: 'somethingWentWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nie znaleziono użytkownika, zaloguj się ponownie.`
+  String get userNotFound {
+    return Intl.message(
+      'Nie znaleziono użytkownika, zaloguj się ponownie.',
+      name: 'userNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wystąpił nieznany błąd`
+  String get unknownError {
+    return Intl.message(
+      'Wystąpił nieznany błąd',
+      name: 'unknownError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spróbuj ponownie później`
+  String get tryAgainLater {
+    return Intl.message(
+      'Spróbuj ponownie później',
+      name: 'tryAgainLater',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sprawdź połączenie internetowe`
+  String get checkInternetConnetction {
+    return Intl.message(
+      'Sprawdź połączenie internetowe',
+      name: 'checkInternetConnetction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Użytkownik z tym adresem e-mail już istnieje`
+  String get emailInUse {
+    return Intl.message(
+      'Użytkownik z tym adresem e-mail już istnieje',
+      name: 'emailInUse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nieprawidłowy adres e-mail`
+  String get invalidEmail {
+    return Intl.message(
+      'Nieprawidłowy adres e-mail',
+      name: 'invalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Konto nie zostało potwierdzone`
+  String get operationNotAllowed {
+    return Intl.message(
+      'Konto nie zostało potwierdzone',
+      name: 'operationNotAllowed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hasło jest zbyt słabe`
+  String get weakPassword {
+    return Intl.message(
+      'Hasło jest zbyt słabe',
+      name: 'weakPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To pole musi zostać wypełnione`
+  String get fieldCantBeEmpty {
+    return Intl.message(
+      'To pole musi zostać wypełnione',
+      name: 'fieldCantBeEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hasła nie pasują do siebie`
+  String get passwordsMatch {
+    return Intl.message(
+      'Hasła nie pasują do siebie',
+      name: 'passwordsMatch',
       desc: '',
       args: [],
     );

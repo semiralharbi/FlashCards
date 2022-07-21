@@ -12,7 +12,7 @@ class PasswordRegistrationBoxWidget extends StatelessWidget {
     required this.onTap,
     required this.onPressed,
     Key? key,
-  });
+  }) : super(key: key);
 
   final bool passwordAnimationValue;
   final Function() onTap;

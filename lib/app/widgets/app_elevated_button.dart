@@ -7,10 +7,12 @@ import '../theme/app_fonts.dart';
 class AppElevatedButton extends StatelessWidget {
   const AppElevatedButton({
     required this.text,
+    required this.onPressed,
     Key? key,
-  });
+  }) : super(key: key);
 
   final String text;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -18,7 +20,7 @@ class AppElevatedButton extends StatelessWidget {
           bottom: AppDimensions.d12,
         ),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () => onPressed(),
           style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(

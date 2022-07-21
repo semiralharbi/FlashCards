@@ -12,7 +12,7 @@ class EmailRegistrationBoxWidget extends StatelessWidget {
     required this.onTap,
     required this.onPressed,
     Key? key,
-  });
+  }) : super(key: key);
 
   final bool emailRegAnimationValue;
   final Function() onTap;

@@ -7,7 +7,7 @@ class UpperBox extends StatelessWidget {
   const UpperBox({
     required this.child,
     Key? key,
-  });
+  }) : super(key: key);
 
   final Widget child;
 

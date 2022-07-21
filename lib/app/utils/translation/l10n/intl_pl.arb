@@ -13,8 +13,18 @@
   "email": "E-mail",
   "emailInsert": "Wprowadź swój e-mail",
   "logIn": "Zaloguj się",
-  "goToLogin": "Przejdź do logowania",
-  "somethingWentWrong": "Coś poszło nie tak!",
+  "goToLogin": "Masz już konto?\nPrzejdź do logowania",
   "welcome": "Witaj w FlashCards!\nZaloguj się lub stwórz konto aby kontynuować",
-  "createAccount": "Nie masz konto? Stwórz je tutaj"
+  "createAccount": "Nie masz konta? Stwórz je tutaj",
+  "somethingWentWrong": "Coś poszło nie tak!",
+  "userNotFound": "Nie znaleziono użytkownika, zaloguj się ponownie.",
+  "unknownError": "Wystąpił nieznany błąd",
+  "tryAgainLater": "Spróbuj ponownie później",
+  "checkInternetConnetction": "Sprawdź połączenie internetowe",
+  "emailInUse": "Użytkownik z tym adresem e-mail już istnieje",
+  "invalidEmail": "Nieprawidłowy adres e-mail",
+  "operationNotAllowed": "Konto nie zostało potwierdzone",
+  "weakPassword": "Hasło jest zbyt słabe",
+  "fieldCantBeEmpty": "To pole musi zostać wypełnione",
+  "passwordsMatch": "Hasła nie pasują do siebie"
 }
