@@ -51,7 +51,7 @@ android/app/release
 *.g.dart
 *.gr.dart
 *.mocks.dart
-lib/app/utils/translations/generated
 
 upload.keystore
 firebase-app-distribution.json
+/lib/app/utils/translation/generated/
