@@ -1,27 +1,30 @@
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../domain/entities/login_entity.dart';
+import '../../../../domain/use_case/login_use_case.dart';
 import 'home_page_state.dart';
 
 @injectable
 class HomePageCubit extends Cubit<HomePageState> {
-  HomePageCubit() : super(const HomePageState.initial());
+  HomePageCubit(this._loginUseCase) : super(const HomePageState.initial());
 
-  void onEmailRegisterClick({
-    String? email,
-    String? username,
-  }) {
-    emit(HomePageState.passwordRegistration(
+  final LoginUseCase _loginUseCase;
+
+  void onLoginButton(String email, String password) async {
+    final result = await _loginUseCase(LoginEntity(
       email: email,
-      username: username,
+      password: password,
     ));
-  }
-
-  void onGoToRegisterClick(){
-    emit(const HomePageState.register());
-  }
-
-  void onLoginClick() {
-    emit(const HomePageState.loginSuccess());
+    result.fold(
+      (l) {
+        emit(HomePageState.fail(error: l.appError));
+        emit(HomePageState.initial(email: email, password: password));
+      },
+      (r) {
+        emit(const HomePageState.loading());
+        emit(const HomePageState.loginSuccess());
+      },
+    );
   }
 }

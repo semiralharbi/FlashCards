@@ -13,10 +13,6 @@ class RegistrationPageCubit extends Cubit<RegistrationPageState> {
 
   final CreateUserUseCase _createUserUseCase;
 
-  void onGoToLoginClick() {
-    emit(const RegistrationPageState.registerSuccess());
-  }
-
   void onRegisterClick({
     required String email,
     required String password,

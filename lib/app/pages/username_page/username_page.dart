@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -7,29 +6,26 @@ import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
 import '../../utils/enums/errors.dart';
-import '../../utils/router/app_router.dart';
 import '../../utils/translation/generated/l10n.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
-import '../../widgets/password_texfield_widget.dart';
 import '../../widgets/progress_indicator.dart';
 import '../../widgets/textfield_widget.dart';
-import 'cubit/home_page_cubit.dart';
-import 'cubit/home_page_state.dart';
+import 'cubit/username_page_cubit.dart';
+import 'cubit/username_page_state.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class UsernamePage extends StatelessWidget {
+  const UsernamePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       child: BlocProvider(
-        create: (context) => getIt<HomePageCubit>(),
-        child: BlocConsumer<HomePageCubit, HomePageState>(
+        create: (context) => getIt<UsernamePageCubit>(),
+        child: BlocConsumer<UsernamePageCubit, UsernamePageState>(
           listener: (context, state) => state.maybeWhen(
             loading: () => const AppProgressIndicator(),
-            loginSuccess: () => context.router.push(const UsernameRoute()),
             fail: (error) => error != null
                 ? showAppSnackBar(
                     context,
@@ -42,10 +38,9 @@ class HomePage extends StatelessWidget {
             orElse: () => const SizedBox.shrink(),
           ),
           builder: (context, state) => state.maybeWhen(
-            loginSuccess: () => const AppProgressIndicator(),
-            initial: (email, password) => _Body(
-              email: email,
-              password: password,
+            success: () => const AppProgressIndicator(),
+            initial: (username) => _Body(
+              username: username,
             ),
             orElse: () => const SizedBox.shrink(),
           ),
@@ -56,15 +51,13 @@ class HomePage extends StatelessWidget {
 }
 
 class _Body extends HookWidget {
-  const _Body({this.email, this.password});
+  const _Body({this.username});
 
-  final String? email;
-  final String? password;
+  final String? username;
 
   @override
   Widget build(BuildContext context) {
-    final emailController = useTextEditingController(text: email);
-    final passwordController = useTextEditingController(text: password);
+    final usernameController = useTextEditingController(text: username);
     return Center(
       child: Container(
         decoration: const BoxDecoration(
@@ -91,31 +84,9 @@ class _Body extends HookWidget {
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-            GestureDetector(
-              onTap: () => context.router.push(const RegistrationRoute()),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  padding: const EdgeInsets.only(right: AppDimensions.d12),
-                  width: AppDimensions.d110,
-                  child: Text(
-                    Translation.of(context).createAccount,
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: AppDimensions.d12,
-                          color: AppColors.cinnamon,
-                        ),
-                  ),
-                ),
-              ),
-            ),
             TextFieldWidget(
-              controller: emailController,
-              hintText: Translation.of(context).email,
-            ),
-            PasswordTextFieldWidget(
-              controller: passwordController,
-              hintText: Translation.of(context).password,
+              controller: usernameController,
+              hintText: Translation.of(context).username,
             ),
             const Spacer(flex: 2),
             Padding(
@@ -123,10 +94,9 @@ class _Body extends HookWidget {
                 horizontal: AppDimensions.d10,
               ),
               child: AppElevatedButton(
-                onPressed: () => context.read<HomePageCubit>().onLoginButton(
-                      emailController.text,
-                      passwordController.text,
-                    ),
+                onPressed: () => context
+                    .read<UsernamePageCubit>()
+                    .onUpdateButton(usernameController.text),
                 text: Translation.of(context).logIn,
               ),
             ),
