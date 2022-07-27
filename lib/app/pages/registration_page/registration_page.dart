@@ -119,7 +119,7 @@ class _Body extends HookWidget {
             const Spacer(),
             GestureDetector(
               onTap: () => context.router.push(
-                const HomeRoute(),
+                const LoginRoute(),
               ),
               child: Align(
                 alignment: Alignment.centerRight,

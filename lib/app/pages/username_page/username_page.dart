@@ -75,7 +75,7 @@ class _Body extends HookWidget {
           children: [
             const Spacer(),
             Text(
-              Translation.of(context).welcome,
+              Translation.of(context).welcomeUser,
               style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: AppDimensions.d18,

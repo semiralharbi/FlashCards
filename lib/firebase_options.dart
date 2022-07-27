@@ -64,6 +64,6 @@ class DefaultFirebaseOptions {
     projectId: 'flashcards-99b18',
     storageBucket: 'flashcards-99b18.appspot.com',
     iosClientId: '9303451164-tg26kfucgu1ndbocqo4egc1ku3o7uopf.apps.googleusercontent.com',
-    iosBundleId: 'com.example.flashCards',
+    iosBundleId: 'com.flashCards',
   );
 }

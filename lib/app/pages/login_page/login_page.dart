@@ -15,18 +15,18 @@ import '../../widgets/app_snackbar.dart';
 import '../../widgets/password_texfield_widget.dart';
 import '../../widgets/progress_indicator.dart';
 import '../../widgets/textfield_widget.dart';
-import 'cubit/home_page_cubit.dart';
-import 'cubit/home_page_state.dart';
+import 'cubit/login_page_cubit.dart';
+import 'cubit/login_page_state.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       child: BlocProvider(
-        create: (context) => getIt<HomePageCubit>(),
-        child: BlocConsumer<HomePageCubit, HomePageState>(
+        create: (context) => getIt<LoginPageCubit>(),
+        child: BlocConsumer<LoginPageCubit, LoginPageState>(
           listener: (context, state) => state.maybeWhen(
             loading: () => const AppProgressIndicator(),
             loginSuccess: () => context.router.push(const UsernameRoute()),
@@ -123,7 +123,7 @@ class _Body extends HookWidget {
                 horizontal: AppDimensions.d10,
               ),
               child: AppElevatedButton(
-                onPressed: () => context.read<HomePageCubit>().onLoginButton(
+                onPressed: () => context.read<LoginPageCubit>().onLoginButton(
                       emailController.text,
                       passwordController.text,
                     ),

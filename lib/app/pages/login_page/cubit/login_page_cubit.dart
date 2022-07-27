@@ -3,11 +3,11 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../domain/entities/login_entity.dart';
 import '../../../../domain/use_case/login_use_case.dart';
-import 'home_page_state.dart';
+import 'login_page_state.dart';
 
 @injectable
-class HomePageCubit extends Cubit<HomePageState> {
-  HomePageCubit(this._loginUseCase) : super(const HomePageState.initial());
+class LoginPageCubit extends Cubit<LoginPageState> {
+  LoginPageCubit(this._loginUseCase) : super(const LoginPageState.initial());
 
   final LoginUseCase _loginUseCase;
 
@@ -18,12 +18,12 @@ class HomePageCubit extends Cubit<HomePageState> {
     ));
     result.fold(
       (l) {
-        emit(HomePageState.fail(error: l.appError));
-        emit(HomePageState.initial(email: email, password: password));
+        emit(LoginPageState.fail(error: l.appError));
+        emit(LoginPageState.initial(email: email, password: password));
       },
       (r) {
-        emit(const HomePageState.loading());
-        emit(const HomePageState.loginSuccess());
+        emit(const LoginPageState.loading());
+        emit(const LoginPageState.loginSuccess());
       },
     );
   }
