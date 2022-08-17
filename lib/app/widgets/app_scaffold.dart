@@ -7,12 +7,18 @@ class AppScaffold extends StatelessWidget {
   const AppScaffold({
     required this.child,
     Key? key,
+    this.appBar,
+    this.floatingActionButton,
   }) : super(key: key);
 
   final Widget child;
+  final PreferredSizeWidget? appBar;
+  final Widget? floatingActionButton;
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        floatingActionButton: floatingActionButton,
+        appBar: appBar,
         body: Stack(
           children: [
             Container(
