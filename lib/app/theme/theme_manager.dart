@@ -17,10 +17,10 @@ class ThemeManager {
         fontSize: AppDimensions.d24,
       ),
       headline2: AppFonts.boldJoan.copyWith(
-        color: AppColors.regalBlue,
+        color: AppColors.daintree,
       ),
       headline3: AppFonts.regularJoan.copyWith(
-        color: AppColors.regalBlue,
+        color: AppColors.daintree,
       ),
       button: AppFonts.boldJoan.copyWith(
         color: AppColors.white,
