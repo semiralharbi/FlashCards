@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC0Qcn3y7TAHOAozeH9IEN35SZhqHKs0pw',
-    appId: '1:9303451164:ios:c4b295b754646dd41761d9',
+    appId: '1:9303451164:ios:0cd34845ba3893f41761d9',
     messagingSenderId: '9303451164',
     projectId: 'flashcards-99b18',
     storageBucket: 'flashcards-99b18.appspot.com',
-    iosClientId: '9303451164-tg26kfucgu1ndbocqo4egc1ku3o7uopf.apps.googleusercontent.com',
+    iosClientId: '9303451164-8uu6ph5g2v6k60oef29tonkopp79pbkg.apps.googleusercontent.com',
     iosBundleId: 'com.flashCards',
   );
 }

@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "9303451164-uf3be3i8hddeg4c87fu7sj4jo1umlpr5.apps.googleusercontent.com",
+              "client_id": "9303451164-8uu6ph5g2v6k60oef29tonkopp79pbkg.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.flashcards"
+                "bundle_id": "com.flashCards"
               }
             }
           ]
