@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/entities/database/flashcard_entity.dart';
+import 'words_dto.dart';
 
 part 'flashcard_dto.freezed.dart';
 
@@ -10,10 +11,8 @@ part 'flashcard_dto.g.dart';
 class FlashcardDto with _$FlashcardDto {
   const factory FlashcardDto({
     required String folderName,
-    required String enWord,
-    required String translatedWord,
-    bool? correctAnswer,
-    required int nrRepeated,
+    required List<WordsDto> words,
+    int? correctAnswers,
   }) = _FlashcardDto;
 
   factory FlashcardDto.fromJson(Map<String, dynamic> json) => _$FlashcardDtoFromJson(json);
@@ -21,10 +20,8 @@ class FlashcardDto with _$FlashcardDto {
   factory FlashcardDto.fromEntity(FlashcardEntity entity) {
     return FlashcardDto(
       folderName: entity.folderName,
-      enWord: entity.enWord,
-      translatedWord: entity.translatedWord,
-      correctAnswer: entity.correctAnswer,
-      nrRepeated: entity.nrRepeated,
+      words: entity.words.map((entity) => WordsDto.fromEntity(entity)).toList(),
+      correctAnswers: entity.correctAnswers,
     );
   }
 }

@@ -27,4 +27,18 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
       return const Left(Failure(appError: Errors.unknownError));
     }
   }
+
+  @override
+  Future<Either<Failure, List<FlashcardEntity>>> getCollections() async {
+    try {
+      final dto = await _remoteSource.getCollection();
+      return Right(
+        dto.map((dto) => FlashcardEntity.fromDto(dto)).toList(),
+      );
+    } on ApiException catch (e) {
+      return Left(Failure(appError: e.failure));
+    } catch (e) {
+      return const Left(Failure(appError: Errors.unknownError));
+    }
+  }
 }
