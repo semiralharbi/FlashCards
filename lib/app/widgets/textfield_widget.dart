@@ -38,7 +38,7 @@ class TextFieldWidget extends StatelessWidget {
           Icon(
             iconData,
             size: iconData != null ? AppDimensions.d50 : 0,
-            color: AppColors.cinnamon,
+            color: AppColors.daintree,
           ),
           Flexible(
             child: Padding(
@@ -56,7 +56,7 @@ class TextFieldWidget extends StatelessWidget {
                 inputFormatters: inputFormatters,
                 obscureText: obscure,
                 controller: controller,
-                style: const TextStyle(color: AppColors.cinnamon),
+                style: const TextStyle(color: AppColors.daintree),
                 decoration: InputDecoration(
                   suffixIcon: suffixIcon,
                   counterText: '',
@@ -87,16 +87,16 @@ class TextFieldWidget extends StatelessWidget {
                     ),
                   ),
                   enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.cinnamon),
+                    borderSide: BorderSide(color: AppColors.daintree),
                   ),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: AppColors.cinnamon,
+                      color: AppColors.daintree,
                       width: AppDimensions.d2,
                     ),
                   ),
                   border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.cinnamon),
+                    borderSide: BorderSide(color: AppColors.daintree),
                   ),
                 ),
               ),

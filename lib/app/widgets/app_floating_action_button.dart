@@ -13,13 +13,13 @@ class AppFloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(right: AppDimensions.d12),
-        child: FloatingActionButton(
-          backgroundColor: AppColors.daintree,
-          splashColor: AppColors.cinnamon,
-          elevation: AppDimensions.d10,
-          onPressed: onPressed,
-          child: const Icon(Icons.add),
-        ),
-      );
+    padding: const EdgeInsets.only(bottom: 48),
+    child: FloatingActionButton(
+      backgroundColor: AppColors.daintree,
+      splashColor: AppColors.cinnamon,
+      elevation: AppDimensions.d10,
+      onPressed: onPressed,
+      child: const Icon(Icons.add),
+    ),
+  );
 }

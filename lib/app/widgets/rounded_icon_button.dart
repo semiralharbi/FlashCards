@@ -12,6 +12,7 @@ class RoundedIconButton extends StatelessWidget {
     this.buttonColor,
     this.iconColor,
     required this.onTap,
+    this.elementHeight,
   }) : super(key: key);
 
   final EdgeInsetsGeometry? padding;
@@ -20,6 +21,7 @@ class RoundedIconButton extends StatelessWidget {
   final Color? buttonColor;
   final Color? iconColor;
   final VoidCallback onTap;
+  final double? elementHeight;
 
   @override
   Widget build(BuildContext context) => Material(
@@ -39,12 +41,12 @@ class RoundedIconButton extends StatelessWidget {
             child: stringPath != null
                 ? Image.asset(
                     stringPath!,
-                    height: AppDimensions.d44,
+                    height: elementHeight ?? AppDimensions.d44,
                     color: iconColor ?? AppColors.whiteSmoke,
                   )
                 : Icon(
                     iconData,
-                    size: AppDimensions.d64,
+                    size: elementHeight ?? AppDimensions.d64,
                     color: iconColor ?? AppColors.whiteSmoke,
                   ),
           ),
