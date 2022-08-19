@@ -15,5 +15,7 @@ class LoginPageState with _$LoginPageState {
 
   const factory LoginPageState.fail({Errors? error}) = _Fail;
 
-  const factory LoginPageState.loginSuccess() = _LoginSuccess;
+  const factory LoginPageState.showHomePage() = _ShowHomePage;
+
+  const factory LoginPageState.showUsernamePage() = _ShowUsernamePage;
 }

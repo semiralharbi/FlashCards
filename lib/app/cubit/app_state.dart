@@ -10,7 +10,5 @@ class AppState with _$AppState {
 
   const factory AppState.toUsernamePage() = _UsernamePage;
 
-  const factory AppState.toHomePage({
-    required String name,
-  }) = _HomePage;
+  const factory AppState.toHomePage() = _HomePage;
 }

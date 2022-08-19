@@ -22,8 +22,11 @@ class LoginPageCubit extends Cubit<LoginPageState> {
         emit(LoginPageState.initial(email: email, password: password));
       },
       (r) {
-        emit(const LoginPageState.loading());
-        emit(const LoginPageState.loginSuccess());
+        if (r.displayName == null) {
+          emit(const LoginPageState.showUsernamePage());
+        } else {
+          emit(const LoginPageState.showHomePage());
+        }
       },
     );
   }

@@ -51,7 +51,7 @@ class PasswordTextFieldWidget extends HookWidget {
                 obscurePassword.value
                     ? Icons.visibility_off_outlined
                     : Icons.remove_red_eye_outlined,
-                color: AppColors.cinnamon,
+                color: AppColors.daintree,
               )),
           counterText: '',
           errorText: error,
@@ -81,16 +81,16 @@ class PasswordTextFieldWidget extends HookWidget {
             ),
           ),
           enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.cinnamon),
+            borderSide: BorderSide(color: AppColors.daintree),
           ),
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
-              color: AppColors.cinnamon,
+              color: AppColors.daintree,
               width: AppDimensions.d2,
             ),
           ),
           border: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.cinnamon),
+            borderSide: BorderSide(color: AppColors.daintree),
           ),
         ),
       ),

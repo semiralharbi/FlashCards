@@ -11,12 +11,14 @@ class AppScaffold extends StatelessWidget {
     this.appBar,
     this.floatingActionButton,
     this.drawer,
+    this.onlyBottomWood = false,
   }) : super(key: key);
 
   final Widget child;
   final PreferredSizeWidget? appBar;
   final Widget? floatingActionButton;
   final Drawer? drawer;
+  final bool onlyBottomWood;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -36,18 +38,29 @@ class AppScaffold extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: AppDimensions.d80,
-                ),
+                padding: onlyBottomWood
+                    ? const EdgeInsets.only(
+                        bottom: AppDimensions.d80,
+                      )
+                    : const EdgeInsets.only(
+                        bottom: AppDimensions.d80,
+                        top: AppDimensions.d80,
+                      ),
                 child: Container(
                   height: MediaQuery.of(context).size.height,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.whiteSmoke,
                     borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(
+                      bottomLeft: const Radius.circular(
                         AppDimensions.d46,
                       ),
-                      bottomRight: Radius.circular(
+                      bottomRight: const Radius.circular(
+                        AppDimensions.d46,
+                      ),
+                      topLeft: onlyBottomWood ? Radius.zero : const Radius.circular(
+                        AppDimensions.d46,
+                      ),
+                      topRight: onlyBottomWood ? Radius.zero : const Radius.circular(
                         AppDimensions.d46,
                       ),
                     ),

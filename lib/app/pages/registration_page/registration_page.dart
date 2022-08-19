@@ -37,6 +37,7 @@ class RegistrationPage extends StatelessWidget {
                     context,
                     Translation.of(context).unknownError,
                   ),
+            registerSuccess: () => context.router.push(const UsernameRoute()),
             orElse: () => const SizedBox.shrink(),
           ),
           builder: (context, state) => state.maybeWhen(
@@ -112,7 +113,7 @@ class _Body extends HookWidget {
               style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: AppDimensions.d18,
-                    color: AppColors.cinnamon,
+                    color: AppColors.daintree,
                   ),
               textAlign: TextAlign.center,
             ),
@@ -132,7 +133,7 @@ class _Body extends HookWidget {
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: AppDimensions.d12,
-                          color: AppColors.cinnamon,
+                          color: AppColors.daintree,
                         ),
                   ),
                 ),

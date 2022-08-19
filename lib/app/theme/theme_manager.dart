@@ -29,6 +29,44 @@ class ThemeManager {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              AppDimensions.d8,
+            ),
+            side: const BorderSide(
+              color: AppColors.daintree,
+            ),
+          ),
+        ),
+        textStyle: MaterialStateProperty.resolveWith<TextStyle>((states) {
+          if (states.contains(MaterialState.disabled)) {
+            return const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: AppDimensions.d18,
+              color: AppColors.daintree,
+            );
+          } else if (states.contains(MaterialState.pressed)) {
+            return const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: AppDimensions.d18,
+              color: AppColors.whiteSmoke,
+            );
+          }
+          return const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: AppDimensions.d18,
+            color: AppColors.daintree,
+          );
+        }),
+        foregroundColor: MaterialStateProperty.resolveWith<Color>((states) {
+          if (states.contains(MaterialState.disabled)) {
+            return AppColors.daintree;
+          } else if (states.contains(MaterialState.pressed)) {
+            return AppColors.whiteSmoke;
+          }
+          return AppColors.whiteSmoke;
+        }),
         shadowColor: MaterialStateProperty.resolveWith<Color>((states) {
           if (states.contains(MaterialState.disabled)) {
             return AppColors.gallery;
@@ -41,7 +79,7 @@ class ThemeManager {
           if (states.contains(MaterialState.disabled)) {
             return AppColors.gallery;
           } else if (states.contains(MaterialState.pressed)) {
-            return AppColors.confetti;
+            return AppColors.aliceBlue;
           }
           return AppColors.whiteSmoke;
         }),

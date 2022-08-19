@@ -16,11 +16,7 @@ class AppCubit extends Cubit<AppState> {
     if (user != null) {
       final name = FirebaseAuth.instance.currentUser!.displayName;
       if (name != null) {
-        emit(
-          AppState.toHomePage(
-            name: name,
-          ),
-        );
+        emit(const AppState.toHomePage());
       } else {
         emit(const AppState.toUsernamePage());
       }

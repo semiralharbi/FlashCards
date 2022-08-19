@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -6,6 +7,7 @@ import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
 import '../../utils/enums/errors.dart';
+import '../../utils/router/app_router.dart';
 import '../../utils/translation/generated/l10n.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
@@ -35,6 +37,9 @@ class UsernamePage extends StatelessWidget {
                     context,
                     Translation.of(context).unknownError,
                   ),
+            success: () => context.router.replaceAll(
+              [const HomeRoute()],
+            ),
             orElse: () => const SizedBox.shrink(),
           ),
           builder: (context, state) => state.maybeWhen(
@@ -94,9 +99,8 @@ class _Body extends HookWidget {
                 horizontal: AppDimensions.d10,
               ),
               child: AppElevatedButton(
-                onPressed: () => context
-                    .read<UsernamePageCubit>()
-                    .onUpdateButton(usernameController.text),
+                onPressed: () =>
+                    context.read<UsernamePageCubit>().onUpdateButton(usernameController.text),
                 text: Translation.of(context).logIn,
               ),
             ),

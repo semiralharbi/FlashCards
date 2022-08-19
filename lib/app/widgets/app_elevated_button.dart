@@ -21,25 +21,13 @@ class AppElevatedButton extends StatelessWidget {
         ),
         child: ElevatedButton(
           onPressed: () => onPressed(),
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  AppDimensions.d8,
-                ),
-                side: const BorderSide(
-                  color: AppColors.cinnamon,
-                ),
-              ),
-            ),
-          ),
           child: SizedBox(
             height: AppDimensions.d50,
             width: MediaQuery.of(context).size.width,
             child: Center(
               child: Text(
                 text,
-                style: AppFonts.boldPlayfair18,
+                style: const TextStyle(color: AppColors.daintree),
                 textAlign: TextAlign.center,
               ),
             ),

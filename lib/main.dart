@@ -35,8 +35,8 @@ class FlashCardsApp extends StatelessWidget {
         create: (context) => getIt<AppCubit>(),
         child: BlocListener<AppCubit, AppState>(
           listener: (context, state) => state.maybeWhen(
-            toHomePage: (name) => getIt<AppRouter>().push(
-              HomeRoute(name: name),
+            toHomePage: () => getIt<AppRouter>().push(
+              const HomeRoute(),
             ),
             toUsernamePage: () => getIt<AppRouter>().push(
               const UsernameRoute(),
@@ -59,9 +59,7 @@ class FlashCardsApp extends StatelessWidget {
               if (locale == null) return supportedLocales.first;
 
               return supportedLocales.firstWhere(
-                (e) =>
-                    e.languageCode == locale.languageCode &&
-                    e.countryCode == locale.countryCode,
+                (e) => e.languageCode == locale.languageCode && e.countryCode == locale.countryCode,
                 orElse: () => supportedLocales.firstWhere(
                   (c) => c.languageCode == locale.languageCode,
                   orElse: () => supportedLocales.first,

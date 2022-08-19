@@ -29,7 +29,8 @@ class LoginPage extends StatelessWidget {
         child: BlocConsumer<LoginPageCubit, LoginPageState>(
           listener: (context, state) => state.maybeWhen(
             loading: () => const AppProgressIndicator(),
-            loginSuccess: () => context.router.push(const UsernameRoute()),
+            showUsernamePage: () => context.router.push(const UsernameRoute()),
+            showHomePage: () => context.router.pushAll([const HomeRoute()]),
             fail: (error) => error != null
                 ? showAppSnackBar(
                     context,
@@ -42,7 +43,6 @@ class LoginPage extends StatelessWidget {
             orElse: () => const SizedBox.shrink(),
           ),
           builder: (context, state) => state.maybeWhen(
-            loginSuccess: () => const AppProgressIndicator(),
             initial: (email, password) => _Body(
               email: email,
               password: password,
@@ -86,7 +86,7 @@ class _Body extends HookWidget {
               style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: AppDimensions.d18,
-                    color: AppColors.cinnamon,
+                    color: AppColors.daintree,
                   ),
               textAlign: TextAlign.center,
             ),
@@ -103,7 +103,7 @@ class _Body extends HookWidget {
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           fontWeight: FontWeight.w600,
                           fontSize: AppDimensions.d12,
-                          color: AppColors.cinnamon,
+                          color: AppColors.daintree,
                         ),
                   ),
                 ),
