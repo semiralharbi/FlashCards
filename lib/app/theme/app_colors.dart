@@ -7,7 +7,9 @@ class AppColors {
   const AppColors._();
 
   static const Color black = Colors.black;
-  static const Color regalBlue = Color(0xFF025373);
+  static const Color daintree = Color(0xFF01303E);
+  static const Color blueStone = Color(0xFF00566E);
+  static const Color cinnamon = Color(0xFF754000);
   static const Color confetti = Color(0xFFEDDE61);
   static const Color electricViolet = Color(0xFF4A00F0);
   static const Color pacificBlue = Color(0xFF049DBF);
@@ -29,5 +31,6 @@ class AppColors {
   static const Color aliceBlue = Color(0xFFE5F7FF);
   static const Color wildWillow = Color(0xFFBCBE6A);
   static const Color mercury = Color(0xFFE8E8E8);
+  static const Color salem = Color(0xFF059E23);
 
 }
