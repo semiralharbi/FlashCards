@@ -16,6 +16,7 @@ enum Errors {
   passwordMatch,
   userDisabled,
   wrongPassword,
+  lackOfFolderDescription,
 }
 
 extension ErrorsExtension on Errors {
@@ -47,6 +48,8 @@ extension ErrorsExtension on Errors {
         return Translation.of(context).wrongPassword;
       case Errors.userDisabled:
         return Translation.of(context).userDisabled;
+      case Errors.lackOfFolderDescription:
+        return Translation.of(context).lackOfFolderDescription;
       default:
         return Translation.of(context).unknownError;
     }

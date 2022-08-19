@@ -13,6 +13,7 @@
   "email": "E-mail",
   "emailInsert": "Wprowadź swój e-mail",
   "logIn": "Zaloguj się",
+  "logOut": "Wyloguj się",
   "goToLogin": "Masz już konto?\nPrzejdź do logowania",
   "welcome": "Witaj w FlashCards!\nZaloguj się lub stwórz konto aby kontynuować",
   "welcomeUser": "Witaj w FlashCards!\nJak się nazywasz?",
@@ -29,5 +30,10 @@
   "passwordsMatch": "Hasła nie pasują do siebie",
   "userDisabled": "Użytkownik został usunięty",
   "userNotFound": "Nie znaleziono użytkownika",
-  "wrongPassword": "Błędne hasło"
+  "wrongPassword": "Błędne hasło",
+  "lackOfFolderDescription": "Tutaj pojawi się lista twoich teczek.\nAby dodać swoją pierwszą kliknij przycisk dodawania.",
+  "yourFolders": "Twoje teczki",
+  "folderName": "Podaj nazwę folderu",
+  "yourProgress" : "Twój postęp: {count} / {length}",
+  "profile": "Profil"
 }

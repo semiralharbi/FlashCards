@@ -31,5 +31,6 @@ class AppColors {
   static const Color aliceBlue = Color(0xFFE5F7FF);
   static const Color wildWillow = Color(0xFFBCBE6A);
   static const Color mercury = Color(0xFFE8E8E8);
+  static const Color salem = Color(0xFF059E23);
 
 }

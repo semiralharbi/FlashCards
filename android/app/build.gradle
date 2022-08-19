@@ -53,6 +53,7 @@ android {
         targetSdkVersion 32
         versionCode commitsOnBranchCount
         versionName version
+        multiDexEnabled true
     }
 
     buildTypes {
