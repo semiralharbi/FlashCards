@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>9303451164-uf3be3i8hddeg4c87fu7sj4jo1umlpr5.apps.googleusercontent.com</string>
+	<string>9303451164-mdqkh2bk59b6o8baktcpm640gjpufuo9.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.9303451164-uf3be3i8hddeg4c87fu7sj4jo1umlpr5</string>
+	<string>com.googleusercontent.apps.9303451164-mdqkh2bk59b6o8baktcpm640gjpufuo9</string>
 	<key>API_KEY</key>
 	<string>AIzaSyC0Qcn3y7TAHOAozeH9IEN35SZhqHKs0pw</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.flashcards</string>
+	<string>com.semiralharbi.flashCards</string>
 	<key>PROJECT_ID</key>
 	<string>flashcards-99b18</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:9303451164:ios:5a633b6f5f3a1bcb1761d9</string>
+	<string>1:9303451164:ios:2d8f4571edb701901761d9</string>
+	<key>DATABASE_URL</key>
+	<string>https://flashcards-99b18-default-rtdb.europe-west1.firebasedatabase.app</string>
 </dict>
 </plist>

@@ -19,3 +19,12 @@ linter:
     - sort_constructors_first
     - prefer_relative_imports
     - directives_ordering
+    - require_trailing_commas
+    - unnecessary_string_interpolations
+    - unnecessary_string_escapes
+    - avoid_returning_null_for_void
+    - avoid_unnecessary_containers
+    - avoid_void_async
+    - camel_case_types
+    - constant_identifier_names
+    - curly_braces_in_flow_control_structures
