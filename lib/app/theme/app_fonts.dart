@@ -74,6 +74,6 @@ class AppFonts {
     fontFamily: 'PlayfairDisplay',
     fontWeight: FontWeight.w600,
     fontSize: AppDimensions.d18,
-    color: AppColors.cinnamon
+    color: AppColors.cinnamon,
   );
 }

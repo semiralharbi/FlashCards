@@ -33,8 +33,13 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
     try {
       QuerySnapshot<Map<String, dynamic>> collection = await database.collection('$userId').get();
       List<Map<String, dynamic>> allData = collection.docs.map((e) => e.data()).toList();
-      List<FlashcardDto> dto = allData.map((e) => FlashcardDto.fromJson(e)).toList();
-      return dto;
+      if (allData.isNotEmpty) {
+        List<FlashcardDto> dto = allData.map((e) => FlashcardDto.fromJson(e)).toList();
+        dto.sort((a, b) => a.folderName.toLowerCase().compareTo(b.folderName.toLowerCase()));
+        return dto;
+      } else{
+        throw ApiException(Errors.lackOfFolderDescription);
+      }
     } catch (e) {
       print(e);
       throw ApiException(Errors.lackOfFolderDescription);
