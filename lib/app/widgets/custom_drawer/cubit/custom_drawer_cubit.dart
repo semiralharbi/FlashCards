@@ -8,7 +8,7 @@ import 'custom_drawer_state.dart';
 class CustomDrawerCubit extends Cubit<CustomDrawerState> {
   CustomDrawerCubit() : super(const CustomDrawerState.initial());
 
-  void logout() async {
+  Future<void> logout() async {
     await FirebaseAuth.instance.signOut();
     emit(const CustomDrawerState.logout());
   }

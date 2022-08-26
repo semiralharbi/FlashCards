@@ -20,22 +20,6 @@ class FlashcardPage extends HookWidget {
     );
     return AppScaffold(
       onlyBottomWood: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.daintree,
-        elevation: AppDimensions.d20,
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              if (_controller.isCompleted) {
-                _controller.reverse();
-              } else {
-                _controller.forward(from: 0.0);
-              }
-            },
-            icon: const Icon(Icons.restore),
-          )
-        ],
-      ),
       child: Column(
         children: [
           SizedBox(
@@ -94,6 +78,7 @@ class FlashcardPage extends HookWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               RoundedIconButton(
+                elementHeight: AppDimensions.d24,
                 stringPath: AppPaths.close,
                 buttonColor: AppColors.whiteSmoke,
                 iconColor: AppColors.daintree,
@@ -103,13 +88,14 @@ class FlashcardPage extends HookWidget {
                 width: AppDimensions.d26,
               ),
               RoundedIconButton(
+                elementHeight: AppDimensions.d44,
                 iconData: Icons.check,
                 padding: const EdgeInsets.all(AppDimensions.d8),
                 onTap: () {},
               ),
             ],
           ),
-          const Spacer(),
+          const Spacer(flex: 1,),
         ],
       ),
     );

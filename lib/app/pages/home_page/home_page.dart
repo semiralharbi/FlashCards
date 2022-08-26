@@ -8,11 +8,12 @@ import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
 import '../../utils/enums/errors.dart';
-import '../../utils/translation/generated/l10n.dart';
+import '../../utils/router/app_router.gr.dart';
 import '../../widgets/app_floating_action_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/custom_dialog.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
+import '../../widgets/custom_list_dialog/custom_list_dialog.dart';
 import 'cubit/home_cubit.dart';
 import 'cubit/home_state.dart';
 import 'widgets/list_container.dart';
@@ -53,32 +54,47 @@ class _Body extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final folderController = useTextEditingController();
+    List<TextEditingController> enWordListControllers = [TextEditingController()];
+    List<TextEditingController> translatedListControllers = [TextEditingController()];
     return AppScaffold(
       onlyBottomWood: true,
       drawer: const CustomDrawer(),
+      enableBackArrow: false,
       floatingActionButton: AppFloatingActionButton(
         onPressed: () async {
           showDialog(
             context: context,
-            builder: (newContext) => BlocProvider<HomeCubit>.value(
-              value: context.read<HomeCubit>(),
-              child: CustomDialog(
-                controller: folderController,
-                onTap: () async {
-                  await context.read<HomeCubit>().createFolder(
-                        folderName: folderController.text,
-                      );
-                  folderController.clear();
-                  await newContext.router.pop();
-                },
-              ),
+            builder: (dialogContext) => CustomDialog(
+              controller: folderController,
+              onTap: () async {
+                await dialogContext.router.pop(true);
+              },
             ),
-          );
+          ).then((value) {
+            value != null
+                ? showDialog(
+                    context: context,
+                    builder: (secondDialogContext) => BlocProvider<HomeCubit>.value(
+                      value: context.read<HomeCubit>(),
+                      child: CustomListDialog(
+                        enWordListControllers: enWordListControllers,
+                        translatedListControllers: translatedListControllers,
+                        onForwardTap: () async {
+                          await context.read<HomeCubit>().createFolder(
+                                folderName: folderController.text,
+                                enWordsList: enWordListControllers.map((e) => e.text).toList(),
+                                translatedWordsList:
+                                    translatedListControllers.map((e) => e.text).toList(),
+                              );
+                          folderController.clear();
+                          await secondDialogContext.router.pop();
+                        },
+                      ),
+                    ),
+                  )
+                : null;
+          });
         },
-      ),
-      appBar: AppBar(
-        backgroundColor: AppColors.daintree,
-        title: Text(Translation.of(context).yourFolders),
       ),
       child: Container(
         decoration: const BoxDecoration(
@@ -91,11 +107,15 @@ class _Body extends HookWidget {
         ),
         height: MediaQuery.of(context).size.height * 0.7,
         width: MediaQuery.of(context).size.width,
-        child: entity != null
+        child: entity != null && entity!.isNotEmpty
             ? ListView.builder(
                 itemCount: entity?.length,
-                itemBuilder: (context, index) => ListContainer(
-                  entityElement: entity?[index],
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () =>
+                      context.router.push(FolderContentRoute(flashcardEntity: entity![index])),
+                  child: ListContainer(
+                    entityElement: entity?[index],
+                  ),
                 ),
               )
             : Center(
@@ -107,9 +127,10 @@ class _Body extends HookWidget {
                     failure?.errorText(context) ?? '',
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           fontWeight: FontWeight.w700,
-                          fontSize: AppDimensions.d10,
+                          fontSize: AppDimensions.d14,
                           color: AppColors.daintree,
                         ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),

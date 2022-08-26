@@ -44,15 +44,14 @@ class PasswordTextFieldWidget extends HookWidget {
         controller: controller,
         decoration: InputDecoration(
           suffixIcon: GestureDetector(
-              onTap: () => obscurePassword.value
-                  ? obscurePassword.value = false
-                  : obscurePassword.value = true,
-              child: Icon(
-                obscurePassword.value
-                    ? Icons.visibility_off_outlined
-                    : Icons.remove_red_eye_outlined,
-                color: AppColors.daintree,
-              )),
+            onTap: () => obscurePassword.value
+                ? obscurePassword.value = false
+                : obscurePassword.value = true,
+            child: Icon(
+              obscurePassword.value ? Icons.visibility_off_outlined : Icons.remove_red_eye_outlined,
+              color: AppColors.daintree,
+            ),
+          ),
           counterText: '',
           errorText: error,
           filled: true,

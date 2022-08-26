@@ -24,6 +24,7 @@ class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+      withAppBar: false,
       child: BlocProvider(
         create: (context) => getIt<RegistrationPageCubit>(),
         child: BlocConsumer<RegistrationPageCubit, RegistrationPageState>(

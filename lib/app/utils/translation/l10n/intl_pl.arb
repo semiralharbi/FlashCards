@@ -35,5 +35,10 @@
   "yourFolders": "Twoje teczki",
   "folderName": "Podaj nazwę folderu",
   "yourProgress" : "Twój postęp: {count} / {length}",
-  "profile": "Profil"
+  "profile": "Profil",
+  "enWordDesc": "Wprowadź słowo po Angielsku",
+  "translatedWordDesc": "Wprowadź przetłumaczone słowo",
+  "hideAnswers": "Ukryj odpowiedzi",
+  "uncoverAnswers": "Pokaż odpowiedzi",
+  "startFlashcard": "Rozpocznij\nfiszkowanie!"
 }

@@ -23,6 +23,7 @@ class UsernamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+      withAppBar: false,
       child: BlocProvider(
         create: (context) => getIt<UsernamePageCubit>(),
         child: BlocConsumer<UsernamePageCubit, UsernamePageState>(
@@ -84,7 +85,7 @@ class _Body extends HookWidget {
               style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: AppDimensions.d18,
-                    color: AppColors.cinnamon,
+                    color: AppColors.daintree,
                   ),
               textAlign: TextAlign.center,
             ),

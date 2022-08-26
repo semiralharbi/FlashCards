@@ -23,10 +23,10 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
 
   @override
   Future<Either<Failure, UserCredential>> createUser(
-      CreateUserEntity entity) async {
+    CreateUserEntity entity,
+  ) async {
     try {
-      final createUser =
-          await _remoteSource.createUser(CreateUserDto.fromEntity(entity));
+      final createUser = await _remoteSource.createUser(CreateUserDto.fromEntity(entity));
       return Right(createUser);
     } on ApiException catch (e) {
       return Left(Failure(appError: e.failure));
@@ -37,9 +37,9 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
 
   @override
   Future<Either<Failure, User>> login(LoginEntity entity) async {
-    try{
+    try {
       final user = await _remoteSource.login(LoginDto.fromEntity(entity));
-      if(user != null) {
+      if (user != null) {
         return Right(user);
       } else {
         return const Left(Failure(appError: Errors.userNotFound));

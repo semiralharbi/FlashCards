@@ -25,6 +25,11 @@ class ListContainer extends StatelessWidget {
           vertical: AppDimensions.d8,
         ),
         child: Material(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(
+              AppDimensions.d8,
+            ),
+          ),
           elevation: AppDimensions.d8,
           child: Container(
             padding: const EdgeInsets.only(left: AppDimensions.d10),

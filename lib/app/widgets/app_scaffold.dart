@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
 import '../theme/app_paths.dart';
+import '../utils/translation/generated/l10n.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({
@@ -12,6 +13,9 @@ class AppScaffold extends StatelessWidget {
     this.floatingActionButton,
     this.drawer,
     this.onlyBottomWood = false,
+    this.withAppBar = true,
+    this.enableBackArrow = true,
+    this.appBarTitle,
   }) : super(key: key);
 
   final Widget child;
@@ -19,13 +23,31 @@ class AppScaffold extends StatelessWidget {
   final Widget? floatingActionButton;
   final Drawer? drawer;
   final bool onlyBottomWood;
+  final bool withAppBar;
+  final bool enableBackArrow;
+  final String? appBarTitle;
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        drawer: drawer,
+        endDrawer: drawer,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: floatingActionButton,
-        appBar: appBar,
+        appBar: withAppBar
+            ? AppBar(
+                backgroundColor: AppColors.daintree,
+                title: Text(
+                  appBarTitle ?? Translation.of(context).yourFolders,
+                ),
+                leading: enableBackArrow
+                    ? IconButton(
+                        icon: const Icon(
+                          Icons.keyboard_return_outlined,
+                        ),
+                        onPressed: () => Navigator.of(context).pop(),
+                      )
+                    : const SizedBox.shrink(),
+              )
+            : null,
         body: Stack(
           children: [
             Container(
@@ -57,22 +79,27 @@ class AppScaffold extends StatelessWidget {
                       bottomRight: const Radius.circular(
                         AppDimensions.d46,
                       ),
-                      topLeft: onlyBottomWood ? Radius.zero : const Radius.circular(
-                        AppDimensions.d46,
-                      ),
-                      topRight: onlyBottomWood ? Radius.zero : const Radius.circular(
-                        AppDimensions.d46,
-                      ),
+                      topLeft: onlyBottomWood
+                          ? Radius.zero
+                          : const Radius.circular(
+                              AppDimensions.d46,
+                            ),
+                      topRight: onlyBottomWood
+                          ? Radius.zero
+                          : const Radius.circular(
+                              AppDimensions.d46,
+                            ),
                     ),
                   ),
                 ),
               ),
             ),
             SafeArea(
-                minimum: const EdgeInsets.all(
-                  AppDimensions.d20,
-                ),
-                child: child),
+              minimum: const EdgeInsets.all(
+                AppDimensions.d20,
+              ),
+              child: child,
+            ),
           ],
         ),
       );
