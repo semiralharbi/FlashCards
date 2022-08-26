@@ -8,28 +8,29 @@ import 'registration_page_state.dart';
 
 @injectable
 class RegistrationPageCubit extends Cubit<RegistrationPageState> {
-  RegistrationPageCubit(this._createUserUseCase)
-      : super(const RegistrationPageState.initial());
+  RegistrationPageCubit(this._createUserUseCase) : super(const RegistrationPageState.initial());
 
   final CreateUserUseCase _createUserUseCase;
 
-  void onRegisterClick({
+  Future<void> onRegisterClick({
     required String email,
     required String password,
     required String repeatPassword,
   }) async {
-    if (email.isNotEmpty &&
-        password.isNotEmpty &&
-        repeatPassword.compareTo(password) == 0) {
-      final result = await _createUserUseCase(CreateUserEntity(
-        email: email,
-        password: password,
-      ));
+    if (email.isNotEmpty && password.isNotEmpty && repeatPassword.compareTo(password) == 0) {
+      final result = await _createUserUseCase(
+        CreateUserEntity(
+          email: email,
+          password: password,
+        ),
+      );
       result.fold(
         (l) {
-          emit(RegistrationPageState.fail(
-            error: l.appError,
-          ));
+          emit(
+            RegistrationPageState.fail(
+              error: l.appError,
+            ),
+          );
           emit(const RegistrationPageState.content());
         },
         (r) => emit(
@@ -37,30 +38,42 @@ class RegistrationPageCubit extends Cubit<RegistrationPageState> {
         ),
       );
     } else if (email.isEmpty) {
-      emit(RegistrationPageState.content(
+      emit(
+        RegistrationPageState.content(
           email: email,
           password: password,
           repeatPassword: repeatPassword,
-          emailError: Errors.fieldCantBeEmpty));
+          emailError: Errors.fieldCantBeEmpty,
+        ),
+      );
     } else if (password.isEmpty) {
-      emit(RegistrationPageState.content(
+      emit(
+        RegistrationPageState.content(
           email: email,
           password: password,
           repeatPassword: repeatPassword,
-          passwordError: Errors.fieldCantBeEmpty));
+          passwordError: Errors.fieldCantBeEmpty,
+        ),
+      );
     } else if (repeatPassword.isEmpty) {
-      emit(RegistrationPageState.content(
+      emit(
+        RegistrationPageState.content(
           email: email,
           password: password,
           repeatPassword: repeatPassword,
-          repeatPasswordError: Errors.fieldCantBeEmpty));
+          repeatPasswordError: Errors.fieldCantBeEmpty,
+        ),
+      );
     } else if (repeatPassword.compareTo(password) < 0) {
-      emit(RegistrationPageState.content(
+      emit(
+        RegistrationPageState.content(
           email: email,
           password: password,
           repeatPassword: repeatPassword,
           passwordError: Errors.passwordMatch,
-          repeatPasswordError: Errors.passwordMatch));
+          repeatPasswordError: Errors.passwordMatch,
+        ),
+      );
     } else {
       emit(const RegistrationPageState.fail(error: Errors.unknownError));
       emit(const RegistrationPageState.content());

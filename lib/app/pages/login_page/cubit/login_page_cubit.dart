@@ -11,11 +11,13 @@ class LoginPageCubit extends Cubit<LoginPageState> {
 
   final LoginUseCase _loginUseCase;
 
-  void onLoginButton(String email, String password) async {
-    final result = await _loginUseCase(LoginEntity(
-      email: email,
-      password: password,
-    ));
+  Future<void> onLoginButton(String email, String password) async {
+    final result = await _loginUseCase(
+      LoginEntity(
+        email: email,
+        password: password,
+      ),
+    );
     result.fold(
       (l) {
         emit(LoginPageState.fail(error: l.appError));

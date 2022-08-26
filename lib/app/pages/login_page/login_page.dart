@@ -24,6 +24,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+      withAppBar: false,
       child: BlocProvider(
         create: (context) => getIt<LoginPageCubit>(),
         child: BlocConsumer<LoginPageCubit, LoginPageState>(

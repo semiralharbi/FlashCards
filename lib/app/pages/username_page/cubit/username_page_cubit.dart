@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../domain/entities/update_user_entity.dart';
@@ -13,7 +12,7 @@ class UsernamePageCubit extends Cubit<UsernamePageState> {
 
   final UpdateUserUseCase _updateUserUseCase;
 
-  void onUpdateButton(String username) async {
+  Future<void> onUpdateButton(String username) async {
     final result = await _updateUserUseCase(
       UpdateUserEntity(username: username),
     );

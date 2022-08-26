@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
-import '../theme/app_fonts.dart';
 
 class AppElevatedButton extends StatelessWidget {
   const AppElevatedButton({

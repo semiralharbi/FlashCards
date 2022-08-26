@@ -32,16 +32,25 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  Future<void> createFolder({required String folderName}) async {
+  Future<void> createFolder({
+    required String folderName,
+    required List<String> enWordsList,
+    required List<String> translatedWordsList,
+  }) async {
+    List<WordsEntity> wordsEntityList = [];
+    for (int i = 0; i <= translatedWordsList.length - 1; i++) {
+      WordsEntity wordsEntity = WordsEntity(
+        enWord: enWordsList[i],
+        translatedWord: translatedWordsList[i],
+        nrRepeated: 0,
+      );
+      wordsEntityList.add(wordsEntity);
+    }
     final result = await _newDataFolderUseCase(
       FlashcardEntity(
         folderName: folderName,
         correctAnswers: 0,
-        words: [
-          const WordsEntity(enWord: 'enWord', translatedWord: 'translatedWord', nrRepeated: 0),
-          const WordsEntity(enWord: 'ennWord', translatedWord: 'traanslatedWord', nrRepeated: 0),
-          const WordsEntity(enWord: 'ennnWord', translatedWord: 'traaanslatedWord', nrRepeated: 0),
-        ],
+        words: wordsEntityList,
       ),
     );
     result.fold(
