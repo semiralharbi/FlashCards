@@ -111,8 +111,9 @@ class _Body extends HookWidget {
             ? ListView.builder(
                 itemCount: entity?.length,
                 itemBuilder: (context, index) => GestureDetector(
-                  onTap: () =>
-                      context.router.push(FolderContentRoute(flashcardEntity: entity![index])),
+                  onTap: () => context.router.push(
+                    FolderContentRoute(flashcardEntity: entity![index]),
+                  ),
                   child: ListContainer(
                     entityElement: entity?[index],
                   ),

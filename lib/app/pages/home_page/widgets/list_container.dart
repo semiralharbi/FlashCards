@@ -4,6 +4,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../../../domain/entities/database/flashcard_entity.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_dimensions.dart';
+import '../../../utils/enums/capitalize.dart';
 import '../../../utils/translation/generated/l10n.dart';
 
 class ListContainer extends StatelessWidget {
@@ -56,10 +57,10 @@ class ListContainer extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  entityElement?.folderName.toUpperCase() ?? '',
+                  entityElement?.folderName.capitalize() ?? '',
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: AppDimensions.d14,
+                        fontWeight: FontWeight.w600,
+                        fontSize: AppDimensions.d16,
                         color: AppColors.daintree,
                       ),
                 ),

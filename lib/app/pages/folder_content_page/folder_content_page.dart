@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../domain/entities/database/flashcard_entity.dart';
+import '../../utils/enums/capitalize.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 import 'widgets/folder_content_buttons.dart';
@@ -26,7 +27,7 @@ class FolderContentPage extends HookWidget {
     final getText = useState(false);
 
     return AppScaffold(
-      appBarTitle: flashcardEntity.folderName.toUpperCase(),
+      appBarTitle: flashcardEntity.folderName.capitalize(),
       onlyBottomWood: true,
       drawer: const CustomDrawer(),
       child: Column(

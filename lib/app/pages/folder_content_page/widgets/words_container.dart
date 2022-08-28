@@ -4,6 +4,7 @@ import '../../../../domain/entities/database/flashcard_entity.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_dimensions.dart';
 import '../../../theme/app_paths.dart';
+import '../../../utils/enums/capitalize.dart';
 
 class WordsContainer extends StatelessWidget {
   const WordsContainer({
@@ -71,7 +72,7 @@ class WordsContainer extends StatelessWidget {
                     width: AppDimensions.d80,
                     child: Center(
                       child: Text(
-                        flashcardEntity.words[index].translatedWord,
+                        flashcardEntity.words[index].translatedWord.capitalize(),
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: AppDimensions.d14,
@@ -104,7 +105,7 @@ class WordsContainer extends StatelessWidget {
                       width: AppDimensions.d80,
                       child: Center(
                         child: Text(
-                          flashcardEntity.words[index].enWord,
+                          flashcardEntity.words[index].enWord.capitalize(),
                           style: Theme.of(context).textTheme.subtitle1!.copyWith(
                                 fontWeight: FontWeight.w700,
                                 fontSize: AppDimensions.d14,
