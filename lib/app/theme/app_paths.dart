@@ -10,4 +10,5 @@ static const wood = '$pngPath/wood.png';
 static const tapHere = '$pngPath/tap.png';
 static const close = '$pngPath/close.png';
 static const check = '$pngPath/check.png';
+static const monkey = '$pngPath/monkey.png';
 }
