@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../domain/entities/database/words_entity.dart';
+import '../../../domain/entities/database/flashcard_entity.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
@@ -22,11 +22,11 @@ import 'cubit/flashcard_state.dart';
 class FlashcardPage extends HookWidget {
   const FlashcardPage({
     Key? key,
-    required this.wordsEntity,
+    required this.flashcardEntity,
     required this.index,
   }) : super(key: key);
 
-  final List<WordsEntity> wordsEntity;
+  final FlashcardEntity flashcardEntity;
   final int index;
 
   @override
@@ -44,7 +44,7 @@ class FlashcardPage extends HookWidget {
           listener: (context, state) => state.maybeWhen(
             next: (wordsEntity, index) => context.router.push(
               FlashcardRoute(
-                wordsEntity: wordsEntity,
+                flashcardEntity: flashcardEntity,
                 index: index,
               ),
             ),
@@ -53,7 +53,7 @@ class FlashcardPage extends HookWidget {
           builder: (context, state) {
             return _Body(
               controller: _controller,
-              wordsEntity: wordsEntity,
+              flashcardEntity: flashcardEntity,
               index: index,
             );
           },
@@ -67,12 +67,12 @@ class _Body extends StatelessWidget {
   const _Body({
     Key? key,
     required this.controller,
-    required this.wordsEntity,
+    required this.flashcardEntity,
     required this.index,
   }) : super(key: key);
 
   final AnimationController controller;
-  final List<WordsEntity> wordsEntity;
+  final FlashcardEntity flashcardEntity;
   final int index;
 
   @override
@@ -87,7 +87,7 @@ class _Body extends StatelessWidget {
               GestureDetector(
                 onTap: () => context.read<FlashcardCubit>().animate(controller),
                 child: FlashcardContainer(
-                  text: wordsEntity[index].enWord,
+                  text: flashcardEntity.words[index].enWord,
                 ),
               ),
               GestureDetector(
@@ -120,7 +120,7 @@ class _Body extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        FlashcardContainer(text: wordsEntity[index].translatedWord),
+        FlashcardContainer(text: flashcardEntity.words[index].translatedWord),
         const Spacer(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -131,7 +131,7 @@ class _Body extends StatelessWidget {
               buttonColor: AppColors.whiteSmoke,
               iconColor: AppColors.daintree,
               onTap: () => context.read<FlashcardCubit>().next(
-                    entity: wordsEntity,
+                    entity: flashcardEntity,
                     controller: controller,
                     index: index,
                     isCorrect: false,
@@ -145,7 +145,7 @@ class _Body extends StatelessWidget {
               iconData: Icons.check,
               padding: const EdgeInsets.all(AppDimensions.d8),
               onTap: () => context.read<FlashcardCubit>().next(
-                    entity: wordsEntity,
+                entity: flashcardEntity,
                     controller: controller,
                     index: index,
                     isCorrect: true,

@@ -38,7 +38,7 @@ class FolderContentPage extends HookWidget {
         listener: (context, state) => state.maybeWhen(
           nextPage: (entity, index) => context.router.push(
             FlashcardRoute(
-              wordsEntity: entity,
+              flashcardEntity: entity,
               index: index,
             ),
           ),
@@ -95,7 +95,7 @@ class _Body extends StatelessWidget {
           animationController: animationController,
           onChange: getText,
           onPressed: () => context.read<FolderContentCubit>().nextPage(
-                flashcardEntity.words,
+            flashcardEntity,
               ),
         ),
       ],
