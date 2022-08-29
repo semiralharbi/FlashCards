@@ -16,12 +16,7 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   @override
   Future<Success> newFolder(FlashcardDto dto) async {
     if (userId != null) {
-      final ref = database.collection("$userId");
-      await ref.add({
-        "folderName": dto.folderName,
-        "words": dto.words.map((e) => e.toJson()).toList(),
-        "correctAnswers": dto.words.where((e) => e.correctAnswer == true).length,
-      });
+      await database.collection("$userId").doc(dto.folderName.toUpperCase()).set(dto.toJson());
       return const Success();
     } else {
       throw ApiException(Errors.somethingWentWrong);
@@ -37,12 +32,21 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
         List<FlashcardDto> dto = allData.map((e) => FlashcardDto.fromJson(e)).toList();
         dto.sort((a, b) => a.folderName.toLowerCase().compareTo(b.folderName.toLowerCase()));
         return dto;
-      } else{
+      } else {
         throw ApiException(Errors.lackOfFolderDescription);
       }
     } catch (e) {
-      print(e);
       throw ApiException(Errors.lackOfFolderDescription);
+    }
+  }
+
+  @override
+  Future<Success> updateCollection(FlashcardDto dto) async {
+    try {
+      database.collection("$userId").doc(dto.folderName.toUpperCase()).set(dto.toJson());
+      return const Success();
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
     }
   }
 }

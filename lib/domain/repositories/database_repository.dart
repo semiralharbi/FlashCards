@@ -8,4 +8,6 @@ abstract class DatabaseRepository {
   Future<Either<Failure, Success>> newFolder(FlashcardEntity entity);
 
   Future<Either<Failure, List<FlashcardEntity>>> getCollections();
+
+  Future<Either<Failure, Success>> updateCollection(FlashcardEntity entity);
 }

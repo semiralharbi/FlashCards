@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../domain/entities/database/words_entity.dart';
+import '../../../../domain/entities/database/flashcard_entity.dart';
 import 'folder_content_state.dart';
 
 @injectable
@@ -21,7 +21,7 @@ class FolderContentCubit extends Cubit<FolderContentState> {
     }
   }
 
-  void nextPage(List<WordsEntity> entity) {
+  void nextPage(FlashcardEntity entity) {
     const int index = 0;
     emit(FolderContentState.nextPage(entity, index));
     emit(const FolderContentState.initial());
