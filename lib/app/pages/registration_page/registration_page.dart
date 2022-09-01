@@ -160,7 +160,7 @@ class _Body extends HookWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.d10,
+                horizontal: AppDimensions.d20,
               ),
               child: AppElevatedButton(
                 onPressed: () =>
