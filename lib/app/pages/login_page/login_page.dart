@@ -118,10 +118,13 @@ class _Body extends HookWidget {
               controller: passwordController,
               hintText: Translation.of(context).password,
             ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.095,
+            ),
             const Spacer(flex: 2),
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.d10,
+                horizontal: AppDimensions.d20,
               ),
               child: AppElevatedButton(
                 onPressed: () => context.read<LoginPageCubit>().onLoginButton(
