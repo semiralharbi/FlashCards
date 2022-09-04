@@ -34,7 +34,7 @@
   "lackOfFolderDescription": "Tutaj pojawi się lista twoich teczek.\nAby dodać swoją pierwszą kliknij przycisk dodawania.",
   "yourFolders": "Twoje teczki",
   "folderName": "Podaj nazwę folderu",
-  "yourProgress" : "Twój postęp: {count} / {length}",
+  "yourProgress": "Twój postęp: {count} / {length}",
   "profile": "Profil",
   "enWordDesc": "Wprowadź słowo po Angielsku",
   "translatedWordDesc": "Wprowadź przetłumaczone słowo",
@@ -43,5 +43,9 @@
   "startFlashcard": "Rozpocznij\nfiszkowanie!",
   "random": "Losowo",
   "switchLanguage": "Zamiana językowa",
-  "flashcard": "Fiszkowanie!"
+  "flashcard": "Fiszkowanie!",
+  "congratulation": "Gratulacje!",
+  "yourScore": "Twój wynik:",
+  "startNextRound": "Rozpocznij kolejną rundę",
+  "chooseOtherFolder": "Wybierz inną teczkę"
 }

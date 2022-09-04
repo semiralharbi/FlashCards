@@ -5,6 +5,7 @@ import '../../pages/folder_content_page/folder_content_page.dart';
 import '../../pages/home_page/home_page.dart';
 import '../../pages/login_page/login_page.dart';
 import '../../pages/registration_page/registration_page.dart';
+import '../../pages/result_page/result_page.dart';
 import '../../pages/username_page/username_page.dart';
 
 export 'app_router.gr.dart';
@@ -20,6 +21,7 @@ export 'app_router.gr.dart';
     AutoRoute(page: HomePage),
     AutoRoute(page: FolderContentPage),
     AutoRoute(page: FlashcardPage),
+    AutoRoute(page: ResultPage),
   ],
 )
 class $AppRouter {}

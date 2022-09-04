@@ -103,7 +103,7 @@ class _Body extends StatelessWidget {
                       ),
                     ),
                     child: Image.asset(
-                      AppPaths.monkey,
+                      AppPaths.monkeyBlind,
                       fit: BoxFit.scaleDown,
                       scale: 3,
                     ),
@@ -183,15 +183,18 @@ class AnimatedFlashcard extends AnimatedWidget {
     return animation.value == fullAngle && !hasLastChild
         ? const SizedBox.shrink()
         : Transform(
-            alignment: hasLastChild ? Alignment.bottomCenter : Alignment.topCenter,
+            alignment:
+                hasLastChild ? Alignment.bottomCenter : Alignment.topCenter,
             transform: Matrix4.identity()
               ..setEntry(3, 2, 0.001)
               ..rotateY(
-                (pi / fullAngle) * (hasLastChild ? animation.value : -animation.value),
+                (pi / fullAngle) *
+                    (hasLastChild ? animation.value : -animation.value),
               ),
             child: Container(
               decoration: BoxDecoration(
-                color: (animation.value < halfAngle && first) || (!first && animation.value == 0.0)
+                color: (animation.value < halfAngle && first) ||
+                        (!first && animation.value == 0.0)
                     ? AppColors.daintree
                     : AppColors.blueStone,
                 borderRadius: const BorderRadius.all(
