@@ -59,7 +59,9 @@ class FlashCardsApp extends StatelessWidget {
               if (locale == null) return supportedLocales.first;
 
               return supportedLocales.firstWhere(
-                (e) => e.languageCode == locale.languageCode && e.countryCode == locale.countryCode,
+                (e) =>
+                    e.languageCode == locale.languageCode &&
+                    e.countryCode == locale.countryCode,
                 orElse: () => supportedLocales.firstWhere(
                   (c) => c.languageCode == locale.languageCode,
                   orElse: () => supportedLocales.first,

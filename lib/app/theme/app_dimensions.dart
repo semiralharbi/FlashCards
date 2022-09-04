@@ -61,6 +61,7 @@ class AppDimensions {
   static const double d166 = 166;
   static const double d170 = 170;
   static const double d176 = 176;
+  static const double d180 = 180;
   static const double d190 = 190;
   static const double d200 = 200;
   static const double d210 = 210;
