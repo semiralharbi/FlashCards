@@ -13,12 +13,14 @@ class WordsContainer extends StatelessWidget {
     required this.animationController,
     required this.index,
     required this.value,
+    required this.onDismissed,
   }) : super(key: key);
 
   final FlashcardEntity flashcardEntity;
   final AnimationController animationController;
   final int index;
   final bool value;
+  final Function(DismissDirection) onDismissed;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -27,85 +29,81 @@ class WordsContainer extends StatelessWidget {
         ),
         child: Material(
           elevation: AppDimensions.d8,
+          color: AppColors.red,
           borderRadius: const BorderRadius.all(
             Radius.circular(
               AppDimensions.d8,
             ),
           ),
-          child: Container(
-            padding: const EdgeInsets.only(left: AppDimensions.d10),
-            decoration: BoxDecoration(
-              color: AppColors.whiteSmoke,
-              border: Border.all(
-                width: 1.5,
-                color: AppColors.daintree,
+          child: Dismissible(
+            onDismissed: onDismissed,
+            direction: DismissDirection.endToStart,
+            key: key!,
+            background: Container(
+              decoration: const BoxDecoration(
+                color: AppColors.red,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    AppDimensions.d8,
+                  ),
+                ),
               ),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(
-                  AppDimensions.d8,
+              child: const Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    right: AppDimensions.d12,
+                  ),
+                  child: Icon(
+                    Icons.delete_forever,
+                    size: AppDimensions.d36,
+                    color: AppColors.whiteSmoke,
+                  ),
                 ),
               ),
             ),
-            height: AppDimensions.d68,
-            child: Stack(
-              children: [
-                Positioned(
-                  bottom: AppDimensions.d24,
-                  left: AppDimensions.d8,
-                  child: Text(
-                    '${index + 1}.',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: AppDimensions.d14,
-                          color: AppColors.daintree,
-                        ),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(left: AppDimensions.d10),
+              decoration: BoxDecoration(
+                color: AppColors.whiteSmoke,
+                border: Border.all(
+                  width: 1.5,
+                  color: AppColors.daintree,
+                ),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(
+                    AppDimensions.d8,
                   ),
                 ),
-                AnimatedPositioned(
-                  duration: const Duration(
-                    milliseconds: 400,
-                  ),
-                  left: value ? AppDimensions.d50 : AppDimensions.d130,
-                  top: AppDimensions.d14,
-                  bottom: AppDimensions.d14,
-                  child: SizedBox(
-                    width: AppDimensions.d80,
-                    child: Center(
-                      child: Text(
-                        flashcardEntity.words[index].translatedWord.capitalize(),
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: AppDimensions.d14,
-                              color: AppColors.daintree,
-                            ),
-                        textAlign: TextAlign.center,
-                      ),
+              ),
+              height: AppDimensions.d68,
+              child: Stack(
+                children: [
+                  Positioned(
+                    bottom: AppDimensions.d24,
+                    left: AppDimensions.d8,
+                    child: Text(
+                      '${index + 1}.',
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: AppDimensions.d14,
+                            color: AppColors.daintree,
+                          ),
                     ),
                   ),
-                ),
-                Positioned(
-                  left: AppDimensions.d146,
-                  top: AppDimensions.d14,
-                  bottom: AppDimensions.d14,
-                  child: FadeTransition(
-                    opacity: animationController,
-                    child: const Icon(
-                      Icons.arrow_right_alt,
-                      color: AppColors.daintree,
+                  AnimatedPositioned(
+                    duration: const Duration(
+                      milliseconds: 400,
                     ),
-                  ),
-                ),
-                Positioned(
-                  right: AppDimensions.d74,
-                  top: AppDimensions.d14,
-                  bottom: AppDimensions.d14,
-                  child: FadeTransition(
-                    opacity: animationController,
+                    left: value ? AppDimensions.d50 : AppDimensions.d130,
+                    top: AppDimensions.d14,
+                    bottom: AppDimensions.d14,
                     child: SizedBox(
                       width: AppDimensions.d80,
                       child: Center(
                         child: Text(
-                          flashcardEntity.words[index].enWord.capitalize(),
+                          flashcardEntity.words[index].translatedWord.capitalize(),
                           style: Theme.of(context).textTheme.subtitle1!.copyWith(
                                 fontWeight: FontWeight.w700,
                                 fontSize: AppDimensions.d14,
@@ -116,19 +114,53 @@ class WordsContainer extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-                flashcardEntity.words[index].correctAnswer == true
-                    ? Positioned(
-                        right: AppDimensions.d16,
-                        bottom: AppDimensions.d22,
-                        child: Image.asset(
-                          AppPaths.check,
-                          width: AppDimensions.d24,
-                          height: AppDimensions.d24,
+                  Positioned(
+                    left: AppDimensions.d146,
+                    top: AppDimensions.d14,
+                    bottom: AppDimensions.d14,
+                    child: FadeTransition(
+                      opacity: animationController,
+                      child: const Icon(
+                        Icons.arrow_right_alt,
+                        color: AppColors.daintree,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: AppDimensions.d74,
+                    top: AppDimensions.d14,
+                    bottom: AppDimensions.d14,
+                    child: FadeTransition(
+                      opacity: animationController,
+                      child: SizedBox(
+                        width: AppDimensions.d80,
+                        child: Center(
+                          child: Text(
+                            flashcardEntity.words[index].enWord.capitalize(),
+                            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: AppDimensions.d14,
+                                  color: AppColors.daintree,
+                                ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      )
-                    : const SizedBox.shrink(),
-              ],
+                      ),
+                    ),
+                  ),
+                  flashcardEntity.words[index].correctAnswer == true
+                      ? Positioned(
+                          right: AppDimensions.d16,
+                          bottom: AppDimensions.d22,
+                          child: Image.asset(
+                            AppPaths.check,
+                            width: AppDimensions.d24,
+                            height: AppDimensions.d24,
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ],
+              ),
             ),
           ),
         ),

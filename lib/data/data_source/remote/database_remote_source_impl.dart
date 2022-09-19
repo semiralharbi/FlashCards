@@ -49,4 +49,26 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
       throw ApiException(Errors.somethingWentWrong);
     }
   }
+
+  @override
+  Future<Success> deleteCollection(FlashcardDto dto) async {
+    try {
+      await database.collection("$userId").doc(dto.folderName.toUpperCase()).delete();
+      return const Success();
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+
+  @override
+  Future<Success> deleteWord(FlashcardDto dto, int index) async {
+    try {
+      await database.collection("$userId").doc(dto.folderName.toUpperCase()).update({
+        "words": FieldValue.arrayRemove([dto.words[index].toJson()]),
+      });
+      return const Success();
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
 }

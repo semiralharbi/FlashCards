@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../domain/entities/database/flashcard_entity.dart';
 import '../../../injectable/injectable.dart';
+import '../../theme/consts.dart';
 import '../../utils/enums/capitalize.dart';
 import '../../utils/router/app_router.gr.dart';
 import '../../widgets/app_scaffold.dart';
@@ -26,37 +27,46 @@ class FolderContentPage extends HookWidget {
   Widget build(BuildContext context) {
     final animationController = useAnimationController(
       duration: const Duration(
-        milliseconds: 600,
+        milliseconds: AppConst.milliseconds600,
       ),
-      initialValue: 0,
+      initialValue: AppConst.staticZero,
     );
     final getText = useState(false);
 
-    return BlocProvider(
-      create: (context) => getIt<FolderContentCubit>(),
-      child: BlocConsumer<FolderContentCubit, FolderContentState>(
-        listener: (context, state) => state.maybeWhen(
-          nextPage: (entity, index) => context.router.push(
-            FlashcardRoute(
-              flashcardEntity: entity,
-              index: index,
+    return AppScaffold(
+      appBarTitle: flashcardEntity.folderName.capitalize(),
+      onlyBottomWood: true,
+      onBackPress: () => context.router.push(const HomeRoute()),
+      drawer: const CustomDrawer(),
+      child: BlocProvider(
+        create: (context) => getIt<FolderContentCubit>(),
+        child: BlocConsumer<FolderContentCubit, FolderContentState>(
+          listener: (context, state) => state.maybeWhen(
+            nextPage: (entity, index) => context.router.push(
+              FlashcardRoute(
+                flashcardEntity: entity,
+                index: index,
+              ),
             ),
+            initial: () => _Body(
+              flashcardEntity: flashcardEntity,
+              animationController: animationController,
+              getText: getText,
+            ),
+            orElse: () => const SizedBox.shrink(),
           ),
-          initial: () => _Body(
-            flashcardEntity: flashcardEntity,
-            animationController: animationController,
-            getText: getText,
-          ),
-          orElse: () => const SizedBox.shrink(),
-        ),
-        builder: (context, state) => AppScaffold(
-          appBarTitle: flashcardEntity.folderName.capitalize(),
-          onlyBottomWood: true,
-          drawer: const CustomDrawer(),
-          child: _Body(
-            flashcardEntity: flashcardEntity,
-            animationController: animationController,
-            getText: getText,
+          builder: (context, state) => state.maybeWhen(
+            orElse: () => const SizedBox.shrink(),
+            reload: (entity) => _Body(
+              flashcardEntity: entity,
+              animationController: animationController,
+              getText: getText,
+            ),
+            initial: () => _Body(
+              flashcardEntity: flashcardEntity,
+              animationController: animationController,
+              getText: getText,
+            ),
           ),
         ),
       ),
@@ -84,6 +94,10 @@ class _Body extends StatelessWidget {
           child: ListView.builder(
             itemCount: flashcardEntity.words.length,
             itemBuilder: (context, index) => WordsContainer(
+              key: UniqueKey(),
+              onDismissed: (_) async {
+                await context.read<FolderContentCubit>().deleteWord(flashcardEntity, index);
+              },
               flashcardEntity: flashcardEntity,
               animationController: animationController,
               index: index,

@@ -3,7 +3,12 @@ import '../../utils/success.dart';
 
 abstract class DatabaseRemoteSource {
   Future<Success> newFolder(FlashcardDto dto);
+
   Future<List<FlashcardDto>> getCollection();
 
   Future<Success> updateCollection(FlashcardDto dto);
+
+  Future<Success> deleteCollection(FlashcardDto dto);
+
+  Future<Success> deleteWord(FlashcardDto dto, int index);
 }

@@ -47,5 +47,7 @@
   "congratulation": "Gratulacje!",
   "yourScore": "Twój wynik:",
   "startNextRound": "Rozpocznij kolejną rundę",
-  "chooseOtherFolder": "Wybierz inną teczkę"
+  "chooseOtherFolder": "Wybierz inną teczkę",
+  "folderDelete": "Teczka {name} została usunięta",
+  "wordDelete": "Słowo zostało usunięte"
 }
