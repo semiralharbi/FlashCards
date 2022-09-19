@@ -17,7 +17,7 @@ class AppColors {
   static const Color altoDarker = Color(0xFFC4C4C4);
   static const Color gallery = Color(0xFFEDEDED);
   static const Color buttonInactive = Color(0xFFD6E3E9);
-  static const Color red = Colors.redAccent;
+  static const Color red = Colors.red;
   static const Color white = Colors.white;
   static const Color transparent = Colors.transparent;
   static const Color sliverChalice = Color(0xFF9D9D9D);

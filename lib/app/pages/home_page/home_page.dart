@@ -7,10 +7,13 @@ import '../../../domain/entities/database/flashcard_entity.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
+import '../../utils/enums/capitalize.dart';
 import '../../utils/enums/errors.dart';
 import '../../utils/router/app_router.gr.dart';
+import '../../utils/translation/generated/l10n.dart';
 import '../../widgets/app_floating_action_button.dart';
 import '../../widgets/app_scaffold.dart';
+import '../../widgets/app_snackbar.dart';
 import '../../widgets/custom_dialog.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 import '../../widgets/custom_list_dialog/custom_list_dialog.dart';
@@ -110,13 +113,23 @@ class _Body extends HookWidget {
         child: entity != null && entity!.isNotEmpty
             ? ListView.builder(
                 itemCount: entity?.length,
-                itemBuilder: (context, index) => GestureDetector(
+          itemBuilder: (context, index) => ListContainer(
                   onTap: () => context.router.push(
-                    FolderContentRoute(flashcardEntity: entity![index]),
+                    FolderContentRoute(
+                      flashcardEntity: entity![index],
+                    ),
                   ),
-                  child: ListContainer(
-                    entityElement: entity?[index],
-                  ),
+                  key: UniqueKey(),
+                  onDismissed: (_) {
+                    context.read<HomeCubit>().deleteFolder(
+                          entity![index],
+                        );
+                    showAppSnackBar(
+                      context,
+                      Translation.of(context).folderDelete(entity![index].folderName.capitalize()),
+                    );
+                  },
+                  entityElement: entity?[index],
                 ),
               )
             : Center(

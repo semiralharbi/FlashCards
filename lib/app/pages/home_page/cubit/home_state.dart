@@ -11,4 +11,6 @@ class HomeState with _$HomeState {
     List<FlashcardEntity>? entity,
     Failure? failure,
   }) = _HomeInitial;
+
+  const factory HomeState.fail() = _Fail;
 }

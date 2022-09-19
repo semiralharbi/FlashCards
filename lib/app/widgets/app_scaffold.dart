@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
@@ -16,6 +17,7 @@ class AppScaffold extends StatelessWidget {
     this.withAppBar = true,
     this.enableBackArrow = true,
     this.appBarTitle,
+    this.onBackPress,
   }) : super(key: key);
 
   final Widget child;
@@ -26,6 +28,7 @@ class AppScaffold extends StatelessWidget {
   final bool withAppBar;
   final bool enableBackArrow;
   final String? appBarTitle;
+  final Function()? onBackPress;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -43,7 +46,8 @@ class AppScaffold extends StatelessWidget {
                         icon: const Icon(
                           Icons.keyboard_return_outlined,
                         ),
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () =>
+                            onBackPress != null ? onBackPress!() : context.router.pop(),
                       )
                     : const SizedBox.shrink(),
               )

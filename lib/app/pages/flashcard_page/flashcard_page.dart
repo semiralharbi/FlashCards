@@ -10,6 +10,7 @@ import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
 import '../../theme/app_paths.dart';
+import '../../theme/consts.dart';
 import '../../utils/router/app_router.dart';
 import '../../utils/translation/generated/l10n.dart';
 import '../../widgets/app_scaffold.dart';
@@ -32,7 +33,7 @@ class FlashcardPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _controller = useAnimationController(
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: AppConst.milliseconds600),
     );
     return AppScaffold(
       appBarTitle: Translation.of(context).flashcard,
@@ -105,13 +106,14 @@ class _Body extends StatelessWidget {
                     child: Image.asset(
                       AppPaths.monkeyBlind,
                       fit: BoxFit.scaleDown,
-                      scale: 3,
+                      scale: AppDimensions.d3,
                     ),
                   ),
-                  animation: Tween<double>(begin: 0.0, end: 90.0).animate(
+                  animation:
+                      Tween<double>(begin: AppConst.staticZero, end: AppDimensions.d90).animate(
                     CurvedAnimation(
                       parent: controller,
-                      curve: const Interval(0.0, 0.6),
+                      curve: const Interval(AppConst.staticZero, 0.6),
                     ),
                   ),
                 ),
@@ -173,8 +175,8 @@ class AnimatedFlashcard extends AnimatedWidget {
   final Widget? child;
   final Widget? lastChild;
   final bool first;
-  final double fullAngle = 180.0;
-  final double halfAngle = 180.0 / 2.0;
+  final double fullAngle = AppDimensions.d180;
+  final double halfAngle = AppDimensions.d180 / AppDimensions.d2;
 
   bool get hasLastChild => lastChild != null;
 

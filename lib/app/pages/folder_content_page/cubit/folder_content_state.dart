@@ -8,6 +8,8 @@ part 'folder_content_state.freezed.dart';
 class FolderContentState with _$FolderContentState {
   const factory FolderContentState.initial() = _Initial;
 
+  const factory FolderContentState.reload(FlashcardEntity entity) = _Reload;
+
   const factory FolderContentState.nextPage(
     FlashcardEntity entity,
     int index,

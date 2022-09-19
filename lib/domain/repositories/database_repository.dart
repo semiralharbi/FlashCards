@@ -10,4 +10,8 @@ abstract class DatabaseRepository {
   Future<Either<Failure, List<FlashcardEntity>>> getCollections();
 
   Future<Either<Failure, Success>> updateCollection(FlashcardEntity entity);
+
+  Future<Either<Failure, Success>> deleteCollection(FlashcardEntity entity);
+
+  Future<Either<Failure, Success>> deleteWord(FlashcardEntity entity, int index);
 }
