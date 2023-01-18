@@ -55,3 +55,4 @@ android/app/release
 upload.keystore
 firebase-app-distribution.json
 /lib/app/utils/translation/generated/
+.fvm
