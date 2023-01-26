@@ -5,15 +5,16 @@ import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
 
 class AppProgressIndicator extends StatelessWidget {
-  const AppProgressIndicator({Key? key}) : super(key: key);
+  const AppProgressIndicator({Key? key, this.color}) : super(key: key);
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: SpinKitCubeGrid(
-        color: AppColors.whiteSmoke,
-        size: AppDimensions.d120,
-        duration: Duration(milliseconds: 800),
+        color: color ?? AppColors.whiteSmoke,
+        size: AppDimensions.d60,
+        duration: const Duration(milliseconds: 800),
       ),
     );
   }

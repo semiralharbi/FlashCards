@@ -7,6 +7,7 @@ import '../../../domain/data_source/remote/database_remote_source.dart';
 import '../../../domain/utils/exception.dart';
 import '../../../domain/utils/success.dart';
 import '../../dto/database/flashcard_dto.dart';
+import '../../dto/database/words_dto.dart';
 
 @Injectable(as: DatabaseRemoteSource)
 class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
@@ -65,6 +66,30 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
     try {
       await database.collection("$userId").doc(dto.folderName.toUpperCase()).update({
         "words": FieldValue.arrayRemove([dto.words[index].toJson()]),
+      });
+      return const Success();
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+
+  @override
+  Future<Success> addWord(WordsDto dto, String folderName) async {
+    try {
+      await database.collection("$userId").doc(folderName.toUpperCase()).update({
+        "words": FieldValue.arrayUnion([dto.toJson()]),
+      });
+      return const Success();
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+
+  @override
+  Future<Success> editWord(WordsDto dto, String folderName) async {
+    try {
+      await database.collection("$userId").doc(folderName.toUpperCase()).update({
+        "words": FieldValue.arrayUnion([dto.toJson()]),
       });
       return const Success();
     } catch (e) {

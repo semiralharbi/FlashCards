@@ -44,66 +44,61 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        bottom: AppDimensions.d64,
-      ),
-      child: Row(
-        children: [
-          Material(
-            elevation: AppDimensions.d8,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(
-                AppDimensions.d8,
-              ),
-            ),
-            child: SizedBox(
-              width: AppDimensions.d166,
-              height: AppDimensions.d40,
-              child: ElevatedButton(
-                onPressed: onPressed,
-                child: Text(
-                  Translation.of(context).startFlashcard,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: AppDimensions.d14,
-                        color: AppColors.daintree,
-                      ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+    return Row(
+      children: [
+        Material(
+          elevation: AppDimensions.d8,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(
+              AppDimensions.d8,
             ),
           ),
-          const Spacer(),
-          Material(
-            elevation: AppDimensions.d8,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(
-                AppDimensions.d8,
-              ),
-            ),
-            child: SizedBox(
-              height: AppDimensions.d40,
-              child: ElevatedButton(
-                onPressed: () => context.read<FolderContentCubit>().animate(
-                      animationController,
-                      onChange,
+          child: SizedBox(
+            width: AppDimensions.d166,
+            height: AppDimensions.d40,
+            child: ElevatedButton(
+              onPressed: onPressed,
+              child: Text(
+                Translation.of(context).startFlashcard,
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: AppDimensions.d14,
+                      color: AppColors.daintree,
                     ),
-                child: Text(
-                  onChange.value
-                      ? Translation.of(context).hideAnswers
-                      : Translation.of(context).uncoverAnswers,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: AppDimensions.d14,
-                        color: AppColors.daintree,
-                      ),
-                ),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
-        ],
-      ),
+        ),
+        const Spacer(),
+        Material(
+          elevation: AppDimensions.d8,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(
+              AppDimensions.d8,
+            ),
+          ),
+          child: SizedBox(
+            height: AppDimensions.d40,
+            child: ElevatedButton(
+              onPressed: () => context.read<FolderContentCubit>().animate(
+                    animationController,
+                    onChange,
+                  ),
+              child: Text(
+                onChange.value
+                    ? Translation.of(context).hideAnswers
+                    : Translation.of(context).uncoverAnswers,
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: AppDimensions.d14,
+                      color: AppColors.daintree,
+                    ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

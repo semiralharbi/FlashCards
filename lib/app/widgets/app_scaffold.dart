@@ -18,6 +18,8 @@ class AppScaffold extends StatelessWidget {
     this.enableBackArrow = true,
     this.appBarTitle,
     this.onBackPress,
+    this.actions,
+    this.appBarTitlePadding,
   }) : super(key: key);
 
   final Widget child;
@@ -29,6 +31,8 @@ class AppScaffold extends StatelessWidget {
   final bool enableBackArrow;
   final String? appBarTitle;
   final Function()? onBackPress;
+  final List<Widget>? actions;
+  final EdgeInsetsGeometry? appBarTitlePadding;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -38,8 +42,14 @@ class AppScaffold extends StatelessWidget {
         appBar: withAppBar
             ? AppBar(
                 backgroundColor: AppColors.daintree,
-                title: Text(
-                  appBarTitle ?? Translation.of(context).yourFolders,
+                actions: actions,
+                title: Center(
+                  child: Padding(
+                    padding: appBarTitlePadding ?? EdgeInsets.zero,
+                    child: Text(
+                      appBarTitle ?? Translation.of(context).yourFolders,
+                    ),
+                  ),
                 ),
                 leading: enableBackArrow
                     ? IconButton(
@@ -95,14 +105,14 @@ class AppScaffold extends StatelessWidget {
                             ),
                     ),
                   ),
+                  child: SafeArea(
+                    minimum: const EdgeInsets.all(
+                      AppDimensions.d16,
+                    ),
+                    child: child,
+                  ),
                 ),
               ),
-            ),
-            SafeArea(
-              minimum: const EdgeInsets.all(
-                AppDimensions.d20,
-              ),
-              child: child,
             ),
           ],
         ),
