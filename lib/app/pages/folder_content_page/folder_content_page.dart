@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../domain/entities/database/flashcard_entity.dart';
 import '../../../injectable/injectable.dart';
+import '../../theme/app_dimensions.dart';
 import '../../theme/consts.dart';
 import '../../utils/enums/capitalize.dart';
 import '../../utils/router/app_router.gr.dart';
@@ -35,7 +36,22 @@ class FolderContentPage extends HookWidget {
 
     return AppScaffold(
       appBarTitle: flashcardEntity.folderName.capitalize(),
+      appBarTitlePadding: const EdgeInsets.only(left: AppDimensions.d44),
       onlyBottomWood: true,
+      actions: [
+        IconButton(
+          onPressed: () => context.router.push(
+            EditWordsRoute(flashcardEntity: flashcardEntity),
+          ),
+          icon: const Icon(Icons.edit),
+        ),
+        Builder(
+          builder: (context) => IconButton(
+            onPressed: () => Scaffold.of(context).openEndDrawer(),
+            icon: const Icon(Icons.menu),
+          ),
+        ),
+      ],
       onBackPress: () => context.router.push(const HomeRoute()),
       drawer: const CustomDrawer(),
       child: BlocProvider(

@@ -24,9 +24,8 @@ class ListContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppDimensions.d8,
-          vertical: AppDimensions.d8,
+        padding: const EdgeInsets.only(
+          top: AppDimensions.d16,
         ),
         child: Material(
           color: AppColors.red,
@@ -76,6 +75,7 @@ class ListContainer extends StatelessWidget {
                 ),
               ),
               height: AppDimensions.d68,
+              width: MediaQuery.of(context).size.width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

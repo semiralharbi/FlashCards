@@ -37,7 +37,7 @@
   "yourProgress": "Twój postęp: {count} / {length}",
   "profile": "Profil",
   "enWordDesc": "Wprowadź słowo po Angielsku",
-  "translatedWordDesc": "Wprowadź przetłumaczone słowo",
+  "translatedWordDesc": "Wprowadź tłumaczenie dla słowa",
   "hideAnswers": "Ukryj odpowiedzi",
   "uncoverAnswers": "Pokaż odpowiedzi",
   "startFlashcard": "Rozpocznij\nfiszkowanie!",

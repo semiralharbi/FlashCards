@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../domain/entities/database/flashcard_entity.dart';
+import '../../../domain/entities/database/words_entity.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
@@ -20,64 +21,65 @@ import '../../widgets/rounded_icon_button.dart';
 import 'cubit/flashcard_cubit.dart';
 import 'cubit/flashcard_state.dart';
 
-class FlashcardPage extends HookWidget {
+class FlashcardPage extends StatelessWidget {
   const FlashcardPage({
     Key? key,
     required this.flashcardEntity,
     required this.index,
+    this.newEntityList,
   }) : super(key: key);
 
   final FlashcardEntity flashcardEntity;
+  final List<WordsEntity>? newEntityList;
   final int index;
 
   @override
-  Widget build(BuildContext context) {
-    final _controller = useAnimationController(
-      duration: const Duration(milliseconds: AppConst.milliseconds600),
-    );
-    return AppScaffold(
-      appBarTitle: Translation.of(context).flashcard,
-      drawer: const CustomDrawer(),
-      onlyBottomWood: true,
-      child: BlocProvider(
-        create: (context) => getIt<FlashcardCubit>(),
-        child: BlocConsumer<FlashcardCubit, FlashcardState>(
-          listener: (context, state) => state.maybeWhen(
-            next: (wordsEntity, index) => context.router.push(
-              FlashcardRoute(
+  Widget build(BuildContext context) => AppScaffold(
+        appBarTitle: Translation.of(context).flashcard,
+        drawer: const CustomDrawer(),
+        onlyBottomWood: true,
+        child: BlocProvider(
+          create: (context) => getIt<FlashcardCubit>(),
+          child: BlocConsumer<FlashcardCubit, FlashcardState>(
+            listener: (context, state) => state.maybeWhen(
+              next: (wordsEntity, index) => context.router.push(
+                FlashcardRoute(
+                  flashcardEntity: flashcardEntity,
+                  newEntityList: wordsEntity,
+                  index: index,
+                ),
+              ),
+              orElse: () => const SizedBox.shrink(),
+            ),
+            builder: (context, state) {
+              return _Body(
                 flashcardEntity: flashcardEntity,
                 index: index,
-              ),
-            ),
-            orElse: () => const SizedBox.shrink(),
+                newEntityList: newEntityList,
+              );
+            },
           ),
-          builder: (context, state) {
-            return _Body(
-              controller: _controller,
-              flashcardEntity: flashcardEntity,
-              index: index,
-            );
-          },
         ),
-      ),
-    );
-  }
+      );
 }
 
-class _Body extends StatelessWidget {
+class _Body extends HookWidget {
   const _Body({
     Key? key,
-    required this.controller,
     required this.flashcardEntity,
     required this.index,
+    this.newEntityList,
   }) : super(key: key);
 
-  final AnimationController controller;
   final FlashcardEntity flashcardEntity;
+  final List<WordsEntity>? newEntityList;
   final int index;
 
   @override
   Widget build(BuildContext context) {
+    final controller = useAnimationController(
+      duration: const Duration(milliseconds: AppConst.milliseconds600),
+    );
     return Column(
       children: [
         SizedBox(
@@ -110,7 +112,7 @@ class _Body extends StatelessWidget {
                     ),
                   ),
                   animation:
-                      Tween<double>(begin: AppConst.staticZero, end: AppDimensions.d90).animate(
+                  Tween<double>(begin: AppConst.staticZero, end: AppDimensions.d90).animate(
                     CurvedAnimation(
                       parent: controller,
                       curve: const Interval(AppConst.staticZero, 0.6),
@@ -133,10 +135,11 @@ class _Body extends StatelessWidget {
               buttonColor: AppColors.whiteSmoke,
               iconColor: AppColors.daintree,
               onTap: () => context.read<FlashcardCubit>().next(
-                    entity: flashcardEntity,
+                entity: flashcardEntity,
                     controller: controller,
                     index: index,
                     isCorrect: false,
+                    newEntityList: newEntityList,
                   ),
             ),
             const SizedBox(
@@ -151,6 +154,7 @@ class _Body extends StatelessWidget {
                     controller: controller,
                     index: index,
                     isCorrect: true,
+                    newEntityList: newEntityList,
                   ),
             ),
           ],
@@ -185,18 +189,15 @@ class AnimatedFlashcard extends AnimatedWidget {
     return animation.value == fullAngle && !hasLastChild
         ? const SizedBox.shrink()
         : Transform(
-            alignment:
-                hasLastChild ? Alignment.bottomCenter : Alignment.topCenter,
+      alignment: hasLastChild ? Alignment.bottomCenter : Alignment.topCenter,
             transform: Matrix4.identity()
               ..setEntry(3, 2, 0.001)
               ..rotateY(
-                (pi / fullAngle) *
-                    (hasLastChild ? animation.value : -animation.value),
+                (pi / fullAngle) * (hasLastChild ? animation.value : -animation.value),
               ),
             child: Container(
               decoration: BoxDecoration(
-                color: (animation.value < halfAngle && first) ||
-                        (!first && animation.value == 0.0)
+                color: (animation.value < halfAngle && first) || (!first && animation.value == 0.0)
                     ? AppColors.daintree
                     : AppColors.blueStone,
                 borderRadius: const BorderRadius.all(

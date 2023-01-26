@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../domain/entities/database/flashcard_entity.dart';
@@ -12,7 +12,6 @@ class FlashcardCubit extends Cubit<FlashcardState> {
   FlashcardCubit(this._updateFolderDataUseCase) : super(const FlashcardState.initial());
 
   final UpdateFolderDataUseCase _updateFolderDataUseCase;
-  List<WordsEntity> newEntityList = [];
   bool isLastWord = false;
 
   void animate(AnimationController controller) {
@@ -30,28 +29,26 @@ class FlashcardCubit extends Cubit<FlashcardState> {
     required AnimationController controller,
     required int index,
     required bool isCorrect,
+    List<WordsEntity>? newEntityList,
   }) async {
-    if (controller.isDismissed) {
+    if (controller.isDismissed && !controller.isAnimating) {
       await controller.forward(from: 0.0);
       await Future.delayed(
         const Duration(milliseconds: 250),
       );
     }
-    newEntityList = entity.words;
+    List<WordsEntity> wordsList = newEntityList?.toList() ?? entity.words.toList();
     if (!isLastWord) {
-      final wordElement = entity.words[index].copyWith(
-        correctAnswer: isCorrect,
-        nrRepeated: entity.words[index].nrRepeated + 1,
-      );
-      newEntityList[index] = wordElement;
+      wordsList[index] = entity.words[index]
+          .copyWith(correctAnswer: isCorrect, nrRepeated: wordsList[index].nrRepeated + 1);
     }
     if (index < entity.words.length - 1) {
       index++;
-      emit(FlashcardState.next(newEntityList, index));
+      emit(FlashcardState.next(wordsList, index));
     } else {
       isLastWord = true;
-      entity = entity.copyWith(words: newEntityList);
-      await _updateFolderDataUseCase(entity);
+      final newEntity = entity.copyWith(words: wordsList);
+      await _updateFolderDataUseCase(newEntity);
       emit(const FlashcardState.results());
     }
   }

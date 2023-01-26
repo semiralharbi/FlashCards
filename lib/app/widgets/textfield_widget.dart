@@ -58,6 +58,11 @@ class TextFieldWidget extends StatelessWidget {
                 controller: controller,
                 style: const TextStyle(color: AppColors.daintree),
                 decoration: InputDecoration(
+                  labelText: hintText,
+                  labelStyle: const TextStyle(
+                    fontSize: AppDimensions.d14,
+                    color: AppColors.daintree,
+                  ),
                   suffixIcon: suffixIcon,
                   counterText: '',
                   errorText: error,
@@ -70,9 +75,9 @@ class TextFieldWidget extends StatelessWidget {
                         color: AppColors.manatee,
                       ),
                   errorStyle: TextStyle(
-                    height: 1,
+                    height: 0.8,
                     color: AppColors.red,
-                    fontSize: error != '' ? AppDimensions.d14 : 0,
+                    fontSize: error != '' ? AppDimensions.d12 : 0,
                   ),
                   errorBorder: const OutlineInputBorder(
                     borderSide: BorderSide(

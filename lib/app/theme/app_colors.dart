@@ -18,6 +18,7 @@ class AppColors {
   static const Color gallery = Color(0xFFEDEDED);
   static const Color buttonInactive = Color(0xFFD6E3E9);
   static const Color red = Colors.red;
+  static const Color milanoRed = Color(0xFFB20616);
   static const Color white = Colors.white;
   static const Color transparent = Colors.transparent;
   static const Color sliverChalice = Color(0xFF9D9D9D);
@@ -31,6 +32,5 @@ class AppColors {
   static const Color aliceBlue = Color(0xFFE5F7FF);
   static const Color wildWillow = Color(0xFFBCBE6A);
   static const Color mercury = Color(0xFFE8E8E8);
-  static const Color salem = Color(0xFF059E23);
-
+  static const Color salem = Color(0xFF097F4B);
 }

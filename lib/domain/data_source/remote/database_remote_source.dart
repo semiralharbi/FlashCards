@@ -1,4 +1,5 @@
 import '../../../data/dto/database/flashcard_dto.dart';
+import '../../../data/dto/database/words_dto.dart';
 import '../../utils/success.dart';
 
 abstract class DatabaseRemoteSource {
@@ -11,4 +12,8 @@ abstract class DatabaseRemoteSource {
   Future<Success> deleteCollection(FlashcardDto dto);
 
   Future<Success> deleteWord(FlashcardDto dto, int index);
+
+  Future<Success> addWord(WordsDto dto, String folderName);
+
+  Future<Success> editWord(WordsDto dto, String folderName);
 }
