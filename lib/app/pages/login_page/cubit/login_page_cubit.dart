@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../domain/entities/login_entity.dart';
@@ -12,6 +12,7 @@ class LoginPageCubit extends Cubit<LoginPageState> {
   final LoginUseCase _loginUseCase;
 
   Future<void> onLoginButton(String email, String password) async {
+    emit(const LoginPageState.loading());
     final result = await _loginUseCase(
       LoginEntity(
         email: email,
@@ -23,7 +24,7 @@ class LoginPageCubit extends Cubit<LoginPageState> {
         emit(LoginPageState.fail(error: l.appError));
         emit(LoginPageState.initial(email: email, password: password));
       },
-      (r) {
+          (r) {
         if (r.displayName == null) {
           emit(const LoginPageState.showUsernamePage());
         } else {

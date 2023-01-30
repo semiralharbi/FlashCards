@@ -18,6 +18,7 @@ import '../../widgets/app_snackbar.dart';
 import '../../widgets/custom_dialog.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 import '../../widgets/custom_list_dialog/custom_list_dialog.dart';
+import '../../widgets/progress_indicator.dart';
 import 'cubit/home_cubit.dart';
 import 'cubit/home_state.dart';
 import 'widgets/list_container.dart';
@@ -29,16 +30,29 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-        create: (context) => getIt<HomeCubit>(),
+    create: (context) => getIt<HomeCubit>()..init(),
         child: BlocConsumer<HomeCubit, HomeState>(
           builder: (context, state) => state.maybeWhen(
             initial: (entity, failure) => _Body(
               entity: entity,
               failure: failure?.appError,
             ),
-            orElse: () => const SizedBox.shrink(),
+            loading: () => const AppScaffold(
+              onlyBottomWood: true,
+              enableBackArrow: false,
+              child: AppProgressIndicator(
+                color: AppColors.daintree,
+              ),
+            ),
+            orElse: () => const _Body(
+              failure: Errors.somethingWentWrong,
+            ),
           ),
           listener: (context, state) => state.maybeWhen(
+            fail: (error) => showAppSnackBar(
+              context,
+              error.errorText(context),
+            ),
             orElse: () => null,
           ),
         ),
@@ -108,25 +122,25 @@ class _Body extends HookWidget {
             builder: (dialogContext) => CustomDialog(
               controller: folderController,
               onTap: () async {
-                    await dialogContext.router.pop(true);
-                  },
-                ),
+                await dialogContext.router.pop(true);
+              },
+            ),
           ).then((value) {
             value != null
                 ? showDialog(
-              context: context,
-              builder: (secondDialogContext) => BlocProvider<HomeCubit>.value(
-                value: context.read<HomeCubit>(),
-                child: CustomListDialog(
-                  enWordListControllers: enWordListControllers,
-                  translatedListControllers: translatedListControllers,
-                  onForwardTap: () async {
-                    await context.read<HomeCubit>().createFolder(
-                      folderName: folderController.text,
-                      enWordsList: enWordListControllers.map((e) => e.text).toList(),
-                      translatedWordsList:
-                      translatedListControllers.map((e) => e.text).toList(),
-                    );
+                    context: context,
+                    builder: (secondDialogContext) => BlocProvider<HomeCubit>.value(
+                      value: context.read<HomeCubit>(),
+                      child: CustomListDialog(
+                        enWordListControllers: enWordListControllers,
+                        translatedListControllers: translatedListControllers,
+                        onForwardTap: () async {
+                          await context.read<HomeCubit>().createFolder(
+                                folderName: folderController.text,
+                                enWordsList: enWordListControllers.map((e) => e.text).toList(),
+                                translatedWordsList:
+                                    translatedListControllers.map((e) => e.text).toList(),
+                              );
                           folderController.clear();
                           await secondDialogContext.router.pop();
                         },

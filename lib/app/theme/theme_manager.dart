@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:injectable/injectable.dart';
 
 import 'app_colors.dart';
@@ -18,13 +19,23 @@ class ThemeManager {
       ),
       headline2: AppFonts.boldJoan.copyWith(
         color: AppColors.daintree,
+        fontSize: AppDimensions.d22,
       ),
       headline3: AppFonts.regularJoan.copyWith(
         color: AppColors.daintree,
+        fontSize: AppDimensions.d20,
       ),
       button: AppFonts.boldJoan.copyWith(
         color: AppColors.white,
         fontSize: AppDimensions.d12,
+      ),
+      subtitle1: GoogleFonts.oswald(
+        fontSize: AppDimensions.d16,
+        letterSpacing: 0.75,
+      ),
+      subtitle2: GoogleFonts.oswald(
+        fontSize: AppDimensions.d14,
+        letterSpacing: 0.75,
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(

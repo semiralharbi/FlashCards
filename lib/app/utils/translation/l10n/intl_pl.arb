@@ -49,5 +49,6 @@
   "startNextRound": "Rozpocznij kolejną rundę",
   "chooseOtherFolder": "Wybierz inną teczkę",
   "folderDelete": "Teczka {name} została usunięta",
-  "wordDelete": "Słowo zostało usunięte"
+  "wordDelete": "Słowo zostało usunięte",
+  "guessHiddenWordDesc": "Zgadnij zakryte słowo, a następnie\nkliknij aby odkryć"
 }

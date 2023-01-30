@@ -2,12 +2,11 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude:
-    - lib/app/utils/translations/generated/*.dart
-    - lib/app/utils/translations/generated/intl/*.dart
     - lib/**/*.g.dart
     - lib/**/*.gr.dart
     - lib/**/*.freezed.dart
-    - lib/injectable.config.dart
+    - lib/**/generated
+    - lib/**/injectable.config.dart
     - test/**/*.mocks.dart
     - test/generate_mocks.mocks.dart
 

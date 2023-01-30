@@ -14,6 +14,7 @@ class PasswordTextFieldWidget extends HookWidget {
     this.inputFormatters,
     this.maxLength,
     this.textCapitalization = TextCapitalization.none,
+    required this.obscurePassword,
     Key? key,
   }) : super(key: key);
 
@@ -24,10 +25,10 @@ class PasswordTextFieldWidget extends HookWidget {
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLength;
   final TextCapitalization textCapitalization;
+  final ValueNotifier<bool> obscurePassword;
 
   @override
   Widget build(BuildContext context) {
-    final obscurePassword = useState(true);
     return Padding(
       padding: const EdgeInsets.only(
         top: AppDimensions.d12,

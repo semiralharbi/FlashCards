@@ -29,9 +29,8 @@ class LoginPage extends StatelessWidget {
         create: (context) => getIt<LoginPageCubit>(),
         child: BlocConsumer<LoginPageCubit, LoginPageState>(
           listener: (context, state) => state.maybeWhen(
-            loading: () => const AppProgressIndicator(),
             showUsernamePage: () => context.router.push(const UsernameRoute()),
-            showHomePage: () => context.router.pushAll([const HomeRoute()]),
+            showHomePage: () => context.router.replaceAll([const HomeRoute()]),
             fail: (error) => error != null
                 ? showAppSnackBar(
                     context,
@@ -48,7 +47,10 @@ class LoginPage extends StatelessWidget {
               email: email,
               password: password,
             ),
-            orElse: () => const SizedBox.shrink(),
+            loading: () => const AppProgressIndicator(
+              color: AppColors.daintree,
+            ),
+            orElse: _Body.new,
           ),
         ),
       ),
@@ -66,76 +68,80 @@ class _Body extends HookWidget {
   Widget build(BuildContext context) {
     final emailController = useTextEditingController(text: email);
     final passwordController = useTextEditingController(text: password);
-    return Center(
-      child: Container(
-        decoration: const BoxDecoration(
-          color: AppColors.whiteSmoke,
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              AppDimensions.d16,
+    final obscurePassword = useState(true);
+    return SingleChildScrollView(
+      child: Center(
+        child: Container(
+          decoration: const BoxDecoration(
+            color: AppColors.whiteSmoke,
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                AppDimensions.d16,
+              ),
             ),
           ),
-        ),
-        height: MediaQuery.of(context).size.height / 1.6,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Spacer(),
-            Text(
-              Translation.of(context).welcome,
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: AppDimensions.d18,
-                    color: AppColors.daintree,
-                  ),
-              textAlign: TextAlign.center,
-            ),
-            const Spacer(),
-            GestureDetector(
-              onTap: () => context.router.push(const RegistrationRoute()),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  padding: const EdgeInsets.only(right: AppDimensions.d12),
-                  width: AppDimensions.d110,
-                  child: Text(
-                    Translation.of(context).createAccount,
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: AppDimensions.d12,
-                          color: AppColors.daintree,
-                        ),
+          height: MediaQuery.of(context).size.height / 1.6,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Spacer(),
+              Text(
+                Translation.of(context).welcome,
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: AppDimensions.d18,
+                      color: AppColors.daintree,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+              const Spacer(),
+              GestureDetector(
+                onTap: () => context.router.push(const RegistrationRoute()),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    padding: const EdgeInsets.only(right: AppDimensions.d12),
+                    width: AppDimensions.d110,
+                    child: Text(
+                      Translation.of(context).createAccount,
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: AppDimensions.d12,
+                            color: AppColors.daintree,
+                          ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            TextFieldWidget(
-              controller: emailController,
-              hintText: Translation.of(context).email,
-            ),
-            PasswordTextFieldWidget(
-              controller: passwordController,
-              hintText: Translation.of(context).password,
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.095,
-            ),
-            const Spacer(flex: 2),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.d20,
+              TextFieldWidget(
+                controller: emailController,
+                hintText: Translation.of(context).email,
               ),
-              child: AppElevatedButton(
-                onPressed: () => context.read<LoginPageCubit>().onLoginButton(
-                      emailController.text,
-                      passwordController.text,
-                    ),
-                text: Translation.of(context).logIn,
+              PasswordTextFieldWidget(
+                obscurePassword: obscurePassword,
+                controller: passwordController,
+                hintText: Translation.of(context).password,
               ),
-            ),
-            const Spacer(),
-          ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.095,
+              ),
+              const Spacer(flex: 2),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimensions.d20,
+                ),
+                child: AppElevatedButton(
+                  onPressed: () => context.read<LoginPageCubit>().onLoginButton(
+                        emailController.text,
+                        passwordController.text,
+                      ),
+                  text: Translation.of(context).logIn,
+                ),
+              ),
+              const Spacer(),
+            ],
+          ),
         ),
       ),
     );

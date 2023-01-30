@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../domain/entities/database/flashcard_entity.dart';
 import '../../../../domain/utils/failure.dart';
+import '../../../utils/enums/errors.dart';
 
 part 'home_state.freezed.dart';
 
@@ -12,5 +13,9 @@ class HomeState with _$HomeState {
     Failure? failure,
   }) = _HomeInitial;
 
-  const factory HomeState.fail() = _Fail;
+  const factory HomeState.fail(Errors error) = _Fail;
+
+  const factory HomeState.loading() = _Loading;
+
+  const factory HomeState.logout() = _Logout;
 }

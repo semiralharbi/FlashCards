@@ -80,6 +80,8 @@ class _Body extends HookWidget {
     final controller = useAnimationController(
       duration: const Duration(milliseconds: AppConst.milliseconds600),
     );
+    final animation = useAnimation(controller);
+    final isAnimationCompleted = animation > 0;
     return Column(
       children: [
         SizedBox(
@@ -123,45 +125,70 @@ class _Body extends HookWidget {
             ],
           ),
         ),
-        const Spacer(),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.02,
+        ),
         FlashcardContainer(text: flashcardEntity.words[index].translatedWord),
         const Spacer(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            RoundedIconButton(
-              elementHeight: AppDimensions.d24,
-              stringPath: AppPaths.close,
-              buttonColor: AppColors.whiteSmoke,
-              iconColor: AppColors.daintree,
-              onTap: () => context.read<FlashcardCubit>().next(
-                entity: flashcardEntity,
-                    controller: controller,
-                    index: index,
-                    isCorrect: false,
-                    newEntityList: newEntityList,
+        AnimatedSwitcher(
+          duration: const Duration(
+            milliseconds: AppConst.millisecond400,
+          ),
+          transitionBuilder: (child, animation) => AbsorbPointer(
+            absorbing: animation.status == AnimationStatus.forward,
+            child: ScaleTransition(
+              scale: animation,
+              child: child,
+            ),
+          ),
+          child: isAnimationCompleted
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    RoundedIconButton(
+                      elementHeight: AppDimensions.d24,
+                      stringPath: AppPaths.close,
+                      buttonColor: AppColors.whiteSmoke,
+                      iconColor: AppColors.daintree,
+                      onTap: () => context.read<FlashcardCubit>().next(
+                            entity: flashcardEntity,
+                            controller: controller,
+                            index: index,
+                            isCorrect: false,
+                            newEntityList: newEntityList,
+                          ),
+                    ),
+                    const SizedBox(
+                      width: AppDimensions.d26,
+                    ),
+                    RoundedIconButton(
+                      elementHeight: AppDimensions.d44,
+                      iconData: Icons.check,
+                      padding: const EdgeInsets.all(AppDimensions.d8),
+                      onTap: () => context.read<FlashcardCubit>().next(
+                            entity: flashcardEntity,
+                            controller: controller,
+                            index: index,
+                            isCorrect: true,
+                            newEntityList: newEntityList,
+                          ),
+                    ),
+                  ],
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: AppDimensions.d22,
                   ),
-            ),
-            const SizedBox(
-              width: AppDimensions.d26,
-            ),
-            RoundedIconButton(
-              elementHeight: AppDimensions.d44,
-              iconData: Icons.check,
-              padding: const EdgeInsets.all(AppDimensions.d8),
-              onTap: () => context.read<FlashcardCubit>().next(
-                entity: flashcardEntity,
-                    controller: controller,
-                    index: index,
-                    isCorrect: true,
-                    newEntityList: newEntityList,
+                  child: Text(
+                    Translation.of(context).guessHiddenWordDesc,
+                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                          color: AppColors.daintree,
+                          fontWeight: FontWeight.w500,
+                        ),
+                    textAlign: TextAlign.center,
                   ),
-            ),
-          ],
-        ),
-        const Spacer(
-          flex: 2,
-        ),
+                ),
+        )
       ],
     );
   }
