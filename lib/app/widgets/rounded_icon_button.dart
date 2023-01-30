@@ -25,7 +25,7 @@ class RoundedIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Material(
-    elevation: AppDimensions.d20,
+    elevation: AppDimensions.d6,
         shape: CircleBorder(
           side: BorderSide(
             color: buttonColor != null ? AppColors.daintree : AppColors.whiteSmoke,

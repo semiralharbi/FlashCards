@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../domain/entities/create_user_entity.dart';
@@ -17,6 +17,7 @@ class RegistrationPageCubit extends Cubit<RegistrationPageState> {
     required String password,
     required String repeatPassword,
   }) async {
+    emit(const RegistrationPageState.loading());
     if (email.isNotEmpty && password.isNotEmpty && repeatPassword.compareTo(password) == 0) {
       final result = await _createUserUseCase(
         CreateUserEntity(
@@ -31,9 +32,15 @@ class RegistrationPageCubit extends Cubit<RegistrationPageState> {
               error: l.appError,
             ),
           );
-          emit(const RegistrationPageState.content());
+          emit(
+            RegistrationPageState.content(
+              email: email,
+              password: password,
+              repeatPassword: repeatPassword,
+            ),
+          );
         },
-        (r) => emit(
+            (r) => emit(
           const RegistrationPageState.registerSuccess(),
         ),
       );

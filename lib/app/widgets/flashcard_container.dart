@@ -13,10 +13,15 @@ class FlashcardContainer extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         height: MediaQuery.of(context).size.height * 0.3,
         decoration: BoxDecoration(
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: AppDimensions.d6,
+            ),
+          ],
           color: AppColors.whiteSmoke,
           border: Border.all(
             color: AppColors.daintree,
-            width: AppDimensions.d8,
+            width: AppDimensions.d4,
           ),
           borderRadius: const BorderRadius.all(
             Radius.circular(
@@ -24,7 +29,6 @@ class FlashcardContainer extends StatelessWidget {
             ),
           ),
         ),
-        padding: const EdgeInsets.all(AppDimensions.d8),
         child: Center(
           child: Text(
             text.capitalize(),

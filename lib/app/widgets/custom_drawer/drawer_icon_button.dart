@@ -7,26 +7,29 @@ class DrawerIconButton extends StatelessWidget {
   const DrawerIconButton({
     Key? key,
     required this.onTap,
-    this.padding,
+    this.buttonPadding,
+    this.textPadding,
     required this.text,
     required this.iconData,
   }) : super(key: key);
 
   final VoidCallback onTap;
-  final EdgeInsets? padding;
+  final EdgeInsets? buttonPadding;
+  final EdgeInsets? textPadding;
   final String text;
   final IconData iconData;
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: padding ?? const EdgeInsets.only(bottom: AppDimensions.d32),
+        padding: buttonPadding ?? const EdgeInsets.only(bottom: AppDimensions.d24),
         child: GestureDetector(
           onTap: onTap,
           child: Container(
+            padding: textPadding,
             decoration: const BoxDecoration(
               color: AppColors.transparent,
               border: Border(
-                top: BorderSide(color: Colors.black, width: 0.3),
+                top: BorderSide(color: Colors.black, width: 0.6),
               ),
             ),
             width: MediaQuery.of(context).size.width,
@@ -45,9 +48,9 @@ class DrawerIconButton extends StatelessWidget {
                 Text(
                   text,
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.daintree,
-                      ),
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.daintree,
+                  ),
                 ),
               ],
             ),

@@ -8,6 +8,8 @@ part 'registration_page_state.freezed.dart';
 class RegistrationPageState with _$RegistrationPageState {
   const factory RegistrationPageState.initial() = _Initial;
 
+  const factory RegistrationPageState.loading() = _Loading;
+
   const factory RegistrationPageState.fail({
     Errors? error,
   }) = _Fail;
