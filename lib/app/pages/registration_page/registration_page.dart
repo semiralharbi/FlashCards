@@ -173,7 +173,7 @@ class _Body extends HookWidget {
                         password: passwordController.text,
                         repeatPassword: repeatPasswordController.text,
                       ),
-                  text: context.tr.registration,
+                  text: context.tr.createAcc,
                 ),
               ),
               const Spacer(),

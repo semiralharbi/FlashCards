@@ -74,3 +74,12 @@ Test every
 
 For mocking use [mockito](https://pub.dev/packages/mockito) and [bloc_test](https://pub.dev/packages/bloc_test).
 **Protip:** Use `setMockMethodCallHandler()`  on `MethodChannel` class to mock response from platform channels.
+
+## Presentation
+
+![intro](lib/app/assets/images/presentation/intro.png)
+![intro](lib/app/assets/images/presentation/register.png)
+![intro](lib/app/assets/images/presentation/menu.png)
+![intro](lib/app/assets/images/presentation/folders.png)
+![intro](lib/app/assets/images/presentation/folder_content.png)
+![intro](lib/app/assets/images/presentation/edit_words.png)
