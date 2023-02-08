@@ -1,15 +1,22 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/entities/database/flashcard_entity.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
 import '../../theme/app_paths.dart';
 import '../../utils/enums/context_extension.dart';
+import '../../utils/router/app_router.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({Key? key}) : super(key: key);
+  const ResultPage({
+    Key? key,
+    required this.entity,
+  }) : super(key: key);
+  final FlashcardEntity entity;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +52,7 @@ class ResultPage extends StatelessWidget {
               ),
               const SizedBox(height: AppDimensions.d10),
               Text(
-                '10/100',
+                '${entity.correctAnswers}/${entity.words.length}',
                 style: context.tht.subtitle1!.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: AppDimensions.d28,
@@ -58,8 +65,12 @@ class ResultPage extends StatelessWidget {
                   SizedBox(
                     width: context.mqs.width * 0.36,
                     child: AppElevatedButton(
-                      text: context.tr.startNextRound,
-                      onPressed: () {},
+                      text: context.tr.retry,
+                      onPressed: () => context.router.replace(
+                        FolderContentRoute(
+                          flashcardEntity: entity,
+                        ),
+                      ),
                     ),
                   ),
                   const Spacer(),
@@ -67,7 +78,9 @@ class ResultPage extends StatelessWidget {
                     width: context.mqs.width * 0.36,
                     child: AppElevatedButton(
                       text: context.tr.chooseOtherFolder,
-                      onPressed: () {},
+                      onPressed: () => context.router.replace(
+                        const HomeRoute(),
+                      ),
                     ),
                   ),
                 ],

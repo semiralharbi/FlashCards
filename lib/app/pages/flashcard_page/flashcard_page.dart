@@ -49,6 +49,7 @@ class FlashcardPage extends StatelessWidget {
                   index: index,
                 ),
               ),
+              results: (entity) => context.router.replace(ResultRoute(entity: entity)),
               orElse: () => const SizedBox.shrink(),
             ),
             builder: (context, state) {

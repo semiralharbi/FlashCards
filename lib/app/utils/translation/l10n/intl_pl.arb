@@ -52,5 +52,6 @@
   "folderDelete": "Teczka {name} została usunięta",
   "wordDelete": "Słowo zostało usunięte",
   "guessHiddenWordDesc": "Zgadnij zakryte słowo, a następnie\nkliknij aby odkryć",
-  "answeredRight": "Odpowiedziałeś dobrze na:"
+  "answeredRight": "Odpowiedziałeś dobrze na:",
+  "retry": "Spróbuj ponownie"
 }
