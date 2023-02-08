@@ -97,20 +97,22 @@ class WordsContainer extends StatelessWidget {
                     duration: const Duration(
                       milliseconds: 400,
                     ),
-                    left: value ? AppDimensions.d50 : AppDimensions.d130,
+                    left: value ? AppDimensions.d50 : context.mqs.width * 0.2,
                     top: AppDimensions.d14,
                     bottom: AppDimensions.d14,
                     child: SizedBox(
-                      width: AppDimensions.d80,
+                      width: value ? AppDimensions.d80 : context.mqs.width * 0.5,
                       child: Center(
-                        child: Text(
-                          flashcardEntity.words[index].translatedWord.capitalize(),
-                          style: context.tht.subtitle1!.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: AppDimensions.d14,
-                            color: AppColors.daintree,
+                        child: SingleChildScrollView(
+                          child: Text(
+                            flashcardEntity.words[index].translatedWord.capitalize(),
+                            style: context.tht.subtitle1!.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: AppDimensions.d14,
+                              color: AppColors.daintree,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
