@@ -58,7 +58,7 @@ class FlashcardCubit extends Cubit<FlashcardState> {
         correctAnswers: correctAnswersCounter,
       );
       await _updateFolderDataUseCase(newEntity);
-      emit(const FlashcardState.results());
+      emit(FlashcardState.results(newEntity));
     }
   }
 }
