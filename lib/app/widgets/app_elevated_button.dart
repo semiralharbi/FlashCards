@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
+import '../utils/enums/context_extension.dart';
 
 class AppElevatedButton extends StatelessWidget {
   const AppElevatedButton({
@@ -22,11 +22,11 @@ class AppElevatedButton extends StatelessWidget {
           onPressed: () => onPressed(),
           child: SizedBox(
             height: AppDimensions.d50,
-            width: MediaQuery.of(context).size.width,
+            width: context.mqs.width,
             child: Center(
               child: Text(
                 text,
-                style: const TextStyle(color: AppColors.daintree),
+                style: context.tht.button,
                 textAlign: TextAlign.center,
               ),
             ),

@@ -6,10 +6,10 @@ import '../../../theme/app_colors.dart';
 import '../../../theme/app_dimensions.dart';
 import '../../../theme/consts.dart';
 import '../../../utils/enums/capitalize.dart';
-import '../../../utils/translation/generated/l10n.dart';
+import '../../../utils/enums/context_extension.dart';
 
-class ListContainer extends StatelessWidget {
-  const ListContainer({
+class FolderContainer extends StatelessWidget {
+  const FolderContainer({
     Key? key,
     this.onTap,
     required this.entityElement,
@@ -75,7 +75,7 @@ class ListContainer extends StatelessWidget {
                 ),
               ),
               height: AppDimensions.d68,
-              width: MediaQuery.of(context).size.width,
+              width: context.mqs.width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -87,11 +87,11 @@ class ListContainer extends StatelessWidget {
                   const Spacer(),
                   Text(
                     entityElement?.folderName.capitalize() ?? '',
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: AppDimensions.d16,
-                          color: AppColors.daintree,
-                        ),
+                    style: context.tht.subtitle1!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: AppDimensions.d16,
+                      color: AppColors.daintree,
+                    ),
                   ),
                   const Spacer(),
                   Column(
@@ -99,15 +99,15 @@ class ListContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        Translation.of(context).yourProgress(
+                        context.tr.yourProgress(
                           '${entityElement?.correctAnswers ?? 0}',
                           '${entityElement?.words.length ?? 0}',
                         ),
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                              fontWeight: FontWeight.w700,
-                              fontSize: AppDimensions.d10,
-                              color: AppColors.daintree,
-                            ),
+                        style: context.tht.subtitle1!.copyWith(
+                          fontWeight: FontWeight.w700,
+                          fontSize: AppDimensions.d10,
+                          color: AppColors.daintree,
+                        ),
                       ),
                       const SizedBox(
                         height: AppDimensions.d6,

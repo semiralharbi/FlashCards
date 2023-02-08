@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
+import '../../utils/enums/context_extension.dart';
 
 class DrawerIconButton extends StatelessWidget {
   const DrawerIconButton({
@@ -32,7 +33,7 @@ class DrawerIconButton extends StatelessWidget {
                 top: BorderSide(color: Colors.black, width: 0.6),
               ),
             ),
-            width: MediaQuery.of(context).size.width,
+            width: context.mqs.width,
             height: AppDimensions.d46,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,7 +48,7 @@ class DrawerIconButton extends StatelessWidget {
                 ),
                 Text(
                   text,
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  style: context.tht.subtitle1!.copyWith(
                     fontWeight: FontWeight.w700,
                     color: AppColors.daintree,
                   ),

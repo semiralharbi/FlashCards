@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
 import '../utils/enums/capitalize.dart';
+import '../utils/enums/context_extension.dart';
 
 class FlashcardContainer extends StatelessWidget {
   const FlashcardContainer({Key? key, required this.text}) : super(key: key);
@@ -11,7 +12,7 @@ class FlashcardContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        height: MediaQuery.of(context).size.height * 0.3,
+    height: context.mqs.height * 0.3,
         decoration: BoxDecoration(
           boxShadow: const [
             BoxShadow(

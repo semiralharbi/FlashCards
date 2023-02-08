@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
+import '../utils/enums/context_extension.dart';
 
 class TextFieldWidget extends StatelessWidget {
   const TextFieldWidget({
@@ -59,21 +60,16 @@ class TextFieldWidget extends StatelessWidget {
                 style: const TextStyle(color: AppColors.daintree),
                 decoration: InputDecoration(
                   labelText: hintText,
-                  labelStyle: const TextStyle(
-                    fontSize: AppDimensions.d14,
-                    color: AppColors.daintree,
-                  ),
+                  labelStyle: context.tht.subtitle2,
                   suffixIcon: suffixIcon,
                   counterText: '',
                   errorText: error,
                   filled: true,
                   fillColor: AppColors.whiteSmoke,
                   hintText: hintText,
-                  hintStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        fontWeight: FontWeight.w400,
-                        fontSize: AppDimensions.d14,
-                        color: AppColors.manatee,
-                      ),
+                  hintStyle: context.tht.subtitle2!.copyWith(
+                    color: AppColors.manatee,
+                  ),
                   errorStyle: TextStyle(
                     height: 0.8,
                     color: AppColors.red,

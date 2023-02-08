@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injectable/injectable.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_dimensions.dart';
-import '../../../utils/translation/generated/l10n.dart';
+import '../../../utils/enums/context_extension.dart';
 import '../cubit/folder_content_cubit.dart';
 
 class FolderContentButtons extends StatelessWidget {
@@ -59,12 +59,12 @@ class _Body extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onPressed,
               child: Text(
-                Translation.of(context).startFlashcard,
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: AppDimensions.d14,
-                      color: AppColors.daintree,
-                    ),
+                context.tr.startFlashcard,
+                style: context.tht.subtitle1!.copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: AppDimensions.d14,
+                  color: AppColors.daintree,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -86,14 +86,12 @@ class _Body extends StatelessWidget {
                     onChange,
                   ),
               child: Text(
-                onChange.value
-                    ? Translation.of(context).hideAnswers
-                    : Translation.of(context).uncoverAnswers,
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: AppDimensions.d14,
-                      color: AppColors.daintree,
-                    ),
+                onChange.value ? context.tr.hideAnswers : context.tr.uncoverAnswers,
+                style: context.tht.subtitle1!.copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: AppDimensions.d14,
+                  color: AppColors.daintree,
+                ),
               ),
             ),
           ),

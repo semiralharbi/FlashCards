@@ -7,8 +7,8 @@ import '../../pages/home_page/cubit/home_cubit.dart';
 import '../../pages/home_page/cubit/home_state.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
+import '../../utils/enums/context_extension.dart';
 import '../../utils/router/app_router.dart';
-import '../../utils/translation/generated/l10n.dart';
 import 'drawer_icon_button.dart';
 
 class CustomDrawer extends Drawer {
@@ -46,7 +46,7 @@ class _Body extends StatelessWidget {
               right: 0,
               left: 0,
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.3,
+                height: context.mqs.height * 0.3,
                 decoration: const BoxDecoration(
                   color: AppColors.daintree,
                 ),
@@ -57,7 +57,7 @@ class _Body extends StatelessWidget {
               right: 0,
               left: 0,
               child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: context.mqs.height * 0.6,
                 child: DrawerHeader(
                   padding: const EdgeInsets.symmetric(
                     horizontal: AppDimensions.d16,
@@ -76,22 +76,22 @@ class _Body extends StatelessWidget {
                         onTap: () => context.router.push(
                           const HomeRoute(),
                         ),
-                        text: Translation.of(context).yourFolders,
-                        textPadding: const EdgeInsets.only(top: AppDimensions.d28),
+                        text: context.tr.yourFolders,
+                        textPadding: const EdgeInsets.only(top: AppDimensions.d24),
                         iconData: Icons.folder_copy_outlined,
                       ),
                       DrawerIconButton(
                         onTap: () => context.router.push(
                           const HomeRoute(),
                         ),
-                        text: Translation.of(context).profile,
+                        text: context.tr.profile,
                         textPadding: const EdgeInsets.only(top: AppDimensions.d16),
                         iconData: Icons.person_outline,
                       ),
                       const Spacer(),
                       DrawerIconButton(
                         onTap: () => context.read<HomeCubit>().logout(),
-                        text: Translation.of(context).logOut,
+                        text: context.tr.logOut,
                         textPadding: const EdgeInsets.only(top: AppDimensions.d16),
                         iconData: Icons.logout,
                       )
@@ -105,7 +105,7 @@ class _Body extends StatelessWidget {
               left: 0,
               right: 0,
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.2,
+                height: context.mqs.height * 0.2,
                 decoration: const BoxDecoration(
                   color: AppColors.daintree,
                   borderRadius: BorderRadius.only(

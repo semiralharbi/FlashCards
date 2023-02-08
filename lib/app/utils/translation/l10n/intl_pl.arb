@@ -33,7 +33,8 @@
   "wrongPassword": "Błędne hasło",
   "lackOfFolderDescription": "Tutaj pojawi się lista twoich teczek.\nAby dodać swoją pierwszą kliknij przycisk dodawania.",
   "yourFolders": "Twoje teczki",
-  "folderName": "Podaj nazwę folderu",
+  "folderName": "Podaj nazwę teczki",
+  "folderNameError": "Nie podałeś nazwy teczki..",
   "yourProgress": "Twój postęp: {count} / {length}",
   "profile": "Profil",
   "enWordDesc": "Wprowadź słowo po Angielsku",
@@ -45,10 +46,11 @@
   "switchLanguage": "Zamiana językowa",
   "flashcard": "Fiszkowanie!",
   "congratulation": "Gratulacje!",
-  "yourScore": "Twój wynik:",
+  "yourScore": "Twój wynik",
   "startNextRound": "Rozpocznij kolejną rundę",
   "chooseOtherFolder": "Wybierz inną teczkę",
   "folderDelete": "Teczka {name} została usunięta",
   "wordDelete": "Słowo zostało usunięte",
-  "guessHiddenWordDesc": "Zgadnij zakryte słowo, a następnie\nkliknij aby odkryć"
+  "guessHiddenWordDesc": "Zgadnij zakryte słowo, a następnie\nkliknij aby odkryć",
+  "answeredRight": "Odpowiedziałeś dobrze na:"
 }

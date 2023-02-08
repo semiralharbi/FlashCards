@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
 import '../theme/app_paths.dart';
-import '../utils/translation/generated/l10n.dart';
+import '../utils/enums/context_extension.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({
@@ -47,7 +47,7 @@ class AppScaffold extends StatelessWidget {
                   child: Padding(
                     padding: appBarTitlePadding ?? EdgeInsets.zero,
                     child: Text(
-                      appBarTitle ?? Translation.of(context).yourFolders,
+                      appBarTitle ?? context.tr.yourFolders,
                     ),
                   ),
                 ),
@@ -83,7 +83,7 @@ class AppScaffold extends StatelessWidget {
                         top: AppDimensions.d80,
                       ),
                 child: Container(
-                  height: MediaQuery.of(context).size.height,
+                  height: context.mqs.height,
                   decoration: BoxDecoration(
                     color: AppColors.whiteSmoke,
                     borderRadius: BorderRadius.only(

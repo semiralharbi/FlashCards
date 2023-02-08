@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
+import '../utils/enums/context_extension.dart';
 
 class PasswordTextFieldWidget extends HookWidget {
   const PasswordTextFieldWidget({
@@ -53,16 +54,16 @@ class PasswordTextFieldWidget extends HookWidget {
               color: AppColors.daintree,
             ),
           ),
+          labelText: hintText,
+          labelStyle: context.tht.subtitle2,
           counterText: '',
           errorText: error,
           filled: true,
           fillColor: AppColors.whiteSmoke,
           hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
-                fontWeight: FontWeight.w400,
-                fontSize: AppDimensions.d14,
-                color: AppColors.manatee,
-              ),
+          hintStyle: context.tht.subtitle2!.copyWith(
+            color: AppColors.manatee,
+          ),
           errorStyle: TextStyle(
             height: 1,
             color: AppColors.red,

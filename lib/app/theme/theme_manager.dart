@@ -25,16 +25,24 @@ class ThemeManager {
         color: AppColors.daintree,
         fontSize: AppDimensions.d20,
       ),
-      button: AppFonts.boldJoan.copyWith(
-        color: AppColors.white,
-        fontSize: AppDimensions.d12,
+      headline4: GoogleFonts.openSans(
+        fontSize: AppDimensions.d18,
+        fontWeight: FontWeight.w600,
+        color: AppColors.daintree,
       ),
-      subtitle1: GoogleFonts.oswald(
+      button: GoogleFonts.slabo13px(
+        fontSize: AppDimensions.d18,
+        fontWeight: FontWeight.w600,
+        color: AppColors.daintree,
+      ),
+      subtitle1: GoogleFonts.openSans(
         fontSize: AppDimensions.d16,
+        color: AppColors.daintree,
         letterSpacing: 0.75,
       ),
-      subtitle2: GoogleFonts.oswald(
+      subtitle2: GoogleFonts.roboto(
         fontSize: AppDimensions.d14,
+        color: AppColors.daintree,
         letterSpacing: 0.75,
       ),
     ),
@@ -43,7 +51,7 @@ class ThemeManager {
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
-              AppDimensions.d8,
+              AppDimensions.d12,
             ),
             side: const BorderSide(
               color: AppColors.daintree,

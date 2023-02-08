@@ -8,6 +8,7 @@ import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
 import '../../utils/enums/capitalize.dart';
+import '../../utils/enums/context_extension.dart';
 import '../../utils/enums/errors.dart';
 import '../../utils/router/app_router.gr.dart';
 import '../../utils/translation/generated/l10n.dart';
@@ -21,7 +22,7 @@ import '../../widgets/custom_list_dialog/custom_list_dialog.dart';
 import '../../widgets/progress_indicator.dart';
 import 'cubit/home_cubit.dart';
 import 'cubit/home_state.dart';
-import 'widgets/list_container.dart';
+import 'widgets/folder_container.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -118,15 +119,32 @@ class _Body extends HookWidget {
       floatingActionButton: AppFloatingActionButton(
         onPressed: () async {
           showDialog(
+            useSafeArea: false,
             context: context,
-            builder: (dialogContext) => CustomDialog(
-              controller: folderController,
-              onTap: () async {
-                await dialogContext.router.pop(true);
-              },
+            builder: (dialogContext) => GestureDetector(
+              onTap: () => dialogContext.router.pop(false),
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                body: GestureDetector(
+                  onTap: () {},
+                  child: CustomDialog(
+                    controller: folderController,
+                    onTap: () async {
+                      if (folderController.text.isNotEmpty) {
+                        await dialogContext.router.pop(true);
+                      } else {
+                        showAppSnackBar(
+                          dialogContext,
+                          context.tr.folderNameError,
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ),
             ),
           ).then((value) {
-            value != null
+            value != null && value == true
                 ? showDialog(
                     context: context,
                     builder: (secondDialogContext) => BlocProvider<HomeCubit>.value(
@@ -184,7 +202,7 @@ class _Body extends HookWidget {
                     padding: const EdgeInsets.only(bottom: AppDimensions.d46),
                     controller: controller,
                     itemCount: entity?.length,
-                    itemBuilder: (context, index) => ListContainer(
+                    itemBuilder: (context, index) => FolderContainer(
                       onTap: () => context.router.push(
                         FolderContentRoute(
                           flashcardEntity: entity![index],
@@ -214,11 +232,11 @@ class _Body extends HookWidget {
                 ),
                 child: Text(
                   failure?.errorText(context) ?? '',
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: AppDimensions.d14,
-                        color: AppColors.daintree,
-                      ),
+                  style: context.tht.subtitle1!.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: AppDimensions.d14,
+                    color: AppColors.daintree,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),

@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
-import '../../utils/translation/generated/l10n.dart';
+import '../../utils/enums/context_extension.dart';
 import '../textfield_widget.dart';
 
 class ListDialogContent extends HookWidget {
@@ -52,7 +52,7 @@ class ListDialogContent extends HookWidget {
                     color: AppColors.daintree,
                   ),
                   controller: enWordController,
-                  hintText: Translation.of(context).enWordDesc,
+                  hintText: context.tr.enWordDesc,
                 ),
                 TextFieldWidget(
                   suffixIcon: const Icon(
@@ -61,7 +61,7 @@ class ListDialogContent extends HookWidget {
                     color: AppColors.daintree,
                   ),
                   controller: translatedController,
-                  hintText: Translation.of(context).translatedWordDesc,
+                  hintText: context.tr.translatedWordDesc,
                 ),
               ],
             ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../translation/generated/l10n.dart';
+import 'context_extension.dart';
 
 enum Errors {
   unknownError,
@@ -23,35 +23,35 @@ extension ErrorsExtension on Errors {
   String errorText(BuildContext context) {
     switch (this) {
       case Errors.unknownError:
-        return Translation.of(context).unknownError;
+        return context.tr.unknownError;
       case Errors.tryAgainLater:
-        return Translation.of(context).tryAgainLater;
+        return context.tr.tryAgainLater;
       case Errors.checkInternetConnection:
-        return Translation.of(context).checkInternetConnetction;
+        return context.tr.checkInternetConnetction;
       case Errors.somethingWentWrong:
-        return Translation.of(context).somethingWentWrong;
+        return context.tr.somethingWentWrong;
       case Errors.userNotFound:
-        return Translation.of(context).userNotFound;
+        return context.tr.userNotFound;
       case Errors.weakPassword:
-        return Translation.of(context).weakPassword;
+        return context.tr.weakPassword;
       case Errors.operationNotAllowed:
-        return Translation.of(context).operationNotAllowed;
+        return context.tr.operationNotAllowed;
       case Errors.emailInUse:
-        return Translation.of(context).emailInUse;
+        return context.tr.emailInUse;
       case Errors.invalidEmail:
-        return Translation.of(context).invalidEmail;
+        return context.tr.invalidEmail;
       case Errors.fieldCantBeEmpty:
-        return Translation.of(context).fieldCantBeEmpty;
+        return context.tr.fieldCantBeEmpty;
       case Errors.passwordMatch:
-        return Translation.of(context).passwordsMatch;
+        return context.tr.passwordsMatch;
       case Errors.wrongPassword:
-        return Translation.of(context).wrongPassword;
+        return context.tr.wrongPassword;
       case Errors.userDisabled:
-        return Translation.of(context).userDisabled;
+        return context.tr.userDisabled;
       case Errors.lackOfFolderDescription:
-        return Translation.of(context).lackOfFolderDescription;
+        return context.tr.lackOfFolderDescription;
       default:
-        return Translation.of(context).unknownError;
+        return context.tr.unknownError;
     }
   }
 }

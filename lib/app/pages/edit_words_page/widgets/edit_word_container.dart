@@ -5,6 +5,7 @@ import '../../../theme/app_colors.dart';
 import '../../../theme/app_dimensions.dart';
 import '../../../theme/app_paths.dart';
 import '../../../utils/enums/capitalize.dart';
+import '../../../utils/enums/context_extension.dart';
 
 class EditWordContainer extends StatelessWidget {
   const EditWordContainer({
@@ -34,7 +35,7 @@ class EditWordContainer extends StatelessWidget {
             ),
           ),
           child: Container(
-            width: MediaQuery.of(context).size.width,
+            width: context.mqs.width,
             padding: const EdgeInsets.only(left: AppDimensions.d10),
             decoration: BoxDecoration(
               color: AppColors.whiteSmoke,
@@ -55,23 +56,23 @@ class EditWordContainer extends StatelessWidget {
                 const SizedBox(width: AppDimensions.d8),
                 Text(
                   '${index + 1}.',
-                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: AppDimensions.d14,
-                        color: AppColors.daintree,
-                      ),
+                  style: context.tht.subtitle1!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontSize: AppDimensions.d14,
+                    color: AppColors.daintree,
+                  ),
                 ),
                 const Spacer(flex: 2),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.187,
+                  width: context.mqs.width * 0.187,
                   child: Center(
                     child: Text(
                       flashcardEntity.words[index].translatedWord.capitalize(),
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: AppDimensions.d14,
-                            color: AppColors.daintree,
-                          ),
+                      style: context.tht.subtitle1!.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: AppDimensions.d14,
+                        color: AppColors.daintree,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -83,15 +84,15 @@ class EditWordContainer extends StatelessWidget {
                 ),
                 const Spacer(),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.187,
+                  width: context.mqs.width * 0.187,
                   child: Center(
                     child: Text(
                       flashcardEntity.words[index].enWord.capitalize(),
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: AppDimensions.d14,
-                            color: AppColors.daintree,
-                          ),
+                      style: context.tht.subtitle1!.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: AppDimensions.d14,
+                        color: AppColors.daintree,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -106,7 +107,7 @@ class EditWordContainer extends StatelessWidget {
                         width: AppDimensions.d24,
                       ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.02,
+                  width: context.mqs.width * 0.02,
                 ),
                 SizedBox(
                   width: AppDimensions.d40,

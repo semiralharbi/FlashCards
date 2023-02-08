@@ -6,9 +6,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
+import '../../utils/enums/context_extension.dart';
 import '../../utils/enums/errors.dart';
 import '../../utils/router/app_router.dart';
-import '../../utils/translation/generated/l10n.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
@@ -35,8 +35,8 @@ class UsernamePage extends StatelessWidget {
                     error.errorText(context),
                   )
                 : showAppSnackBar(
-                    context,
-                    Translation.of(context).unknownError,
+              context,
+                    context.tr.unknownError,
                   ),
             success: () => context.router.replaceAll(
               [const HomeRoute()],
@@ -74,35 +74,35 @@ class _Body extends HookWidget {
             ),
           ),
         ),
-        height: MediaQuery.of(context).size.height / 1.6,
-        width: MediaQuery.of(context).size.width,
+        height: context.mqs.height / 1.6,
+        width: context.mqs.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
             Text(
-              Translation.of(context).welcomeUser,
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: AppDimensions.d18,
-                    color: AppColors.daintree,
-                  ),
+              context.tr.welcomeUser,
+              style: context.tht.subtitle1!.copyWith(
+                fontWeight: FontWeight.w600,
+                fontSize: AppDimensions.d18,
+                color: AppColors.daintree,
+              ),
               textAlign: TextAlign.center,
             ),
             const Spacer(),
             TextFieldWidget(
               controller: usernameController,
-              hintText: Translation.of(context).username,
+              hintText: context.tr.username,
             ),
             const Spacer(flex: 2),
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.d10,
+                horizontal: AppDimensions.d40,
               ),
               child: AppElevatedButton(
                 onPressed: () =>
                     context.read<UsernamePageCubit>().onUpdateButton(usernameController.text),
-                text: Translation.of(context).logIn,
+                text: context.tr.continueNav,
               ),
             ),
             const Spacer(),

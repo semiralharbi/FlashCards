@@ -12,8 +12,8 @@ import 'app/utils/translation/generated/l10n.dart';
 import 'injectable/injectable.dart';
 
 Future<void> main() async {
-  configureDependencies();
   await _configureSystemUIOverlays();
+  configureDependencies();
   await _configureServices();
   runApp(const FlashCardsApp());
 }

@@ -47,7 +47,16 @@ class FlashcardCubit extends Cubit<FlashcardState> {
       emit(FlashcardState.next(wordsList, index));
     } else {
       isLastWord = true;
-      final newEntity = entity.copyWith(words: wordsList);
+      int correctAnswersCounter = 0;
+      for (final correctAnswer in wordsList) {
+        if (correctAnswer.correctAnswer == true) {
+          correctAnswersCounter++;
+        }
+      }
+      final newEntity = entity.copyWith(
+        words: wordsList,
+        correctAnswers: correctAnswersCounter,
+      );
       await _updateFolderDataUseCase(newEntity);
       emit(const FlashcardState.results());
     }

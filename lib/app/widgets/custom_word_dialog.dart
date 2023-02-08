@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
+import '../utils/enums/context_extension.dart';
 import '../utils/enums/errors.dart';
-import '../utils/translation/generated/l10n.dart';
 import 'rounded_icon_button.dart';
 import 'textfield_widget.dart';
 
@@ -44,20 +44,20 @@ class CustomWordDialog extends StatelessWidget {
                 ),
               ),
             ),
-            height: MediaQuery.of(context).size.height * 0.30,
-            width: MediaQuery.of(context).size.width * 0.9,
+            height: context.mqs.height * 0.30,
+            width: context.mqs.width * 0.9,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextFieldWidget(
                   error: enWordError ? Errors.fieldCantBeEmpty.errorText(context) : null,
                   controller: enWordController,
-                  hintText: Translation.of(context).enWordDesc,
+                  hintText: context.tr.enWordDesc,
                 ),
                 TextFieldWidget(
                   error: translatedWordError ? Errors.fieldCantBeEmpty.errorText(context) : null,
                   controller: translatedWordController,
-                  hintText: Translation.of(context).translatedWordDesc,
+                  hintText: context.tr.translatedWordDesc,
                 ),
                 translatedWordError || enWordError
                     ? const SizedBox()
@@ -72,7 +72,7 @@ class CustomWordDialog extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: RoundedIconButton(
                       elementHeight: AppDimensions.d28,
-                      padding: const EdgeInsets.all(
+                      iconPadding: const EdgeInsets.all(
                         AppDimensions.d12,
                       ),
                       onTap: onTap,

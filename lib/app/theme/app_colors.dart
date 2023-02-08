@@ -13,7 +13,6 @@ class AppColors {
   static const Color confetti = Color(0xFFEDDE61);
   static const Color electricViolet = Color(0xFF4A00F0);
   static const Color pacificBlue = Color(0xFF049DBF);
-  static const Color alto = Color(0xFFDADADA);
   static const Color altoDarker = Color(0xFFC4C4C4);
   static const Color gallery = Color(0xFFEDEDED);
   static const Color buttonInactive = Color(0xFFD6E3E9);

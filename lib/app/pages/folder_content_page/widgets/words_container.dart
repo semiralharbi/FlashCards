@@ -5,6 +5,7 @@ import '../../../theme/app_colors.dart';
 import '../../../theme/app_dimensions.dart';
 import '../../../theme/app_paths.dart';
 import '../../../utils/enums/capitalize.dart';
+import '../../../utils/enums/context_extension.dart';
 
 class WordsContainer extends StatelessWidget {
   const WordsContainer({
@@ -63,7 +64,7 @@ class WordsContainer extends StatelessWidget {
               ),
             ),
             child: Container(
-              width: MediaQuery.of(context).size.width,
+              width: context.mqs.width,
               padding: const EdgeInsets.only(left: AppDimensions.d10),
               decoration: BoxDecoration(
                 color: AppColors.whiteSmoke,
@@ -85,11 +86,11 @@ class WordsContainer extends StatelessWidget {
                     left: AppDimensions.d8,
                     child: Text(
                       '${index + 1}.',
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: AppDimensions.d14,
-                            color: AppColors.daintree,
-                          ),
+                      style: context.tht.subtitle1!.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: AppDimensions.d14,
+                        color: AppColors.daintree,
+                      ),
                     ),
                   ),
                   AnimatedPositioned(
@@ -104,11 +105,11 @@ class WordsContainer extends StatelessWidget {
                       child: Center(
                         child: Text(
                           flashcardEntity.words[index].translatedWord.capitalize(),
-                          style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                                fontWeight: FontWeight.w700,
-                                fontSize: AppDimensions.d14,
-                                color: AppColors.daintree,
-                              ),
+                          style: context.tht.subtitle1!.copyWith(
+                            fontWeight: FontWeight.w700,
+                            fontSize: AppDimensions.d14,
+                            color: AppColors.daintree,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -137,11 +138,11 @@ class WordsContainer extends StatelessWidget {
                         child: Center(
                           child: Text(
                             flashcardEntity.words[index].enWord.capitalize(),
-                            style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: AppDimensions.d14,
-                                  color: AppColors.daintree,
-                                ),
+                            style: context.tht.subtitle1!.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: AppDimensions.d14,
+                              color: AppColors.daintree,
+                            ),
                             textAlign: TextAlign.center,
                           ),
                         ),

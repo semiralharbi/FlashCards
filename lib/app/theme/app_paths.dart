@@ -5,7 +5,7 @@ class AppPaths {
   static const svgPath = 'lib/app/assets/images/svg';
 
   //PNG
-  static const logo = '$pngPath/flash_cards_logo.png';
+  static const logo = '$pngPath/logo.png';
   static const wood = '$pngPath/wood.png';
   static const tapHere = '$pngPath/tap.png';
   static const close = '$pngPath/close.png';

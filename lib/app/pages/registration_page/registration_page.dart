@@ -6,9 +6,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
+import '../../utils/enums/context_extension.dart';
 import '../../utils/enums/errors.dart';
 import '../../utils/router/app_router.dart';
-import '../../utils/translation/generated/l10n.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
@@ -35,8 +35,8 @@ class RegistrationPage extends StatelessWidget {
                     error.errorText(context),
                   )
                 : showAppSnackBar(
-                    context,
-                    Translation.of(context).unknownError,
+              context,
+                    context.tr.unknownError,
                   ),
             registerSuccess: () => context.router.push(const UsernameRoute()),
             orElse: () => const SizedBox.shrink(),
@@ -110,19 +110,15 @@ class _Body extends HookWidget {
               ),
             ),
           ),
-          height: MediaQuery.of(context).size.height / 1.6,
-          width: MediaQuery.of(context).size.width,
+          height: context.mqs.height / 1.6,
+          width: context.mqs.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Spacer(),
               Text(
-                Translation.of(context).welcome,
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: AppDimensions.d18,
-                      color: AppColors.daintree,
-                    ),
+                context.tr.welcome,
+                style: context.tht.headline4,
                 textAlign: TextAlign.center,
               ),
               const Spacer(),
@@ -137,12 +133,12 @@ class _Body extends HookWidget {
                       right: AppDimensions.d16,
                     ),
                     child: Text(
-                      Translation.of(context).goToLogin,
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: AppDimensions.d12,
-                            color: AppColors.daintree,
-                          ),
+                      context.tr.goToLogin,
+                      style: context.tht.subtitle1!.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: AppDimensions.d10,
+                        color: AppColors.daintree,
+                      ),
                     ),
                   ),
                 ),
@@ -150,26 +146,26 @@ class _Body extends HookWidget {
               TextFieldWidget(
                 controller: emailController,
                 error: emailError?.errorText(context),
-                hintText: Translation.of(context).email,
+                hintText: context.tr.email,
               ),
               PasswordTextFieldWidget(
                 obscurePassword: obscurePassword,
                 controller: passwordController,
                 error: passwordError?.errorText(context),
-                hintText: Translation.of(context).password,
+                hintText: context.tr.password,
               ),
               PasswordTextFieldWidget(
                 obscurePassword: obscurePassword,
                 controller: repeatPasswordController,
                 error: repeatPasswordError?.errorText(context),
-                hintText: Translation.of(context).passwordRepeat,
+                hintText: context.tr.passwordRepeat,
               ),
               const Spacer(
                 flex: 2,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: AppDimensions.d20,
+                  horizontal: AppDimensions.d40,
                 ),
                 child: AppElevatedButton(
                   onPressed: () => context.read<RegistrationPageCubit>().onRegisterClick(
@@ -177,7 +173,7 @@ class _Body extends HookWidget {
                         password: passwordController.text,
                         repeatPassword: repeatPasswordController.text,
                       ),
-                  text: Translation.of(context).registration,
+                  text: context.tr.registration,
                 ),
               ),
               const Spacer(),

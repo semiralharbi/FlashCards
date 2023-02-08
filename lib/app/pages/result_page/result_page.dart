@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
 import '../../theme/app_paths.dart';
-import '../../utils/translation/generated/l10n.dart';
+import '../../utils/enums/context_extension.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
+import '../../widgets/custom_drawer/custom_drawer.dart';
 
 class ResultPage extends StatelessWidget {
   const ResultPage({Key? key}) : super(key: key);
@@ -13,70 +14,67 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBarTitle: Translation.of(context).yourScore,
+      drawer: const CustomDrawer(),
+      appBarTitle: context.tr.yourScore,
       child: Column(
         children: [
-          const SizedBox(height: AppDimensions.d80),
-          Padding(
-            padding: const EdgeInsets.all(AppDimensions.d20),
-            child: Text(
-              Translation.of(context).congratulation,
-              style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: AppDimensions.d28,
-                    color: AppColors.daintree,
-                  ),
+          const Spacer(),
+          Text(
+            context.tr.congratulation,
+            style: context.tht.subtitle2!.copyWith(
+              fontSize: AppDimensions.d24,
+              color: AppColors.daintree,
             ),
           ),
-          const SizedBox(height: AppDimensions.d50),
+          const Spacer(),
           Center(
             child: Image.asset(
               AppPaths.monkeyDeaf,
-              height: AppDimensions.d180,
+              height: AppDimensions.d146,
             ),
           ),
-          const SizedBox(height: AppDimensions.d40),
+          const Spacer(),
           Column(
             children: [
               Text(
-                Translation.of(context).yourScore,
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: AppDimensions.d20,
-                      color: AppColors.daintree,
-                    ),
+                context.tr.answeredRight,
+                style: context.tht.subtitle1!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.daintree,
+                ),
               ),
               const SizedBox(height: AppDimensions.d10),
               Text(
                 '10/100',
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: AppDimensions.d28,
-                      color: AppColors.salem,
-                    ),
+                style: context.tht.subtitle1!.copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: AppDimensions.d28,
+                  color: AppColors.salem,
+                ),
               ),
               const SizedBox(height: AppDimensions.d20),
               Row(
                 children: [
                   SizedBox(
-                    width: AppDimensions.d180,
+                    width: context.mqs.width * 0.36,
                     child: AppElevatedButton(
-                      text: Translation.of(context).startNextRound,
+                      text: context.tr.startNextRound,
                       onPressed: () {},
                     ),
                   ),
                   const Spacer(),
                   SizedBox(
-                    width: AppDimensions.d180,
+                    width: context.mqs.width * 0.36,
                     child: AppElevatedButton(
-                      text: Translation.of(context).chooseOtherFolder,
+                      text: context.tr.chooseOtherFolder,
                       onPressed: () {},
                     ),
                   ),
                 ],
               ),
             ],
-          )
+          ),
+          const Spacer(),
         ],
       ),
     );

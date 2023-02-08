@@ -12,8 +12,8 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
 import '../../theme/app_paths.dart';
 import '../../theme/consts.dart';
+import '../../utils/enums/context_extension.dart';
 import '../../utils/router/app_router.dart';
-import '../../utils/translation/generated/l10n.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 import '../../widgets/flashcard_container.dart';
@@ -35,7 +35,7 @@ class FlashcardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AppScaffold(
-        appBarTitle: Translation.of(context).flashcard,
+    appBarTitle: context.tr.flashcard,
         drawer: const CustomDrawer(),
         onlyBottomWood: true,
         child: BlocProvider(
@@ -85,7 +85,7 @@ class _Body extends HookWidget {
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
+          height: context.mqs.height * 0.3,
           child: Stack(
             fit: StackFit.expand,
             children: [
@@ -126,7 +126,7 @@ class _Body extends HookWidget {
           ),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.02,
+          height: context.mqs.height * 0.02,
         ),
         FlashcardContainer(text: flashcardEntity.words[index].translatedWord),
         const Spacer(),
@@ -164,7 +164,7 @@ class _Body extends HookWidget {
                     RoundedIconButton(
                       elementHeight: AppDimensions.d44,
                       iconData: Icons.check,
-                      padding: const EdgeInsets.all(AppDimensions.d8),
+                      iconPadding: const EdgeInsets.all(AppDimensions.d8),
                       onTap: () => context.read<FlashcardCubit>().next(
                             entity: flashcardEntity,
                             controller: controller,
@@ -180,7 +180,7 @@ class _Body extends HookWidget {
                     bottom: AppDimensions.d22,
                   ),
                   child: Text(
-                    Translation.of(context).guessHiddenWordDesc,
+                    context.tr.guessHiddenWordDesc,
                     style: Theme.of(context).textTheme.subtitle1!.copyWith(
                           color: AppColors.daintree,
                           fontWeight: FontWeight.w500,
