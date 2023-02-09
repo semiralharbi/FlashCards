@@ -14,14 +14,14 @@ class ThemeManager {
     primaryColor: AppColors.pacificBlue,
     textTheme: TextTheme(
       headline1: AppFonts.boldPermanentMarker.copyWith(
-        color: AppColors.black,
+        color: AppColors.daintree,
         fontSize: AppDimensions.d24,
       ),
-      headline2: AppFonts.boldJoan.copyWith(
+      headline2: GoogleFonts.openSans(
         color: AppColors.daintree,
         fontSize: AppDimensions.d22,
       ),
-      headline3: AppFonts.regularJoan.copyWith(
+      headline3: GoogleFonts.openSans(
         color: AppColors.daintree,
         fontSize: AppDimensions.d20,
       ),

@@ -1,11 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
+import '../../theme/consts.dart';
 import '../../utils/enums/context_extension.dart';
-import '../../utils/router/app_router.dart';
+import '../login_page/login_page.dart';
+import '../registration_page/registration_page.dart';
 
 class IntroPage extends HookWidget {
   const IntroPage({Key? key}) : super(key: key);
@@ -150,7 +151,20 @@ class IntroPage extends HookWidget {
                     ),
                   ),
                   splashColor: AppColors.blueStone,
-                  onTap: () => context.router.push(const LoginRoute()),
+                  onTap: () async => await Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (_, __, ___) => const LoginPage(),
+                      transitionDuration: const Duration(milliseconds: AppConst.millisecond400),
+                      transitionsBuilder: (_, a, __, c) => SlideTransition(
+                        position: Tween<Offset>(
+                          begin: const Offset(-AppDimensions.d2, AppConst.staticZero),
+                          end: const Offset(AppConst.staticZero, AppConst.staticZero),
+                        ).animate(a),
+                        child: c,
+                      ),
+                    ),
+                  ),
                   child: Center(
                     child: Text(
                       context.tr.login,
@@ -206,7 +220,20 @@ class IntroPage extends HookWidget {
                     ),
                   ),
                   splashColor: AppColors.blueStone,
-                  onTap: () => context.router.push(const RegistrationRoute()),
+                  onTap: () async => await Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (_, __, ___) => const RegistrationPage(),
+                      transitionDuration: const Duration(milliseconds: AppConst.millisecond400),
+                      transitionsBuilder: (_, a, __, c) => SlideTransition(
+                        position: Tween<Offset>(
+                          begin: const Offset(AppDimensions.d2, AppConst.staticZero),
+                          end: const Offset(AppConst.staticZero, AppConst.staticZero),
+                        ).animate(a),
+                        child: c,
+                      ),
+                    ),
+                  ),
                   child: Center(
                     child: Text(
                       context.tr.registration,
