@@ -31,34 +31,31 @@ This app's file structure is based on [Clean Architecture](https://pub.dev/packa
 ```
 lib/
     app/                         	<-- application layer
-        pages/
-          login_page/
-            page/
-	             login_page.dart    <-- page
+      pages/
+        login_page/
+          page/
+	          login_page.dart    <-- page
             cubit/
 	            login_cubit.dart	<-- cubit or bloc
 	            login_state.dart    <-- state
-        widgets/                    <-- custom widgets
-        utils/                    	<-- utility classes/constants, translations, router
-        theme/	                  	<-- theme manager and theme data
+      widgets/                    <-- custom widgets
+      utils/                    	<-- utility classes/constants, translations, router
+      theme/	                  	<-- theme manager and theme data
     data/                         	<-- data layer
-        repositories/
-			auth_repository.dart 	<-- handles calls to data source and error handling
-        data_source/
+      api/                        <-- API client
+      repositories/
+			  auth_repository.dart 	<-- handles calls to data source and error handling
+      data_source/
 		    auth_data_source.dart   <-- calls to data source eg. data base or REST API
-    device/                       	<-- device layer
-        repositories/
-	        camera_repository.dart 	<-- handles calls to data source and error handling
-        data_source/
-		    camera_data_source.dart <-- communicates with the platform
-        utils/                      <-- any utility classes/functions
+      dto/                    <-- data transfer object (classes for API)
     domain/                       	<-- domain layer (business and enterprise) PURE DART
-        entities/                   <-- enterprise entities (core classes of the app)
+      entities/                   <-- enterprise entities (core classes of the app)
           user.dart
           manager.dart
-        use_case/                   <-- business processes e.g. Login, Logout, GetUser, etc..
+      use_case/                   <-- business processes e.g. Login, Logout, GetUser, etc..
           login_use_case.dart       <-- example usecase extends `UseCase` or `CompletableUseCase`
-        repositories/               <-- abstract classes that define functionality for data and device layers
+      repositories/               <-- abstract classes that define functionality for data and device layers
+      utils/                      <-- any utility classes/functions
     main.dart                     	<-- entry point
 
 ```
