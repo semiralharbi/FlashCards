@@ -106,17 +106,9 @@ flutter:
     - lib/app/assets/images/png/
 
   fonts:
-    - family: Joan
-      fonts:
-        - asset: lib/app/assets/fonts/Joan-Regular.ttf
-          weight: 400
     - family: PermanentMarker
       fonts:
         - asset: lib/app/assets/fonts/PermanentMarker-Regular.ttf
-          weight: 400
-    - family: PlayfairDisplay
-      fonts:
-        - asset: lib/app/assets/fonts/PlayfairDisplay-Regular.ttf
           weight: 400
 flutter_intl:
   enabled: true
