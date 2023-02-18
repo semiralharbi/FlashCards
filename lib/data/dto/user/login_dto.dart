@@ -1,9 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/entities/login_entity.dart';
+import '../../../domain/entities/login_entity.dart';
 
 part 'login_dto.freezed.dart';
-
 part 'login_dto.g.dart';
 
 @freezed

@@ -1,10 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../data/dto/update_user_dto.dart';
-
+import '../../data/dto/user/update_user_dto.dart';
 
 part 'update_user_entity.freezed.dart';
-
 part 'update_user_entity.g.dart';
 
 @freezed

@@ -11,9 +11,9 @@ import '../../domain/repositories/authentication_repo.dart';
 import '../../domain/utils/exception.dart';
 import '../../domain/utils/failure.dart';
 import '../../domain/utils/success.dart';
-import '../dto/create_user_dto.dart';
-import '../dto/login_dto.dart';
-import '../dto/update_user_dto.dart';
+import '../dto/user/create_user_dto.dart';
+import '../dto/user/login_dto.dart';
+import '../dto/user/update_user_dto.dart';
 
 @Injectable(as: AuthenticationRepo)
 class AuthenticationRepoImpl implements AuthenticationRepo {

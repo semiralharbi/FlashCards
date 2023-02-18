@@ -53,5 +53,10 @@
   "wordDelete": "Słowo zostało usunięte",
   "guessHiddenWordDesc": "Zgadnij zakryte słowo, a następnie\nkliknij aby odkryć",
   "answeredRight": "Odpowiedziałeś dobrze na:",
-  "retry": "Spróbuj ponownie"
+  "retry": "Spróbuj ponownie",
+  "wordNotFound": "Nie znaleziono słowa",
+  "dictionary": "Słownik",
+  "enterWord": "Wpisz słowo",
+  "search": "Wyszukaj",
+  "addToFolder": "Dodaj do folderu"
 }
