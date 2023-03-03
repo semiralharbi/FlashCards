@@ -20,6 +20,7 @@ class AppScaffold extends StatelessWidget {
     this.onBackPress,
     this.actions,
     this.appBarTitlePadding,
+    this.safeAreaMinimum,
   }) : super(key: key);
 
   final Widget child;
@@ -33,6 +34,7 @@ class AppScaffold extends StatelessWidget {
   final Function()? onBackPress;
   final List<Widget>? actions;
   final EdgeInsetsGeometry? appBarTitlePadding;
+  final EdgeInsets? safeAreaMinimum;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -106,9 +108,11 @@ class AppScaffold extends StatelessWidget {
                     ),
                   ),
                   child: SafeArea(
-                    minimum: const EdgeInsets.all(
-                      AppDimensions.d16,
-                    ),
+                    bottom: onlyBottomWood ? false : true,
+                    minimum: safeAreaMinimum ??
+                        const EdgeInsets.all(
+                          AppDimensions.d16,
+                        ),
                     child: child,
                   ),
                 ),

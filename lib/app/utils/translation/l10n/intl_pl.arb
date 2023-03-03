@@ -58,5 +58,10 @@
   "dictionary": "Słownik",
   "enterWord": "Wpisz słowo",
   "search": "Wyszukaj",
-  "addToFolder": "Dodaj do folderu"
+  "addToFolder": "Dodaj do folderu",
+  "wordDefinition": "Definicja słowa",
+  "partOfSpeech": "Część mowy",
+  "synonyms": "Synonimy",
+  "typeOf": "Rodzaj słowa",
+  "examples": "Przykłady"
 }

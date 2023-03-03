@@ -11,11 +11,11 @@ import '../../utils/enums/errors.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
-import '../../widgets/dictionary_container.dart';
 import '../../widgets/progress_indicator.dart';
 import '../../widgets/textfield_widget.dart';
 import 'cubit/dictionary_cubit.dart';
 import 'cubit/dictionary_state.dart';
+import 'widgets/dictionary_container.dart';
 
 class DictionaryPage extends StatelessWidget {
   const DictionaryPage({Key? key}) : super(key: key);
@@ -23,6 +23,10 @@ class DictionaryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+      safeAreaMinimum: const EdgeInsets.symmetric(
+        horizontal: AppDimensions.d16,
+        vertical: AppDimensions.d10,
+      ),
       appBarTitle: context.tr.dictionary,
       onlyBottomWood: true,
       drawer: const CustomDrawer(),
@@ -34,8 +38,8 @@ class DictionaryPage extends StatelessWidget {
               context,
               error.errorText(context),
             ),
-            orElse: () => null,
-          ),
+                orElse: () => null,
+              ),
           builder: (context, state) => state.maybeWhen(
             orElse: () => const _StableBody(),
             loading: () => const _StableBody(
@@ -99,9 +103,17 @@ class _WordInfo extends HookWidget {
   final EverythingEntity entity;
 
   @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          DictionaryContainer(title: 'Definitions'),
-        ],
+  Widget build(BuildContext context) => Expanded(
+        child: PageView.builder(
+          itemCount: entity.results?.length,
+          itemBuilder: (context, index) => DictionaryContainer(
+            actualIndex: index + 1,
+            listLength: entity.results?.length ?? 0,
+            definition: entity.results?[index].definition,
+            partOfSpeech: entity.results?[index].partOfSpeech,
+            synonyms: entity.results?[index].synonyms,
+            typeOf: entity.results?[index].typeOf,
+          ),
+        ),
       );
 }

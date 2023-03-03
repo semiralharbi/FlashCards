@@ -13,6 +13,7 @@ class AppDimensions {
   static const double d12 = 12;
   static const double d14 = 14;
   static const double d16 = 16;
+  static const double d17 = 17;
   static const double d18 = 18;
   static const double d20 = 20;
   static const double d21 = 21;
@@ -37,6 +38,7 @@ class AppDimensions {
   static const double d60 = 60;
   static const double d64 = 64;
   static const double d68 = 68;
+  static const double d70 = 70;
   static const double d72 = 72;
   static const double d74 = 74;
   static const double d76 = 76;

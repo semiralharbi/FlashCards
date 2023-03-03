@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'definition_dto.freezed.dart';
-
 part 'definition_dto.g.dart';
 
 @freezed
@@ -10,7 +9,7 @@ class DefinitionDto with _$DefinitionDto {
     String? definition,
     String? partOfSpeech,
     List<String>? synonyms,
-    List<String>? derivation,
+    List<String>? typeOf,
     List<String>? examples,
   }) = _DefinitionDto;
 

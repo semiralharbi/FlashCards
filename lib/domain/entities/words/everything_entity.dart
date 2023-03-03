@@ -24,7 +24,7 @@ class EverythingEntity with _$EverythingEntity {
                 definition: e.definition,
                 partOfSpeech: e.partOfSpeech,
                 synonyms: e.synonyms,
-                derivation: e.derivation,
+                typeOf: e.typeOf,
                 examples: e.examples,
               ),
             )
