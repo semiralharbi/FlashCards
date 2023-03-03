@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 
+import '../../pages/dictionary_page/dictionary_page.dart';
 import '../../pages/edit_words_page/edit_words_page.dart';
 import '../../pages/flashcard_page/flashcard_page.dart';
 import '../../pages/folder_content_page/folder_content_page.dart';
@@ -26,6 +27,7 @@ export 'app_router.gr.dart';
     AutoRoute(page: FlashcardPage),
     AutoRoute(page: ResultPage),
     AutoRoute(page: EditWordsPage),
+    AutoRoute(page: DictionaryPage),
   ],
 )
 class $AppRouter {}

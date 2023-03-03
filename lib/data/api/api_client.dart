@@ -2,28 +2,29 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../dto/words/everything_dto.dart';
 
 part 'api_client.g.dart';
 
 @injectable
-@RestApi(baseUrl: 'https://www.thecocktaildb.com')
+@RestApi()
 abstract class ApiClient {
   @factoryMethod
   factory ApiClient(Dio dio) => _ApiClient(dio);
 
-//Get method
-  @GET('')
-  Future<String> exampleGet();
+  ///Get
+  @GET('{word}')
+  Future<EverythingDto> getEverything(@Path('word') String word);
 
-//Post method
+  ///Post
   @POST('')
   Future<String> examplePost();
 
-//Put method
+  ///Put
   @PUT('')
   Future<String> examplePut();
 
-//Delete method
+  ///Delete
   @DELETE('')
   Future<String> exampleDelete();
 }

@@ -81,6 +81,12 @@ class _Body extends StatelessWidget {
                         iconData: Icons.folder_copy_outlined,
                       ),
                       DrawerIconButton(
+                        onTap: () => context.router.push(const DictionaryRoute()),
+                        text: context.tr.dictionary,
+                        textPadding: const EdgeInsets.only(top: AppDimensions.d16),
+                        iconData: Icons.abc,
+                      ),
+                      DrawerIconButton(
                         onTap: () => context.router.push(
                           const HomeRoute(),
                         ),
@@ -94,7 +100,7 @@ class _Body extends StatelessWidget {
                         text: context.tr.logOut,
                         textPadding: const EdgeInsets.only(top: AppDimensions.d16),
                         iconData: Icons.logout,
-                      )
+                      ),
                     ],
                   ),
                 ),

@@ -1,9 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../domain/entities/create_user_entity.dart';
+import '../../../domain/entities/create_user_entity.dart';
 
 part 'create_user_dto.freezed.dart';
-
 part 'create_user_dto.g.dart';
 
 @freezed
