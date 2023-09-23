@@ -21,6 +21,7 @@ import '../../widgets/rounded_icon_button.dart';
 import 'cubit/flashcard_cubit.dart';
 import 'cubit/flashcard_state.dart';
 
+@RoutePage()
 class FlashcardPage extends StatelessWidget {
   const FlashcardPage({
     Key? key,
@@ -35,7 +36,7 @@ class FlashcardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AppScaffold(
-    appBarTitle: context.tr.flashcard,
+        appBarTitle: context.tr.flashcard,
         drawer: const CustomDrawer(),
         onlyBottomWood: true,
         child: BlocProvider(
@@ -114,15 +115,14 @@ class _Body extends HookWidget {
                       scale: AppDimensions.d3,
                     ),
                   ),
-                  animation:
-                  Tween<double>(begin: AppConst.staticZero, end: AppDimensions.d90).animate(
+                  animation: Tween<double>(begin: AppConst.staticZero, end: AppDimensions.d90).animate(
                     CurvedAnimation(
                       parent: controller,
                       curve: const Interval(AppConst.staticZero, 0.6),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -182,14 +182,14 @@ class _Body extends HookWidget {
                   ),
                   child: Text(
                     context.tr.guessHiddenWordDesc,
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                    style: context.tht.titleMedium?.copyWith(
                           color: AppColors.daintree,
                           fontWeight: FontWeight.w500,
                         ),
                     textAlign: TextAlign.center,
                   ),
                 ),
-        )
+        ),
       ],
     );
   }
@@ -217,7 +217,7 @@ class AnimatedFlashcard extends AnimatedWidget {
     return animation.value == fullAngle && !hasLastChild
         ? const SizedBox.shrink()
         : Transform(
-      alignment: hasLastChild ? Alignment.bottomCenter : Alignment.topCenter,
+            alignment: hasLastChild ? Alignment.bottomCenter : Alignment.topCenter,
             transform: Matrix4.identity()
               ..setEntry(3, 2, 0.001)
               ..rotateY(
@@ -234,10 +234,7 @@ class AnimatedFlashcard extends AnimatedWidget {
                   ),
                 ),
               ),
-              child: (first && animation.value < halfAngle ||
-                      (animation.value == 0.0 && !hasLastChild))
-                  ? child
-                  : lastChild,
+              child: (first && animation.value < halfAngle || (animation.value == 0.0 && !hasLastChild)) ? child : lastChild,
             ),
           );
   }

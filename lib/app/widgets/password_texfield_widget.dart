@@ -55,13 +55,13 @@ class PasswordTextFieldWidget extends HookWidget {
             ),
           ),
           labelText: hintText,
-          labelStyle: context.tht.subtitle2,
+          labelStyle: context.tht.titleSmall,
           counterText: '',
           errorText: error,
           filled: true,
           fillColor: AppColors.whiteSmoke,
           hintText: hintText,
-          hintStyle: context.tht.subtitle2!.copyWith(
+          hintStyle: context.tht.titleSmall?.copyWith(
             color: AppColors.manatee,
           ),
           errorStyle: TextStyle(

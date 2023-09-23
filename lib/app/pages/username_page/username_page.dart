@@ -17,6 +17,7 @@ import '../../widgets/textfield_widget.dart';
 import 'cubit/username_page_cubit.dart';
 import 'cubit/username_page_state.dart';
 
+@RoutePage()
 class UsernamePage extends StatelessWidget {
   const UsernamePage({Key? key}) : super(key: key);
 
@@ -35,7 +36,7 @@ class UsernamePage extends StatelessWidget {
                     error.errorText(context),
                   )
                 : showAppSnackBar(
-              context,
+                    context,
                     context.tr.unknownError,
                   ),
             success: () => context.router.replaceAll(
@@ -82,7 +83,7 @@ class _Body extends HookWidget {
             const Spacer(),
             Text(
               context.tr.welcomeUser,
-              style: context.tht.subtitle1!.copyWith(
+              style: context.tht.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: AppDimensions.d18,
                 color: AppColors.daintree,
@@ -100,8 +101,7 @@ class _Body extends HookWidget {
                 horizontal: AppDimensions.d40,
               ),
               child: AppElevatedButton(
-                onPressed: () =>
-                    context.read<UsernamePageCubit>().onUpdateButton(usernameController.text),
+                onPressed: () => context.read<UsernamePageCubit>().onUpdateButton(usernameController.text),
                 text: context.tr.continueNav,
               ),
             ),

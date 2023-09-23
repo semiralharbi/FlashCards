@@ -17,7 +17,7 @@ class WordsRemoteSourceImpl implements WordsRemoteSource {
   Future<EverythingDto> getEverything(String word) async {
     try {
       return await _apiClient.getEverything(word);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response?.statusCode == 404) {
         throw ApiException(Errors.wordNotFound);
       } else {

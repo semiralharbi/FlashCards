@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
+import '../utils/enums/context_extension.dart';
 
 void showAppSnackBar(
   BuildContext context,
@@ -13,10 +14,7 @@ void showAppSnackBar(
       backgroundColor: AppColors.whiteSmoke,
       content: Text(
         text,
-        style: Theme.of(context)
-            .textTheme
-            .bodyText1
-            ?.copyWith(color: AppColors.red),
+        style: context.tht.bodyLarge?.copyWith(color: AppColors.red),
       ),
     ),
   );

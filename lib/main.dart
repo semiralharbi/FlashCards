@@ -7,7 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'app/cubit/app_cubit.dart';
 import 'app/cubit/app_state.dart';
 import 'app/theme/theme_manager.dart';
-import 'app/utils/router/app_router.gr.dart';
+import 'app/utils/router/app_router.dart';
 import 'app/utils/translation/generated/l10n.dart';
 import 'injectable/injectable.dart';
 
@@ -44,8 +44,7 @@ class FlashCardsApp extends StatelessWidget {
             orElse: () => const SizedBox.shrink(),
           ),
           child: MaterialApp.router(
-            routerDelegate: getIt<AppRouter>().delegate(),
-            routeInformationParser: getIt<AppRouter>().defaultRouteParser(),
+            routerConfig: getIt<AppRouter>().config(),
             localizationsDelegates: const [
               Translation.delegate,
               GlobalMaterialLocalizations.delegate,
@@ -59,9 +58,7 @@ class FlashCardsApp extends StatelessWidget {
               if (locale == null) return supportedLocales.first;
 
               return supportedLocales.firstWhere(
-                (e) =>
-                    e.languageCode == locale.languageCode &&
-                    e.countryCode == locale.countryCode,
+                (e) => e.languageCode == locale.languageCode && e.countryCode == locale.countryCode,
                 orElse: () => supportedLocales.firstWhere(
                   (c) => c.languageCode == locale.languageCode,
                   orElse: () => supportedLocales.first,

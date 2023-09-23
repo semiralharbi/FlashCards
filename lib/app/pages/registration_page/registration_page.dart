@@ -18,6 +18,7 @@ import '../../widgets/textfield_widget.dart';
 import 'cubit/registration_page_cubit.dart';
 import 'cubit/registration_page_state.dart';
 
+@RoutePage()
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({Key? key}) : super(key: key);
 
@@ -35,7 +36,7 @@ class RegistrationPage extends StatelessWidget {
                     error.errorText(context),
                   )
                 : showAppSnackBar(
-              context,
+                    context,
                     context.tr.unknownError,
                   ),
             registerSuccess: () => context.router.push(const UsernameRoute()),
@@ -118,7 +119,7 @@ class _Body extends HookWidget {
               const Spacer(),
               Text(
                 context.tr.welcome,
-                style: context.tht.headline4,
+                style: context.tht.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               const Spacer(),
@@ -134,7 +135,7 @@ class _Body extends HookWidget {
                     ),
                     child: Text(
                       context.tr.goToLogin,
-                      style: context.tht.subtitle1!.copyWith(
+                      style: context.tht.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimensions.d10,
                         color: AppColors.daintree,

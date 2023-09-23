@@ -62,7 +62,7 @@ class DictionaryContainer extends HookWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 "${context.tr.wordDefinition} $actualIndex/$listLength:",
-                style: context.tht.subtitle1!.copyWith(
+                style: context.tht.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -118,7 +118,7 @@ class DictionaryContainer extends HookWidget {
                         withDivider: false,
                         title: Text(
                           item.header,
-                          style: context.tht.headline4,
+                          style: context.tht.headlineMedium,
                           textAlign: TextAlign.center,
                         ),
                         contentPadding: EdgeInsets.only(

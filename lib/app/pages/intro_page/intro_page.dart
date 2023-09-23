@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -8,6 +9,7 @@ import '../../utils/enums/context_extension.dart';
 import '../login_page/login_page.dart';
 import '../registration_page/registration_page.dart';
 
+@RoutePage()
 class IntroPage extends HookWidget {
   const IntroPage({Key? key}) : super(key: key);
 
@@ -29,48 +31,47 @@ class IntroPage extends HookWidget {
       duration: const Duration(seconds: 1),
     );
 
-    final rightSlideButtonAnimation =
-        Tween(begin: const Offset(1.0, 0.0), end: Offset.zero).animate(
+    final rightSlideButtonAnimation = Tween(begin: const Offset(1.0, 0.0), end: Offset.zero).animate(
       rightButtonSlideController,
     );
-    final leftSlideButtonAnimation =
-        Tween(begin: const Offset(-1.0, 0.0), end: Offset.zero).animate(
+    final leftSlideButtonAnimation = Tween(begin: const Offset(-1.0, 0.0), end: Offset.zero).animate(
       leftButtonSlideController,
     );
-    final rightSlideContainerAnimation =
-        Tween(begin: const Offset(1.0, 0.0), end: Offset.zero).animate(
+    final rightSlideContainerAnimation = Tween(begin: const Offset(1.0, 0.0), end: Offset.zero).animate(
       rightSlideController,
     );
-    final leftSlideContainerAnimation =
-        Tween(begin: const Offset(-1.0, 0.0), end: Offset.zero).animate(
+    final leftSlideContainerAnimation = Tween(begin: const Offset(-1.0, 0.0), end: Offset.zero).animate(
       leftSlideController,
     );
     final textAnimation = Tween(begin: 0.0, end: 1.0).animate(
       fadeAnimationController,
     );
 
-    useEffect(() {
-      rightSlideController.forward();
-      leftSlideController.forward();
-      leftSlideController.addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          fadeAnimationController.forward();
-          fadeAnimationController.addStatusListener((status) {
-            if (status == AnimationStatus.completed) {
-              rightButtonSlideController.forward();
-              leftButtonSlideController.forward();
-            }
-          });
-        }
-      });
-      return null;
-    }, [
-      fadeAnimationController,
-      rightButtonSlideController,
-      leftButtonSlideController,
-      rightSlideController,
-      leftSlideController,
-    ]);
+    useEffect(
+      () {
+        rightSlideController.forward();
+        leftSlideController.forward();
+        leftSlideController.addStatusListener((status) {
+          if (status == AnimationStatus.completed) {
+            fadeAnimationController.forward();
+            fadeAnimationController.addStatusListener((status) {
+              if (status == AnimationStatus.completed) {
+                rightButtonSlideController.forward();
+                leftButtonSlideController.forward();
+              }
+            });
+          }
+        });
+        return () {
+          rightButtonSlideController.dispose();
+          leftButtonSlideController.dispose();
+          rightSlideController.dispose();
+          leftSlideController.dispose();
+          fadeAnimationController.dispose();
+        };
+      },
+      [],
+    );
 
     return Scaffold(
       body: Column(
@@ -88,7 +89,7 @@ class IntroPage extends HookWidget {
                       color: AppColors.daintree,
                       blurRadius: AppDimensions.d4,
                       spreadRadius: AppDimensions.d2,
-                    )
+                    ),
                   ],
                   color: AppColors.daintree,
                   borderRadius: BorderRadius.only(
@@ -108,7 +109,7 @@ class IntroPage extends HookWidget {
             child: Center(
               child: Text(
                 context.tr.welcome,
-                style: context.tht.headline2,
+                style: context.tht.displayMedium,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -168,12 +169,12 @@ class IntroPage extends HookWidget {
                   child: Center(
                     child: Text(
                       context.tr.login,
-                      style: context.tht.headline2!.copyWith(
+                      style: context.tht.displayMedium?.copyWith(
                         shadows: [
                           const Shadow(
                             color: AppColors.white,
                             blurRadius: AppDimensions.d8,
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -237,12 +238,12 @@ class IntroPage extends HookWidget {
                   child: Center(
                     child: Text(
                       context.tr.registration,
-                      style: context.tht.headline2!.copyWith(
+                      style: context.tht.displayMedium?.copyWith(
                         shadows: [
                           const Shadow(
                             color: AppColors.white,
                             blurRadius: AppDimensions.d8,
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -267,7 +268,7 @@ class IntroPage extends HookWidget {
                       color: AppColors.daintree,
                       blurRadius: AppDimensions.d4,
                       spreadRadius: AppDimensions.d1,
-                    )
+                    ),
                   ],
                   color: AppColors.daintree,
                   borderRadius: BorderRadius.only(

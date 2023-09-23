@@ -18,6 +18,7 @@ import 'cubit/edit_words_cubit.dart';
 import 'cubit/edit_words_state.dart';
 import 'widgets/edit_word_container.dart';
 
+@RoutePage()
 class EditWordsPage extends HookWidget {
   const EditWordsPage({
     Key? key,
@@ -30,6 +31,7 @@ class EditWordsPage extends HookWidget {
   Widget build(BuildContext context) {
     final enWordController = useTextEditingController();
     final translatedWordController = useTextEditingController();
+    final mounted = useIsMounted().call();
     return BlocProvider(
       create: (context) => getIt<EditWordsCubit>()..entityInit(flashcardEntity),
       child: BlocConsumer<EditWordsCubit, EditWordsState>(
@@ -51,6 +53,7 @@ class EditWordsPage extends HookWidget {
                       translatedWordController.text,
                       flashcardEntity.folderName,
                     );
+                if(!mounted) return;
                 await dialogContext.router.pop(true);
               },
             ),
@@ -84,7 +87,7 @@ class EditWordsPage extends HookWidget {
   }
 }
 
-class _Body extends HookWidget {
+class _Body extends StatelessWidget {
   const _Body({
     Key? key,
     required this.flashcardEntity,

@@ -8,7 +8,7 @@ import '../../../injectable/injectable.dart';
 import '../../theme/app_dimensions.dart';
 import '../../theme/consts.dart';
 import '../../utils/enums/capitalize.dart';
-import '../../utils/router/app_router.gr.dart';
+import '../../utils/router/app_router.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 import 'cubit/folder_content_cubit.dart';
@@ -16,6 +16,7 @@ import 'cubit/folder_content_state.dart';
 import 'widgets/folder_content_buttons.dart';
 import 'widgets/words_container.dart';
 
+@RoutePage()
 class FolderContentPage extends HookWidget {
   const FolderContentPage({
     Key? key,
@@ -125,7 +126,7 @@ class _Body extends StatelessWidget {
           animationController: animationController,
           onChange: getText,
           onPressed: () => context.read<FolderContentCubit>().nextPage(
-            flashcardEntity,
+                flashcardEntity,
               ),
         ),
       ],

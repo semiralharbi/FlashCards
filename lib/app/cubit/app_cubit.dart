@@ -10,11 +10,11 @@ class AppCubit extends Cubit<AppState> {
     checkUser();
   }
 
+  final user = FirebaseAuth.instance.currentUser;
+
   Future<void> checkUser() async {
-    // ignore: await_only_futures
-    final user = await FirebaseAuth.instance.currentUser;
     if (user != null) {
-      final name = FirebaseAuth.instance.currentUser!.displayName;
+      final name = user?.displayName;
       if (name != null) {
         emit(const AppState.toHomePage());
       } else {

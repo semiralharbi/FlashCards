@@ -10,7 +10,7 @@ import '../../theme/app_dimensions.dart';
 import '../../utils/enums/capitalize.dart';
 import '../../utils/enums/context_extension.dart';
 import '../../utils/enums/errors.dart';
-import '../../utils/router/app_router.gr.dart';
+import '../../utils/router/app_router.dart';
 import '../../utils/translation/generated/l10n.dart';
 import '../../widgets/alphabet_container.dart';
 import '../../widgets/app_floating_action_button.dart';
@@ -24,6 +24,7 @@ import 'cubit/home_cubit.dart';
 import 'cubit/home_state.dart';
 import 'widgets/folder_container.dart';
 
+@RoutePage()
 class HomePage extends StatelessWidget {
   const HomePage({
     Key? key,
@@ -31,7 +32,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-    create: (context) => getIt<HomeCubit>()..init(),
+        create: (context) => getIt<HomeCubit>()..init(),
         child: BlocConsumer<HomeCubit, HomeState>(
           builder: (context, state) => state.maybeWhen(
             initial: (entity, failure) => _Body(
@@ -156,8 +157,7 @@ class _Body extends HookWidget {
                           await context.read<HomeCubit>().createFolder(
                                 folderName: folderController.text,
                                 enWordsList: enWordListControllers.map((e) => e.text).toList(),
-                                translatedWordsList:
-                                    translatedListControllers.map((e) => e.text).toList(),
+                                translatedWordsList: translatedListControllers.map((e) => e.text).toList(),
                               );
                           folderController.clear();
                           await secondDialogContext.router.pop();
@@ -215,8 +215,7 @@ class _Body extends HookWidget {
                             );
                         showAppSnackBar(
                           context,
-                          Translation.of(context)
-                              .folderDelete(entity![index].folderName.capitalize()),
+                          Translation.of(context).folderDelete(entity![index].folderName.capitalize()),
                         );
                       },
                       entityElement: entity?[index],
@@ -232,7 +231,7 @@ class _Body extends HookWidget {
                 ),
                 child: Text(
                   failure?.errorText(context) ?? '',
-                  style: context.tht.subtitle1!.copyWith(
+                  style: context.tht.titleMedium?.copyWith(
                     fontWeight: FontWeight.w700,
                     fontSize: AppDimensions.d14,
                     color: AppColors.daintree,

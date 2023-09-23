@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
+  sdk: ">=2.18.0 <3.13.0"
 
 
 dependencies:
@@ -21,41 +21,37 @@ dependencies:
   #native_splash
   flutter_native_splash: ^2.1.2+1
 
-  # database
-  hive: ^2.0.4
-  hive_flutter: ^1.0.0
-
   # auto_route
-  auto_route: ^5.0.4
+  auto_route: ^7.8.2
 
   # immutable_classes
-  freezed: ^2.3.2
-  freezed_annotation: ^2.2.0
+  freezed: ^2.4.1
+  freezed_annotation: ^2.4.1
 
   # serialization
   json_serializable: ^6.0.0
   json_annotation: ^4.4.0
 
   # http client
-  dio: ^4.0.0
-  retrofit: ^3.0.1+1
+  dio: ^5.3.2
+  retrofit: ^4.0.1
   pretty_dio_logger: ^1.1.1
 
   # dependency injection
-  get_it: ^7.2.0
-  injectable: ^2.1.0
+  get_it: ^7.6.4
+  injectable: ^2.3.0
 
   # internationalization and localization
-  intl: ^0.17.0
-  intl_utils: ^2.4.1
+  intl: ^0.18.0
+  intl_utils: ^2.8.4
   flutter_localizations:
     sdk: flutter
 
   # ephemeral state
-  flutter_hooks: ^0.18.2+1
+  flutter_hooks: ^0.20.1
 
   # ui
-  flutter_svg: ^1.0.3
+  flutter_svg: ^2.0.7
 
   # functional programming
   dartz: ^0.10.0
@@ -65,18 +61,18 @@ dependencies:
 
   # firebase
   firebase_core: ^2.4.0
-  firebase_messaging: 14.2.0
-  firebase_analytics: 10.0.8
+  firebase_messaging: ^14.6.7
+  firebase_analytics: ^10.4.5
   firebase_crashlytics: ^3.0.8
   firebase_auth: ^4.2.3
   firebase_database: ^10.0.8
   cloud_firestore: ^4.3.0
 
   #secure storage
-  flutter_secure_storage: ^7.0.1
+  flutter_secure_storage: ^9.0.0
 
   #fonts
-  google_fonts: ^3.0.1
+  google_fonts: ^5.1.0
 
   #indicators
   flutter_spinkit: ^5.1.0
@@ -86,30 +82,69 @@ dependencies:
   animations: ^2.0.2
 
   #Testing
-  mockito: ^5.3.2
+  #mockito: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.1
-  auto_route_generator: ^5.0.3
-  retrofit_generator: ^4.0.1
-  injectable_generator: ^2.1.3
-  hive_generator: ^2.0.0
-  build_runner: ^2.1.4
-  analyzer: ^5.2.0
+  auto_route_generator: ^7.3.1
+  retrofit_generator: ^7.0.8
+  injectable_generator: ^2.4.0
+  build_runner: ^2.4.6
+  analyzer: ^5.0.0
 
 flutter:
   uses-material-design: true
+  generate: true
   assets:
     - lib/app/assets/images/png/
+    - lib/app/assets/images/presentation/
 
   fonts:
     - family: PermanentMarker
       fonts:
         - asset: lib/app/assets/fonts/PermanentMarker-Regular.ttf
           weight: 400
+    - family: GloriaHallelujah
+      fonts:
+        - asset: lib/app/assets/fonts/gloria_hallelujah/GloriaHallelujah-Regular.ttf
+          weight: 400
+    - family: Nunito
+      fonts:
+        - asset: lib/app/assets/fonts/nunito/Nunito-BlackItalic.ttf
+          weight: 900
+        - asset: lib/app/assets/fonts/nunito/Nunito-Black.ttf
+          weight: 900
+        - asset: lib/app/assets/fonts/nunito/Nunito-ExtraBoldItalic.ttf
+          weight: 800
+        - asset: lib/app/assets/fonts/nunito/Nunito-ExtraBold.ttf
+          weight: 800
+        - asset: lib/app/assets/fonts/nunito/Nunito-Bold.ttf
+          weight: 700
+        - asset: lib/app/assets/fonts/nunito/Nunito-BoldItalic.ttf
+          weight: 700
+        - asset: lib/app/assets/fonts/nunito/Nunito-SemiBoldItalic.ttf
+          weight: 600
+        - asset: lib/app/assets/fonts/nunito/Nunito-SemiBold.ttf
+          weight: 600
+        - asset: lib/app/assets/fonts/nunito/Nunito-MediumItalic.ttf
+          weight: 500
+        - asset: lib/app/assets/fonts/nunito/Nunito-Medium.ttf
+          weight: 500
+        - asset: lib/app/assets/fonts/nunito/Nunito-Regular.ttf
+          weight: 400
+        - asset: lib/app/assets/fonts/nunito/Nunito-LightItalic.ttf
+          weight: 300
+        - asset: lib/app/assets/fonts/nunito/Nunito-Light.ttf
+          weight: 300
+        - asset: lib/app/assets/fonts/nunito/Nunito-ExtraLightItalic.ttf
+          weight: 200
+        - asset: lib/app/assets/fonts/nunito/Nunito-ExtraLight.ttf
+          weight: 200
+        - asset: lib/app/assets/fonts/nunito/Nunito-Italic.ttf
+          weight: 100
 flutter_intl:
   enabled: true
   class_name: Translation

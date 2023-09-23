@@ -13,34 +13,34 @@ class ThemeManager {
     scaffoldBackgroundColor: AppColors.white,
     primaryColor: AppColors.pacificBlue,
     textTheme: TextTheme(
-      headline1: AppFonts.boldPermanentMarker.copyWith(
+      displayLarge: AppFonts.boldPermanentMarker.copyWith(
         color: AppColors.daintree,
         fontSize: AppDimensions.d24,
       ),
-      headline2: GoogleFonts.openSans(
+      displayMedium: GoogleFonts.openSans(
         color: AppColors.daintree,
         fontSize: AppDimensions.d22,
       ),
-      headline3: GoogleFonts.openSans(
+      displaySmall: GoogleFonts.openSans(
         color: AppColors.daintree,
         fontSize: AppDimensions.d20,
       ),
-      headline4: GoogleFonts.openSans(
+      headlineMedium: GoogleFonts.openSans(
         fontSize: AppDimensions.d18,
         fontWeight: FontWeight.w600,
         color: AppColors.daintree,
       ),
-      button: GoogleFonts.slabo13px(
+      labelLarge: GoogleFonts.slabo13px(
         fontSize: AppDimensions.d18,
         fontWeight: FontWeight.w600,
         color: AppColors.daintree,
       ),
-      subtitle1: GoogleFonts.openSans(
+      titleMedium: GoogleFonts.openSans(
         fontSize: AppDimensions.d16,
         color: AppColors.daintree,
         letterSpacing: 0.75,
       ),
-      subtitle2: GoogleFonts.roboto(
+      titleSmall: GoogleFonts.roboto(
         fontSize: AppDimensions.d14,
         color: AppColors.daintree,
         letterSpacing: 0.75,

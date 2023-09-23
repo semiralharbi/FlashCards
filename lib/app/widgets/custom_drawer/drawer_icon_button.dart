@@ -48,7 +48,7 @@ class DrawerIconButton extends StatelessWidget {
                 ),
                 Text(
                   text,
-                  style: context.tht.subtitle1!.copyWith(
+                  style: context.tht.titleMedium?.copyWith(
                     fontWeight: FontWeight.w700,
                     color: AppColors.daintree,
                   ),

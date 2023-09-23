@@ -1,5 +1,11 @@
-import 'package:auto_route/auto_route.dart';
+import 'dart:core';
 
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../../../domain/entities/database/flashcard_entity.dart';
+import '../../../domain/entities/database/words_entity.dart';
 import '../../pages/dictionary_page/dictionary_page.dart';
 import '../../pages/edit_words_page/edit_words_page.dart';
 import '../../pages/flashcard_page/flashcard_page.dart';
@@ -11,23 +17,21 @@ import '../../pages/registration_page/registration_page.dart';
 import '../../pages/result_page/result_page.dart';
 import '../../pages/username_page/username_page.dart';
 
-export 'app_router.gr.dart';
+part 'app_router.gr.dart';
 
-@CustomAutoRouter(
-  replaceInRouteName: 'Page,Route',
-  transitionsBuilder: TransitionsBuilders.fadeIn,
-  durationInMilliseconds: 400,
-  routes: <AutoRoute>[
-    AutoRoute(page: IntroPage, initial: true),
-    AutoRoute(page: LoginPage),
-    AutoRoute(page: RegistrationPage),
-    AutoRoute(page: UsernamePage),
-    AutoRoute(page: HomePage),
-    AutoRoute(page: FolderContentPage),
-    AutoRoute(page: FlashcardPage),
-    AutoRoute(page: ResultPage),
-    AutoRoute(page: EditWordsPage),
-    AutoRoute(page: DictionaryPage),
-  ],
-)
-class $AppRouter {}
+@AutoRouterConfig(replaceInRouteName: 'Page,Route')
+class AppRouter extends _$AppRouter {
+  @override
+  List<AutoRoute> get routes => [
+        AutoRoute(page: IntroRoute.page, initial: true),
+        AutoRoute(page: LoginRoute.page),
+        AutoRoute(page: RegistrationRoute.page),
+        AutoRoute(page: UsernameRoute.page),
+        AutoRoute(page: HomeRoute.page),
+        AutoRoute(page: FolderContentRoute.page),
+        AutoRoute(page: FlashcardRoute.page),
+        AutoRoute(page: ResultRoute.page),
+        AutoRoute(page: EditWordsRoute.page),
+        AutoRoute(page: DictionaryRoute.page),
+      ];
+}

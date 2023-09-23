@@ -17,6 +17,3 @@ targets:
           ignore_unannotated: false
           include_if_null: true
           generic_argument_factories: true
-      reflectable:
-        generate_for:
-          - lib/main.dart

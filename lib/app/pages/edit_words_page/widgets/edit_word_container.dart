@@ -56,7 +56,7 @@ class EditWordContainer extends StatelessWidget {
                 const SizedBox(width: AppDimensions.d8),
                 Text(
                   '${index + 1}.',
-                  style: context.tht.subtitle1!.copyWith(
+                  style: context.tht.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: AppDimensions.d14,
                     color: AppColors.daintree,
@@ -68,7 +68,7 @@ class EditWordContainer extends StatelessWidget {
                   child: Center(
                     child: Text(
                       flashcardEntity.words[index].translatedWord.capitalize(),
-                      style: context.tht.subtitle1!.copyWith(
+                      style: context.tht.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.d14,
                         color: AppColors.daintree,
@@ -88,7 +88,7 @@ class EditWordContainer extends StatelessWidget {
                   child: Center(
                     child: Text(
                       flashcardEntity.words[index].enWord.capitalize(),
-                      style: context.tht.subtitle1!.copyWith(
+                      style: context.tht.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.d14,
                         color: AppColors.daintree,
@@ -131,7 +131,7 @@ class EditWordContainer extends StatelessWidget {
                 ),
                 const SizedBox(
                   width: AppDimensions.d10,
-                )
+                ),
               ],
             ),
           ),

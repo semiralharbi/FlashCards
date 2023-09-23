@@ -87,7 +87,7 @@ class FolderContainer extends StatelessWidget {
                   const Spacer(),
                   Text(
                     entityElement?.folderName.capitalize() ?? '',
-                    style: context.tht.subtitle1!.copyWith(
+                    style: context.tht.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: AppDimensions.d16,
                       color: AppColors.daintree,
@@ -103,7 +103,7 @@ class FolderContainer extends StatelessWidget {
                           '${entityElement?.correctAnswers ?? 0}',
                           '${entityElement?.words.length ?? 0}',
                         ),
-                        style: context.tht.subtitle1!.copyWith(
+                        style: context.tht.titleMedium?.copyWith(
                           fontWeight: FontWeight.w700,
                           fontSize: AppDimensions.d10,
                           color: AppColors.daintree,

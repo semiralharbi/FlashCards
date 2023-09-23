@@ -60,7 +60,7 @@ class _Body extends StatelessWidget {
               onPressed: onPressed,
               child: Text(
                 context.tr.startFlashcard,
-                style: context.tht.subtitle1!.copyWith(
+                style: context.tht.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: AppDimensions.d14,
                   color: AppColors.daintree,
@@ -87,7 +87,7 @@ class _Body extends StatelessWidget {
                   ),
               child: Text(
                 onChange.value ? context.tr.hideAnswers : context.tr.uncoverAnswers,
-                style: context.tht.subtitle1!.copyWith(
+                style: context.tht.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: AppDimensions.d14,
                   color: AppColors.daintree,

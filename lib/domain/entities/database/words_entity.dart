@@ -4,8 +4,6 @@ import '../../../data/dto/database/words_dto.dart';
 
 part 'words_entity.freezed.dart';
 
-part 'words_entity.g.dart';
-
 @freezed
 class WordsEntity with _$WordsEntity {
   const factory WordsEntity({
@@ -14,8 +12,6 @@ class WordsEntity with _$WordsEntity {
     bool? correctAnswer,
     required int nrRepeated,
   }) = _WordsEntity;
-
-  factory WordsEntity.fromJson(Map<String, dynamic> json) => _$WordsEntityFromJson(json);
 
   factory WordsEntity.fromDto(WordsDto dto) {
     return WordsEntity(

@@ -11,6 +11,7 @@ import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 
+@RoutePage()
 class ResultPage extends StatelessWidget {
   const ResultPage({
     Key? key,
@@ -28,7 +29,7 @@ class ResultPage extends StatelessWidget {
           const Spacer(),
           Text(
             context.tr.congratulation,
-            style: context.tht.subtitle2!.copyWith(
+            style: context.tht.titleSmall?.copyWith(
               fontSize: AppDimensions.d24,
               color: AppColors.daintree,
             ),
@@ -45,7 +46,7 @@ class ResultPage extends StatelessWidget {
             children: [
               Text(
                 context.tr.answeredRight,
-                style: context.tht.subtitle1!.copyWith(
+                style: context.tht.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: AppColors.daintree,
                 ),
@@ -53,7 +54,7 @@ class ResultPage extends StatelessWidget {
               const SizedBox(height: AppDimensions.d10),
               Text(
                 '${entity.correctAnswers}/${entity.words.length}',
-                style: context.tht.subtitle1!.copyWith(
+                style: context.tht.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: AppDimensions.d28,
                   color: AppColors.salem,

@@ -33,7 +33,7 @@ class FlashcardContainer extends StatelessWidget {
         child: Center(
           child: Text(
             text.capitalize(),
-            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+            style: context.tht.titleMedium?.copyWith(
                   fontWeight: FontWeight.w500,
                   fontSize: AppDimensions.d22,
                   color: AppColors.daintree,

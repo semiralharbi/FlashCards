@@ -19,6 +19,7 @@ import '../../widgets/textfield_widget.dart';
 import 'cubit/login_page_cubit.dart';
 import 'cubit/login_page_state.dart';
 
+@RoutePage()
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -38,7 +39,7 @@ class LoginPage extends StatelessWidget {
                     error.errorText(context),
                   )
                 : showAppSnackBar(
-              context,
+                    context,
                     context.tr.unknownError,
                   ),
             orElse: () => const SizedBox.shrink(),
@@ -89,7 +90,7 @@ class _Body extends HookWidget {
               const Spacer(),
               Text(
                 context.tr.welcome,
-                style: context.tht.headline4,
+                style: context.tht.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               const Spacer(),
@@ -102,7 +103,7 @@ class _Body extends HookWidget {
                     width: AppDimensions.d110,
                     child: Text(
                       context.tr.createAccount,
-                      style: context.tht.subtitle1!.copyWith(
+                      style: context.tht.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimensions.d10,
                         color: AppColors.daintree,

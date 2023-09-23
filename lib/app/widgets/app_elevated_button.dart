@@ -26,7 +26,7 @@ class AppElevatedButton extends StatelessWidget {
             child: Center(
               child: Text(
                 text,
-                style: context.tht.button,
+                style: context.tht.labelLarge,
                 textAlign: TextAlign.center,
               ),
             ),

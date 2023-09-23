@@ -86,7 +86,7 @@ class WordsContainer extends StatelessWidget {
                     left: AppDimensions.d8,
                     child: Text(
                       '${index + 1}.',
-                      style: context.tht.subtitle1!.copyWith(
+                      style: context.tht.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: AppDimensions.d14,
                         color: AppColors.daintree,
@@ -106,7 +106,7 @@ class WordsContainer extends StatelessWidget {
                         child: SingleChildScrollView(
                           child: Text(
                             flashcardEntity.words[index].translatedWord.capitalize(),
-                            style: context.tht.subtitle1!.copyWith(
+                            style: context.tht.titleMedium?.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: AppDimensions.d14,
                               color: AppColors.daintree,
@@ -140,7 +140,7 @@ class WordsContainer extends StatelessWidget {
                         child: Center(
                           child: Text(
                             flashcardEntity.words[index].enWord.capitalize(),
-                            style: context.tht.subtitle1!.copyWith(
+                            style: context.tht.titleMedium?.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: AppDimensions.d14,
                               color: AppColors.daintree,

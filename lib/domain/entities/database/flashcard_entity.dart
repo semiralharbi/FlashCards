@@ -5,8 +5,6 @@ import 'words_entity.dart';
 
 part 'flashcard_entity.freezed.dart';
 
-part 'flashcard_entity.g.dart';
-
 @freezed
 class FlashcardEntity with _$FlashcardEntity {
   const factory FlashcardEntity({
@@ -20,6 +18,4 @@ class FlashcardEntity with _$FlashcardEntity {
         words: dto.words.map((dto) => WordsEntity.fromDto(dto)).toList(),
         correctAnswers: dto.correctAnswers,
       );
-
-  factory FlashcardEntity.fromJson(Map<String, dynamic> json) => _$FlashcardEntityFromJson(json);
 }
