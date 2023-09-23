@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:injectable/injectable.dart';
 
 import 'app_colors.dart';
 import 'app_dimensions.dart';
-import 'app_fonts.dart';
 
 @singleton
 class ThemeManager {
@@ -12,40 +10,8 @@ class ThemeManager {
     brightness: Brightness.light,
     scaffoldBackgroundColor: AppColors.white,
     primaryColor: AppColors.pacificBlue,
-    textTheme: TextTheme(
-      displayLarge: AppFonts.boldPermanentMarker.copyWith(
-        color: AppColors.daintree,
-        fontSize: AppDimensions.d24,
-      ),
-      displayMedium: GoogleFonts.openSans(
-        color: AppColors.daintree,
-        fontSize: AppDimensions.d22,
-      ),
-      displaySmall: GoogleFonts.openSans(
-        color: AppColors.daintree,
-        fontSize: AppDimensions.d20,
-      ),
-      headlineMedium: GoogleFonts.openSans(
-        fontSize: AppDimensions.d18,
-        fontWeight: FontWeight.w600,
-        color: AppColors.daintree,
-      ),
-      labelLarge: GoogleFonts.slabo13px(
-        fontSize: AppDimensions.d18,
-        fontWeight: FontWeight.w600,
-        color: AppColors.daintree,
-      ),
-      titleMedium: GoogleFonts.openSans(
-        fontSize: AppDimensions.d16,
-        color: AppColors.daintree,
-        letterSpacing: 0.75,
-      ),
-      titleSmall: GoogleFonts.roboto(
-        fontSize: AppDimensions.d14,
-        color: AppColors.daintree,
-        letterSpacing: 0.75,
-      ),
-    ),
+    fontFamily: 'Nunito',
+    textTheme: lightThemeText,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -103,6 +69,113 @@ class ThemeManager {
           return AppColors.whiteSmoke;
         }),
       ),
+    ),
+  );
+
+  static const Color darkTextColor = AppColors.daintree;
+
+  static TextTheme darkThemeText = const TextTheme(
+    displayLarge: TextStyle(
+      fontSize: 24,
+      color: AppColors.white,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
+    ),
+    displayMedium: TextStyle(
+      fontSize: 20,
+      color: AppColors.white,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
+    ),
+    displaySmall: TextStyle(
+      fontSize: 18,
+      color: AppColors.white,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
+    ),
+    bodyLarge: TextStyle(
+      fontSize: 18,
+      color: AppColors.white,
+      letterSpacing: 1.05,
+      height: 1.4,
+      fontWeight: FontWeight.w700,
+    ),
+    bodyMedium: TextStyle(
+      fontSize: 11,
+      color: AppColors.white,
+      letterSpacing: 1.05,
+      height: 1.4,
+      fontWeight: FontWeight.w700,
+    ),
+    labelLarge: TextStyle(
+      fontSize: 22,
+      color: AppColors.white,
+      fontWeight: FontWeight.w800,
+      letterSpacing: 1.05,
+    ),
+    titleLarge: TextStyle(
+      fontSize: 28,
+      color: AppColors.white,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
+    ),
+    titleMedium: TextStyle(
+      fontSize: 16,
+      color: AppColors.white,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
+    ),
+  );
+
+  static TextTheme lightThemeText = const TextTheme(
+    displayLarge: TextStyle(
+      fontSize: 24,
+      color: darkTextColor,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
+    ),
+    displayMedium: TextStyle(
+      fontSize: 20,
+      color: darkTextColor,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
+    ),
+    displaySmall: TextStyle(
+      fontSize: 18,
+      color: darkTextColor,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
+    ),
+    bodyLarge: TextStyle(
+      fontSize: 18,
+      color: darkTextColor,
+      letterSpacing: 1.05,
+      height: 1.4,
+      fontWeight: FontWeight.w700,
+    ),
+    bodyMedium: TextStyle(
+      fontSize: 11,
+      color: darkTextColor,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
+    ),
+    labelLarge: TextStyle(
+      fontSize: 22,
+      color: darkTextColor,
+      fontWeight: FontWeight.w800,
+      letterSpacing: 1.3,
+    ),
+    titleLarge: TextStyle(
+      fontSize: 28,
+      color: darkTextColor,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
+    ),
+    titleMedium: TextStyle(
+      fontSize: 16,
+      color: darkTextColor,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
     ),
   );
 
