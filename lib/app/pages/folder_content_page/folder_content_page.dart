@@ -1,14 +1,10 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../domain/entities/database/flashcard_entity.dart';
 import '../../../injectable/injectable.dart';
-import '../../theme/app_dimensions.dart';
 import '../../theme/consts.dart';
+import '../../theme/global_imports.dart';
 import '../../utils/enums/capitalize.dart';
-import '../../utils/router/app_router.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 import 'cubit/folder_content_cubit.dart';
@@ -19,19 +15,17 @@ import 'widgets/words_container.dart';
 @RoutePage()
 class FolderContentPage extends HookWidget {
   const FolderContentPage({
-    Key? key,
+    super.key,
     required this.flashcardEntity,
-  }) : super(key: key);
+  });
 
   final FlashcardEntity flashcardEntity;
 
   @override
   Widget build(BuildContext context) {
     final animationController = useAnimationController(
-      duration: const Duration(
-        milliseconds: AppConst.milliseconds600,
-      ),
-      initialValue: AppConst.staticZero,
+      duration: 600.ms,
+      initialValue: staticZero,
     );
     final getText = useState(false);
 
@@ -93,11 +87,10 @@ class FolderContentPage extends HookWidget {
 
 class _Body extends StatelessWidget {
   const _Body({
-    Key? key,
     required this.flashcardEntity,
     required this.animationController,
     required this.getText,
-  }) : super(key: key);
+  });
 
   final FlashcardEntity flashcardEntity;
   final AnimationController animationController;

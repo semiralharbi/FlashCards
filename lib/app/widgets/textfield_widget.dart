@@ -18,8 +18,10 @@ class TextFieldWidget extends StatelessWidget {
     this.suffixIcon,
     this.textInputAction,
     this.iconData,
-    Key? key,
-  }) : super(key: key);
+    this.textFieldPadding,
+    super.key,
+    this.onChanged,
+  });
 
   final TextEditingController? controller;
   final String hintText;
@@ -32,6 +34,8 @@ class TextFieldWidget extends StatelessWidget {
   final Widget? suffixIcon;
   final TextInputAction? textInputAction;
   final IconData? iconData;
+  final EdgeInsets? textFieldPadding;
+  final Function(String?)? onChanged;
 
   @override
   Widget build(BuildContext context) => Row(
@@ -43,13 +47,15 @@ class TextFieldWidget extends StatelessWidget {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: AppDimensions.d12,
-                bottom: AppDimensions.d8,
-                right: AppDimensions.d12,
-                left: AppDimensions.d12,
-              ),
+              padding: textFieldPadding ??
+                  const EdgeInsets.only(
+                    top: AppDimensions.d12,
+                    bottom: AppDimensions.d8,
+                    right: AppDimensions.d12,
+                    left: AppDimensions.d12,
+                  ),
               child: TextField(
+                onChanged: onChanged,
                 textInputAction: textInputAction,
                 textCapitalization: textCapitalization,
                 maxLength: maxLength,
@@ -59,7 +65,6 @@ class TextFieldWidget extends StatelessWidget {
                 controller: controller,
                 style: const TextStyle(color: AppColors.daintree),
                 decoration: InputDecoration(
-                  labelText: hintText,
                   labelStyle: context.tht.titleSmall,
                   suffixIcon: suffixIcon,
                   counterText: '',
@@ -75,28 +80,28 @@ class TextFieldWidget extends StatelessWidget {
                     color: AppColors.red,
                     fontSize: error != '' ? AppDimensions.d12 : 0,
                   ),
-                  errorBorder: const OutlineInputBorder(
+                  errorBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: AppColors.red,
                       width: 1,
                     ),
                   ),
-                  focusedErrorBorder: const OutlineInputBorder(
+                  focusedErrorBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: AppColors.red,
                       width: 1,
                     ),
                   ),
-                  enabledBorder: const OutlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: AppColors.daintree),
                   ),
-                  focusedBorder: const OutlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: AppColors.daintree,
                       width: AppDimensions.d2,
                     ),
                   ),
-                  border: const OutlineInputBorder(
+                  border: const UnderlineInputBorder(
                     borderSide: BorderSide(color: AppColors.daintree),
                   ),
                 ),

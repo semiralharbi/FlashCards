@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../gen/assets.gen.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
-import '../theme/app_paths.dart';
 import '../utils/enums/context_extension.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({
     required this.child,
-    Key? key,
+    super.key,
     this.appBar,
     this.floatingActionButton,
     this.drawer,
@@ -21,7 +21,7 @@ class AppScaffold extends StatelessWidget {
     this.actions,
     this.appBarTitlePadding,
     this.safeAreaMinimum,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final PreferredSizeWidget? appBar;
@@ -50,6 +50,7 @@ class AppScaffold extends StatelessWidget {
                     padding: appBarTitlePadding ?? EdgeInsets.zero,
                     child: Text(
                       appBarTitle ?? context.tr.yourFolders,
+                      style: context.tht.displaySmall?.copyWith(color: AppColors.whiteSmoke),
                     ),
                   ),
                 ),
@@ -64,61 +65,57 @@ class AppScaffold extends StatelessWidget {
                     : const SizedBox.shrink(),
               )
             : null,
-        body: Stack(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    AppPaths.wood,
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                Assets.png.wood.path,
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Padding(
+            padding: onlyBottomWood
+                ? const EdgeInsets.only(
+                    bottom: AppDimensions.d80,
+                  )
+                : const EdgeInsets.only(
+                    bottom: AppDimensions.d80,
+                    top: AppDimensions.d80,
                   ),
-                  fit: BoxFit.cover,
+            child: Container(
+              height: context.mqs.height,
+              decoration: BoxDecoration(
+                color: AppColors.whiteSmoke,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: const Radius.circular(
+                    AppDimensions.d46,
+                  ),
+                  bottomRight: const Radius.circular(
+                    AppDimensions.d46,
+                  ),
+                  topLeft: onlyBottomWood
+                      ? Radius.zero
+                      : const Radius.circular(
+                          AppDimensions.d46,
+                        ),
+                  topRight: onlyBottomWood
+                      ? Radius.zero
+                      : const Radius.circular(
+                          AppDimensions.d46,
+                        ),
                 ),
               ),
-              child: Padding(
-                padding: onlyBottomWood
-                    ? const EdgeInsets.only(
-                        bottom: AppDimensions.d80,
-                      )
-                    : const EdgeInsets.only(
-                        bottom: AppDimensions.d80,
-                        top: AppDimensions.d80,
-                      ),
-                child: Container(
-                  height: context.mqs.height,
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteSmoke,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: const Radius.circular(
-                        AppDimensions.d46,
-                      ),
-                      bottomRight: const Radius.circular(
-                        AppDimensions.d46,
-                      ),
-                      topLeft: onlyBottomWood
-                          ? Radius.zero
-                          : const Radius.circular(
-                              AppDimensions.d46,
-                            ),
-                      topRight: onlyBottomWood
-                          ? Radius.zero
-                          : const Radius.circular(
-                              AppDimensions.d46,
-                            ),
+              child: SafeArea(
+                bottom: !onlyBottomWood,
+                minimum: safeAreaMinimum ??
+                    const EdgeInsets.all(
+                      AppDimensions.d16,
                     ),
-                  ),
-                  child: SafeArea(
-                    bottom: onlyBottomWood ? false : true,
-                    minimum: safeAreaMinimum ??
-                        const EdgeInsets.all(
-                          AppDimensions.d16,
-                        ),
-                    child: child,
-                  ),
-                ),
+                child: child,
               ),
             ),
-          ],
+          ),
         ),
       );
 }

@@ -6,7 +6,7 @@ import '../utils/enums/capitalize.dart';
 import '../utils/enums/context_extension.dart';
 
 class FlashcardContainer extends StatelessWidget {
-  const FlashcardContainer({Key? key, required this.text}) : super(key: key);
+  const FlashcardContainer({super.key, required this.text});
 
   final String text;
 

@@ -13,8 +13,8 @@ import 'drawer_icon_button.dart';
 
 class CustomDrawer extends Drawer {
   const CustomDrawer({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) => BlocProvider(
@@ -32,9 +32,7 @@ class CustomDrawer extends Drawer {
 }
 
 class _Body extends StatelessWidget {
-  const _Body({
-    Key? key,
-  }) : super(key: key);
+  const _Body();
 
   @override
   Widget build(BuildContext context) => Drawer(

@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/entities/database/flashcard_entity.dart';
+import '../../../gen/assets.gen.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
-import '../../theme/app_paths.dart';
 import '../../utils/enums/context_extension.dart';
 import '../../utils/router/app_router.dart';
 import '../../widgets/app_elevated_button.dart';
@@ -14,9 +14,10 @@ import '../../widgets/custom_drawer/custom_drawer.dart';
 @RoutePage()
 class ResultPage extends StatelessWidget {
   const ResultPage({
-    Key? key,
+    super.key,
     required this.entity,
-  }) : super(key: key);
+  });
+
   final FlashcardEntity entity;
 
   @override
@@ -37,7 +38,7 @@ class ResultPage extends StatelessWidget {
           const Spacer(),
           Center(
             child: Image.asset(
-              AppPaths.monkeyDeaf,
+              Assets.png.monkeyDeaf.path,
               height: AppDimensions.d146,
             ),
           ),

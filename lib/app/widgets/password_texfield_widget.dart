@@ -1,12 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../theme/app_colors.dart';
-import '../theme/app_dimensions.dart';
-import '../utils/enums/context_extension.dart';
+import '../theme/global_imports.dart';
 
-class PasswordTextFieldWidget extends HookWidget {
+class PasswordTextFieldWidget extends StatefulWidget {
   const PasswordTextFieldWidget({
     required this.controller,
     required this.hintText,
@@ -15,9 +11,9 @@ class PasswordTextFieldWidget extends HookWidget {
     this.inputFormatters,
     this.maxLength,
     this.textCapitalization = TextCapitalization.none,
-    required this.obscurePassword,
-    Key? key,
-  }) : super(key: key);
+    this.obscurePassword = true,
+    super.key,
+  });
 
   final TextEditingController? controller;
   final String hintText;
@@ -26,7 +22,20 @@ class PasswordTextFieldWidget extends HookWidget {
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLength;
   final TextCapitalization textCapitalization;
-  final ValueNotifier<bool> obscurePassword;
+  final bool obscurePassword;
+
+  @override
+  State<PasswordTextFieldWidget> createState() => _PasswordTextFieldWidgetState();
+}
+
+class _PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
+  late bool _obscurePassword;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscurePassword = widget.obscurePassword;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,36 +47,34 @@ class PasswordTextFieldWidget extends HookWidget {
         left: AppDimensions.d12,
       ),
       child: TextField(
-        textCapitalization: textCapitalization,
-        maxLength: maxLength,
-        keyboardType: keyboardType,
-        inputFormatters: inputFormatters,
-        obscureText: obscurePassword.value,
-        controller: controller,
+        textCapitalization: widget.textCapitalization,
+        maxLength: widget.maxLength,
+        keyboardType: widget.keyboardType,
+        inputFormatters: widget.inputFormatters,
+        obscureText: _obscurePassword,
+        controller: widget.controller,
         decoration: InputDecoration(
           suffixIcon: GestureDetector(
-            onTap: () => obscurePassword.value
-                ? obscurePassword.value = false
-                : obscurePassword.value = true,
+            onTap: () => setState(() => _obscurePassword = !_obscurePassword),
             child: Icon(
-              obscurePassword.value ? Icons.visibility_off_outlined : Icons.remove_red_eye_outlined,
+              _obscurePassword ? Icons.visibility_off_outlined : Icons.remove_red_eye_outlined,
               color: AppColors.daintree,
             ),
           ),
-          labelText: hintText,
+          labelText: widget.hintText,
           labelStyle: context.tht.titleSmall,
           counterText: '',
-          errorText: error,
+          errorText: widget.error,
           filled: true,
           fillColor: AppColors.whiteSmoke,
-          hintText: hintText,
+          hintText: widget.hintText,
           hintStyle: context.tht.titleSmall?.copyWith(
             color: AppColors.manatee,
           ),
           errorStyle: TextStyle(
             height: 1,
             color: AppColors.red,
-            fontSize: error != '' ? AppDimensions.d14 : 0,
+            fontSize: widget.error != '' ? AppDimensions.d14 : 0,
           ),
           errorBorder: const OutlineInputBorder(
             borderSide: BorderSide(

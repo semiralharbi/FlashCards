@@ -1,20 +1,19 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'app/cubit/app_cubit.dart';
-import 'app/cubit/app_state.dart';
+import 'app/pages/cubit/app_cubit.dart';
+import 'app/pages/cubit/app_state.dart';
+import 'app/theme/global_imports.dart';
 import 'app/theme/theme_manager.dart';
-import 'app/utils/router/app_router.dart';
 import 'app/utils/translation/generated/l10n.dart';
+import 'firebase_options.dart';
 import 'injectable/injectable.dart';
 
 Future<void> main() async {
   await _configureSystemUIOverlays();
-  configureDependencies();
   await _configureServices();
+  configureDependencies();
   runApp(const FlashCardsApp());
 }
 
@@ -24,24 +23,21 @@ Future<void> _configureSystemUIOverlays() async {
 }
 
 Future<void> _configureServices() async {
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 class FlashCardsApp extends StatelessWidget {
-  const FlashCardsApp({Key? key}) : super(key: key);
+  const FlashCardsApp({super.key});
 
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (context) => getIt<AppCubit>(),
         child: BlocListener<AppCubit, AppState>(
-          listener: (context, state) => state.maybeWhen(
-            toHomePage: () => getIt<AppRouter>().push(
-              const HomeRoute(),
-            ),
-            toUsernamePage: () => getIt<AppRouter>().push(
-              const UsernameRoute(),
-            ),
-            orElse: () => const SizedBox.shrink(),
+          listener: (context, state) => state.whenOrNull(
+            toHomePage: () => getIt<AppRouter>().push(const HomeRoute()),
+            toUsernamePage: () => getIt<AppRouter>().push(const UsernameRoute()),
           ),
           child: MaterialApp.router(
             routerConfig: getIt<AppRouter>().config(),

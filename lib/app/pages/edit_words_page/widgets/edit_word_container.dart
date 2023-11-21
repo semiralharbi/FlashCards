@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entities/database/flashcard_entity.dart';
+import '../../../../gen/assets.gen.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_dimensions.dart';
-import '../../../theme/app_paths.dart';
 import '../../../utils/enums/capitalize.dart';
 import '../../../utils/enums/context_extension.dart';
 
 class EditWordContainer extends StatelessWidget {
   const EditWordContainer({
-    Key? key,
+    super.key,
     required this.flashcardEntity,
     required this.index,
     required this.binIconTap,
     required this.penIconTap,
-  }) : super(key: key);
+  });
 
   final FlashcardEntity flashcardEntity;
   final int index;
@@ -99,7 +99,7 @@ class EditWordContainer extends StatelessWidget {
                 ),
                 flashcardEntity.words[index].correctAnswer == true
                     ? Image.asset(
-                        AppPaths.check,
+                        Assets.png.check.path,
                         width: AppDimensions.d24,
                         height: AppDimensions.d24,
                       )

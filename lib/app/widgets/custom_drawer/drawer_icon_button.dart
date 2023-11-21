@@ -6,13 +6,13 @@ import '../../utils/enums/context_extension.dart';
 
 class DrawerIconButton extends StatelessWidget {
   const DrawerIconButton({
-    Key? key,
+    super.key,
     required this.onTap,
     this.buttonPadding,
     this.textPadding,
     required this.text,
     required this.iconData,
-  }) : super(key: key);
+  });
 
   final VoidCallback onTap;
   final EdgeInsets? buttonPadding;

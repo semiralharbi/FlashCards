@@ -6,9 +6,7 @@ import 'app_state.dart';
 
 @injectable
 class AppCubit extends Cubit<AppState> {
-  AppCubit() : super(const AppState.initial()) {
-    checkUser();
-  }
+  AppCubit() : super(const AppState.initial());
 
   final user = FirebaseAuth.instance.currentUser;
 

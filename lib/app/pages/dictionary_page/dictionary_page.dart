@@ -20,7 +20,7 @@ import 'widgets/dictionary_container.dart';
 
 @RoutePage()
 class DictionaryPage extends StatelessWidget {
-  const DictionaryPage({Key? key}) : super(key: key);
+  const DictionaryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +60,9 @@ class DictionaryPage extends StatelessWidget {
 
 class _StableBody extends HookWidget {
   const _StableBody({
-    Key? key,
     this.child,
     this.centeredChild = false,
-  }) : super(key: key);
+  });
 
   final Widget? child;
   final bool centeredChild;
@@ -100,8 +99,7 @@ class _StableBody extends HookWidget {
 class _WordInfo extends HookWidget {
   const _WordInfo({
     required this.entity,
-    Key? key,
-  }) : super(key: key);
+  });
   final EverythingEntity entity;
 
   @override

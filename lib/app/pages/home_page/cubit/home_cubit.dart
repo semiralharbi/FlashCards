@@ -26,29 +26,21 @@ class HomeCubit extends Cubit<HomeState> {
     emit(const HomeState.loading());
     final result = await _getCollectionsUseCase();
     result.fold(
-      (l) => emit(
-        HomeState.initial(failure: l),
-      ),
-      (r) => emit(
-        HomeState.initial(
-          entity: r,
-        ),
-      ),
+      (l) => emit(HomeState.initial(failure: l)),
+      (r) => emit(HomeState.initial(entity: r)),
     );
   }
 
   Future<void> logout() async {
     await FirebaseAuth.instance.signOut().then(
-          (value) => emit(
-            const HomeState.logout(),
-          ),
+          (value) => emit(const HomeState.logout()),
         );
   }
 
   Future<void> deleteFolder(FlashcardEntity entity) async {
     final result = await _deleteFolderDataUseCase(entity);
     result.fold(
-      (l) => HomeState.fail(l.appError ?? Errors.unknownError),
+      (l) => emit(HomeState.fail(l.appError ?? Errors.unknownError)),
       (r) async => await init(),
     );
   }
@@ -77,7 +69,7 @@ class HomeCubit extends Cubit<HomeState> {
       ),
     );
     result.fold(
-          (l) => HomeState.fail(l.appError ?? Errors.unknownError),
+      (l) => emit(HomeState.fail(l.appError ?? Errors.unknownError)),
       (r) async => await init(),
     );
   }

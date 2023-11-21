@@ -5,7 +5,7 @@ import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
 
 class AppProgressIndicator extends StatelessWidget {
-  const AppProgressIndicator({Key? key, this.color}) : super(key: key);
+  const AppProgressIndicator({super.key, this.color});
   final Color? color;
 
   @override

@@ -5,28 +5,27 @@ import '../utils/enums/context_extension.dart';
 
 class AppElevatedButton extends StatelessWidget {
   const AppElevatedButton({
+    super.key,
     required this.text,
     required this.onPressed,
-    Key? key,
-  }) : super(key: key);
+    this.padding = const EdgeInsets.symmetric(horizontal: 40),
+  });
 
   final String text;
-  final Function() onPressed;
+  final EdgeInsets padding;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(
-          bottom: AppDimensions.d12,
-        ),
+        padding: padding,
         child: ElevatedButton(
-          onPressed: () => onPressed(),
-          child: SizedBox(
-            height: AppDimensions.d50,
-            width: context.mqs.width,
+          onPressed: onPressed,
+          child: Container(
+            constraints: const BoxConstraints(minHeight: AppDimensions.d50),
             child: Center(
               child: Text(
                 text,
-                style: context.tht.labelLarge,
+                style: context.tht.bodyLarge,
                 textAlign: TextAlign.center,
               ),
             ),

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entities/database/flashcard_entity.dart';
+import '../../../../gen/assets.gen.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_dimensions.dart';
-import '../../../theme/app_paths.dart';
 import '../../../utils/enums/capitalize.dart';
 import '../../../utils/enums/context_extension.dart';
 
 class WordsContainer extends StatelessWidget {
   const WordsContainer({
-    Key? key,
+    super.key,
     required this.flashcardEntity,
     required this.animationController,
     required this.index,
     required this.value,
     required this.onDismissed,
-  }) : super(key: key);
+  });
 
   final FlashcardEntity flashcardEntity;
   final AnimationController animationController;
@@ -156,7 +156,7 @@ class WordsContainer extends StatelessWidget {
                           right: AppDimensions.d16,
                           bottom: AppDimensions.d22,
                           child: Image.asset(
-                            AppPaths.check,
+                            Assets.png.check.path,
                             width: AppDimensions.d24,
                             height: AppDimensions.d24,
                           ),

@@ -1,27 +1,20 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../environment_config.dart';
 import '../../../injectable/injectable.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/app_dimensions.dart';
-import '../../utils/enums/context_extension.dart';
+import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
-import '../../utils/router/app_router.dart';
-import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
+import '../../widgets/custom_icon_text_button.dart';
 import '../../widgets/password_texfield_widget.dart';
 import '../../widgets/progress_indicator.dart';
 import '../../widgets/textfield_widget.dart';
 import 'cubit/login_page_cubit.dart';
 import 'cubit/login_page_state.dart';
+import 'widgets/login_button.dart';
 
 @RoutePage()
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +23,7 @@ class LoginPage extends StatelessWidget {
       child: BlocProvider(
         create: (context) => getIt<LoginPageCubit>(),
         child: BlocConsumer<LoginPageCubit, LoginPageState>(
-          listener: (context, state) => state.maybeWhen(
+          listener: (context, state) => state.whenOrNull(
             showUsernamePage: () => context.router.push(const UsernameRoute()),
             showHomePage: () => context.router.replaceAll([const HomeRoute()]),
             fail: (error) => error != null
@@ -42,17 +35,16 @@ class LoginPage extends StatelessWidget {
                     context,
                     context.tr.unknownError,
                   ),
-            orElse: () => const SizedBox.shrink(),
           ),
           builder: (context, state) => state.maybeWhen(
-            initial: (email, password) => _Body(
+            initial: (email, password) => _LoginPageBody(
               email: email,
               password: password,
             ),
             loading: () => const AppProgressIndicator(
               color: AppColors.daintree,
             ),
-            orElse: _Body.new,
+            orElse: _LoginPageBody.new,
           ),
         ),
       ),
@@ -60,94 +52,62 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class _Body extends HookWidget {
-  const _Body({this.email, this.password});
+class _LoginPageBody extends StatefulWidget {
+  const _LoginPageBody({super.key, this.email, this.password});
 
   final String? email;
   final String? password;
 
   @override
+  State<_LoginPageBody> createState() => _LoginPageBodyState();
+}
+
+class _LoginPageBodyState extends State<_LoginPageBody> {
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController(text: widget.email);
+    _passwordController = TextEditingController(text: widget.password);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final emailController = useTextEditingController(text: email);
-    final passwordController = useTextEditingController(text: password);
-    final obscurePassword = useState(true);
     return SingleChildScrollView(
-      child: Center(
-        child: Container(
-          decoration: const BoxDecoration(
-            color: AppColors.whiteSmoke,
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                AppDimensions.d16,
-              ),
-            ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Gap(AppDimensions.d100),
+          TextFieldWidget(
+            controller: _emailController,
+            hintText: context.tr.email,
           ),
-          height: context.mqs.height / 1.6,
-          width: context.mqs.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              Text(
-                context.tr.welcome,
-                style: context.tht.headlineMedium,
-                textAlign: TextAlign.center,
-              ),
-              const Spacer(),
-              GestureDetector(
-                onTap: () => context.router.push(const RegistrationRoute()),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    padding: const EdgeInsets.only(right: AppDimensions.d12),
-                    width: AppDimensions.d110,
-                    child: Text(
-                      context.tr.createAccount,
-                      style: context.tht.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: AppDimensions.d10,
-                        color: AppColors.daintree,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              TextFieldWidget(
-                controller: emailController,
-                hintText: context.tr.email,
-              ),
-              PasswordTextFieldWidget(
-                obscurePassword: obscurePassword,
-                controller: passwordController,
-                hintText: context.tr.password,
-              ),
-              SizedBox(
-                height: context.mqs.height * 0.0958,
-              ),
-              const Spacer(flex: 2),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppDimensions.d40,
-                ),
-                child: GestureDetector(
-                  onLongPress: () {
-                    emailController.text = EnvConfig.email;
-                    passwordController.text = EnvConfig.password;
-                  },
-                  child: AppElevatedButton(
-                    onPressed: () => context.read<LoginPageCubit>().onLoginButton(
-                          emailController.text,
-                          passwordController.text,
-                        ),
-                    text: context.tr.logIn,
-                  ),
-                ),
-              ),
-              const Spacer(),
-            ],
+          PasswordTextFieldWidget(
+            controller: _passwordController,
+            hintText: context.tr.password,
           ),
-        ),
+          const Gap(AppDimensions.d100),
+          LoginButton(
+            emailController: _emailController,
+            passwordController: _passwordController,
+          ).animate().fade(delay: 400.ms).slideX(delay: 400.ms),
+          const Gap(AppDimensions.d40),
+          CustomIconTextButton(
+            onPressed: () => context.router.push(const RegistrationRoute()),
+            icon: Icons.account_box,
+            text: context.tr.createAcc,
+          ).animate().fade(delay: 600.ms).slideX(delay: 600.ms),
+        ].animate().fade().slideY(curve: Curves.easeIn),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

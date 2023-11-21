@@ -4,12 +4,12 @@ import '../theme/app_dimensions.dart';
 
 class CustomListTile extends StatelessWidget {
   const CustomListTile({
-    Key? key,
+    super.key,
     this.withDivider = true,
     required this.title,
     this.subtitle,
     this.contentPadding,
-  }) : super(key: key);
+  });
 
   final bool withDivider;
   final Widget title;

@@ -1,34 +1,26 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-
 import '../../../domain/entities/database/flashcard_entity.dart';
 import '../../../injectable/injectable.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/app_dimensions.dart';
+import '../../theme/global_imports.dart';
 import '../../utils/enums/capitalize.dart';
-import '../../utils/enums/context_extension.dart';
 import '../../utils/enums/errors.dart';
-import '../../utils/router/app_router.dart';
 import '../../utils/translation/generated/l10n.dart';
-import '../../widgets/alphabet_container.dart';
 import '../../widgets/app_floating_action_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
 import '../../widgets/custom_dialog.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
-import '../../widgets/custom_list_dialog/custom_list_dialog.dart';
 import '../../widgets/progress_indicator.dart';
 import 'cubit/home_cubit.dart';
 import 'cubit/home_state.dart';
+import 'widgets/alphabet_letters.dart';
+import 'widgets/empty_home_widget.dart';
 import 'widgets/folder_container.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {
   const HomePage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) => BlocProvider(
@@ -50,196 +42,107 @@ class HomePage extends StatelessWidget {
               failure: Errors.somethingWentWrong,
             ),
           ),
-          listener: (context, state) => state.maybeWhen(
+          listener: (context, state) => state.whenOrNull(
             fail: (error) => showAppSnackBar(
               context,
               error.errorText(context),
             ),
-            orElse: () => null,
           ),
         ),
       );
 }
 
-class _Body extends HookWidget {
+class _Body extends StatefulWidget {
   const _Body({
-    Key? key,
     this.entity,
     this.failure,
-  }) : super(key: key);
+  });
 
   final List<FlashcardEntity>? entity;
   final Errors? failure;
 
   @override
-  Widget build(BuildContext context) {
-    final controller = useScrollController();
-    final folderController = useTextEditingController();
-    List<TextEditingController> enWordListControllers = [TextEditingController()];
-    List<TextEditingController> translatedListControllers = [TextEditingController()];
-    final currentLetter = useState('A');
+  _BodyState createState() => _BodyState();
+}
 
-    /// has to be set to A for the first bolded character
-    final letters = useState<List<String>>([]);
+class _BodyState extends State<_Body> {
+  late final ScrollController controller;
+  late final TextEditingController folderController;
 
-    if (entity != null) {
-      useEffect(
-        () {
-          /// Listen to the scroll position of the folders ListView and updates the currentLetter to be bolded
-          controller.addListener(() {
-            double position = controller.offset / AppDimensions.d86;
-            int index = position.floor();
-            if (index >= 0 && index < entity!.length) {
-              final letter = entity![index].folderName[0].toUpperCase();
-              if (letter != currentLetter.value) {
-                currentLetter.value = letter;
-              }
-            }
-          });
-          return null;
-        },
-        [controller],
-      );
+  @override
+  void initState() {
+    super.initState();
+    controller = ScrollController();
+    folderController = TextEditingController();
+  }
 
-      ///Create and memoized the uniqueLetters from entity list, for performance improvement
-      letters.value = useMemoized(
-        () {
-          final uniqueLetters = <String>{};
-          for (int i = 0; i < entity!.length; i++) {
-            uniqueLetters.add(entity![i].folderName[0].toUpperCase());
-          }
-          return uniqueLetters.toList();
-        },
-        [entity],
-      );
+  Future<void> _onFloatingActionButtonTapped() async {
+    final bool createFolder = await showDialog<bool>(
+          useSafeArea: false,
+          context: context,
+          builder: (_) => CreateFolderDialog(controller: folderController),
+        ) ??
+        false;
+    if (createFolder && mounted) {
+      context.router.push(CreateFolderRoute(folderName: folderController.text));
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AppScaffold(
       onlyBottomWood: true,
       drawer: const CustomDrawer(),
       enableBackArrow: false,
       floatingActionButton: AppFloatingActionButton(
-        onPressed: () async {
-          showDialog(
-            useSafeArea: false,
-            context: context,
-            builder: (dialogContext) => GestureDetector(
-              onTap: () => dialogContext.router.pop(false),
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                body: GestureDetector(
-                  onTap: () {},
-                  child: CustomDialog(
-                    controller: folderController,
-                    onTap: () async {
-                      if (folderController.text.isNotEmpty) {
-                        await dialogContext.router.pop(true);
-                      } else {
-                        showAppSnackBar(
-                          dialogContext,
-                          context.tr.folderNameError,
-                        );
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ).then((value) {
-            value != null && value == true
-                ? showDialog(
-                    context: context,
-                    builder: (secondDialogContext) => BlocProvider<HomeCubit>.value(
-                      value: context.read<HomeCubit>(),
-                      child: CustomListDialog(
-                        enWordListControllers: enWordListControllers,
-                        translatedListControllers: translatedListControllers,
-                        onForwardTap: () async {
-                          await context.read<HomeCubit>().createFolder(
-                                folderName: folderController.text,
-                                enWordsList: enWordListControllers.map((e) => e.text).toList(),
-                                translatedWordsList: translatedListControllers.map((e) => e.text).toList(),
-                              );
-                          folderController.clear();
-                          await secondDialogContext.router.pop();
-                        },
-                      ),
-                    ),
-                  )
-                : null;
-          });
-        },
+        onPressed: _onFloatingActionButtonTapped,
       ),
-      child: entity != null && entity!.isNotEmpty
+      child: widget.entity != null && widget.entity!.isNotEmpty
           ? Row(
               children: [
                 Expanded(
-                  child: ListView.builder(
-                    physics: const ClampingScrollPhysics(),
-                    itemCount: letters.value.length,
-                    itemBuilder: (context, index) => AlphabetContainer(
-                      onPressed: () {
-                        int value = 0;
-                        for (int i = 0; i < entity!.length; i++) {
-                          if (entity![i].folderName[0].toUpperCase() == letters.value[index]) {
-                            value = i;
-                            break;
-                          }
-                        }
-                        controller.jumpTo(value * AppDimensions.d86);
-                        currentLetter.value = letters.value[index];
-                      },
-                      textStyleCondition: letters.value[index] == currentLetter.value,
-                      text: letters.value[index],
-                    ),
+                  child: AlphabetLetters(
+                    entity: widget.entity,
+                    controller: controller,
                   ),
-                ),
-                const SizedBox(
-                  width: AppDimensions.d10,
-                ),
+                ).animate(delay: 400.ms).fade().slide(curve: Curves.easeIn),
+                const Gap(AppDimensions.d10),
                 Expanded(
                   flex: 10,
                   child: ListView.builder(
                     padding: const EdgeInsets.only(bottom: AppDimensions.d46),
                     controller: controller,
-                    itemCount: entity?.length,
+                    itemCount: widget.entity?.length,
                     itemBuilder: (context, index) => FolderContainer(
                       onTap: () => context.router.push(
                         FolderContentRoute(
-                          flashcardEntity: entity![index],
+                          flashcardEntity: widget.entity![index],
                         ),
                       ),
                       key: UniqueKey(),
                       onDismissed: (_) {
                         context.read<HomeCubit>().deleteFolder(
-                              entity![index],
+                              widget.entity![index],
                             );
                         showAppSnackBar(
                           context,
-                          Translation.of(context).folderDelete(entity![index].folderName.capitalize()),
+                          Translation.of(context).folderDelete(widget.entity![index].folderName.capitalize()),
                         );
                       },
-                      entityElement: entity?[index],
+                      entityElement: widget.entity?[index],
                     ),
                   ),
-                ),
+                ).animate().fade().slideX(curve: Curves.easeIn),
               ],
             )
-          : Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppDimensions.d16,
-                ),
-                child: Text(
-                  failure?.errorText(context) ?? '',
-                  style: context.tht.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: AppDimensions.d14,
-                    color: AppColors.daintree,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
+          : EmptyHomeWidget(failure: widget.failure),
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    folderController.dispose();
+    super.dispose();
   }
 }

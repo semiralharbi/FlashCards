@@ -9,13 +9,13 @@ import 'textfield_widget.dart';
 
 class CustomWordDialog extends StatelessWidget {
   const CustomWordDialog({
-    Key? key,
+    super.key,
     required this.enWordController,
     required this.translatedWordController,
     required this.onTap,
     this.translatedWordError = false,
     this.enWordError = false,
-  }) : super(key: key);
+  });
 
   final TextEditingController enWordController;
   final TextEditingController translatedWordController;
@@ -52,7 +52,7 @@ class CustomWordDialog extends StatelessWidget {
                 TextFieldWidget(
                   error: enWordError ? Errors.fieldCantBeEmpty.errorText(context) : null,
                   controller: enWordController,
-                  hintText: context.tr.enWordDesc,
+                  hintText: context.tr.translationWordDesc,
                 ),
                 TextFieldWidget(
                   error: translatedWordError ? Errors.fieldCantBeEmpty.errorText(context) : null,

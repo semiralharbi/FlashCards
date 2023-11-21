@@ -1,14 +1,8 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../../gen/fonts.gen.dart';
 import '../../../injectable/injectable.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/app_dimensions.dart';
-import '../../utils/enums/context_extension.dart';
+import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
-import '../../utils/router/app_router.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
@@ -19,7 +13,7 @@ import 'cubit/username_page_state.dart';
 
 @RoutePage()
 class UsernamePage extends StatelessWidget {
-  const UsernamePage({Key? key}) : super(key: key);
+  const UsernamePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +22,7 @@ class UsernamePage extends StatelessWidget {
       child: BlocProvider(
         create: (context) => getIt<UsernamePageCubit>(),
         child: BlocConsumer<UsernamePageCubit, UsernamePageState>(
-          listener: (context, state) => state.maybeWhen(
-            loading: () => const AppProgressIndicator(),
+          listener: (context, state) => state.whenOrNull(
             fail: (error) => error != null
                 ? showAppSnackBar(
                     context,
@@ -39,17 +32,14 @@ class UsernamePage extends StatelessWidget {
                     context,
                     context.tr.unknownError,
                   ),
-            success: () => context.router.replaceAll(
-              [const HomeRoute()],
-            ),
-            orElse: () => const SizedBox.shrink(),
+            success: () => context.router.replaceAll([const HomeRoute()]),
           ),
           builder: (context, state) => state.maybeWhen(
             success: () => const AppProgressIndicator(),
             initial: (username) => _Body(
               username: username,
             ),
-            orElse: () => const SizedBox.shrink(),
+            orElse: () => const AppProgressIndicator(),
           ),
         ),
       ),
@@ -57,57 +47,52 @@ class UsernamePage extends StatelessWidget {
   }
 }
 
-class _Body extends HookWidget {
+class _Body extends StatefulWidget {
   const _Body({this.username});
 
   final String? username;
 
   @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  late TextEditingController _usernameController;
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController = TextEditingController(text: widget.username);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final usernameController = useTextEditingController(text: username);
-    return Center(
-      child: Container(
-        decoration: const BoxDecoration(
-          color: AppColors.whiteSmoke,
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              AppDimensions.d16,
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            context.tr.welcomeUser,
+            style: context.tht.titleMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+              fontSize: AppDimensions.d18,
+              color: AppColors.daintree,
+              fontFamily: FontFamily.gloriaHallelujah,
+              letterSpacing: 1.25,
             ),
+            textAlign: TextAlign.center,
           ),
-        ),
-        height: context.mqs.height / 1.6,
-        width: context.mqs.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Spacer(),
-            Text(
-              context.tr.welcomeUser,
-              style: context.tht.titleMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-                fontSize: AppDimensions.d18,
-                color: AppColors.daintree,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const Spacer(),
-            TextFieldWidget(
-              controller: usernameController,
-              hintText: context.tr.username,
-            ),
-            const Spacer(flex: 2),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.d40,
-              ),
-              child: AppElevatedButton(
-                onPressed: () => context.read<UsernamePageCubit>().onUpdateButton(usernameController.text),
-                text: context.tr.continueNav,
-              ),
-            ),
-            const Spacer(),
-          ],
-        ),
+          const Gap(AppDimensions.d80),
+          TextFieldWidget(
+            controller: _usernameController,
+            hintText: context.tr.username,
+          ),
+          const Gap(AppDimensions.d60),
+          AppElevatedButton(
+            onPressed: () => context.read<UsernamePageCubit>().onUpdateButton(_usernameController.text),
+            text: context.tr.continueNav,
+          ),
+        ],
       ),
     );
   }

@@ -1,17 +1,10 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-
 import '../../../injectable/injectable.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/app_dimensions.dart';
-import '../../utils/enums/context_extension.dart';
+import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
-import '../../utils/router/app_router.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
+import '../../widgets/custom_icon_text_button.dart';
 import '../../widgets/password_texfield_widget.dart';
 import '../../widgets/progress_indicator.dart';
 import '../../widgets/textfield_widget.dart';
@@ -20,7 +13,7 @@ import 'cubit/registration_page_state.dart';
 
 @RoutePage()
 class RegistrationPage extends StatelessWidget {
-  const RegistrationPage({Key? key}) : super(key: key);
+  const RegistrationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +22,7 @@ class RegistrationPage extends StatelessWidget {
       child: BlocProvider(
         create: (context) => getIt<RegistrationPageCubit>(),
         child: BlocConsumer<RegistrationPageCubit, RegistrationPageState>(
-          listener: (context, state) => state.maybeWhen(
+          listener: (context, state) => state.whenOrNull(
             fail: (error) => error != null
                 ? showAppSnackBar(
                     context,
@@ -40,33 +33,20 @@ class RegistrationPage extends StatelessWidget {
                     context.tr.unknownError,
                   ),
             registerSuccess: () => context.router.push(const UsernameRoute()),
-            orElse: () => const SizedBox.shrink(),
           ),
-          builder: (context, state) => state.maybeWhen(
-            registerSuccess: () => const AppProgressIndicator(
+          builder: (context, state) => state.maybeMap(
+            orElse: () => const AppProgressIndicator(
               color: AppColors.daintree,
             ),
-            loading: () => const AppProgressIndicator(
-              color: AppColors.daintree,
+            initial: (state) => const _Body(),
+            content: (state) => _Body(
+              email: state.email,
+              password: state.password,
+              repeatPassword: state.repeatPassword,
+              emailError: state.emailError,
+              passwordError: state.passwordError,
+              repeatPasswordError: state.repeatPasswordError,
             ),
-            initial: () => const _Body(),
-            content: (
-              email,
-              password,
-              repeatPassword,
-              emailError,
-              passwordError,
-              repeatPasswordError,
-            ) =>
-                _Body(
-              email: email,
-              password: password,
-              repeatPassword: repeatPassword,
-              emailError: emailError,
-              passwordError: passwordError,
-              repeatPasswordError: repeatPasswordError,
-            ),
-            orElse: () => const SizedBox.shrink(),
           ),
         ),
       ),
@@ -74,16 +54,15 @@ class RegistrationPage extends StatelessWidget {
   }
 }
 
-class _Body extends HookWidget {
+class _Body extends StatefulWidget {
   const _Body({
-    Key? key,
     this.email,
     this.password,
     this.repeatPassword,
     this.emailError,
     this.passwordError,
     this.repeatPasswordError,
-  }) : super(key: key);
+  });
 
   final String? email;
   final String? password;
@@ -93,95 +72,70 @@ class _Body extends HookWidget {
   final Errors? repeatPasswordError;
 
   @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
+  late TextEditingController _repeatPasswordController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController(text: widget.email);
+    _passwordController = TextEditingController(text: widget.password);
+    _repeatPasswordController = TextEditingController(text: widget.repeatPassword);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final emailController = useTextEditingController(text: email);
-    final passwordController = useTextEditingController(text: password);
-    final repeatPasswordController = useTextEditingController(
-      text: repeatPassword,
-    );
-    final obscurePassword = useState(true);
-    return SingleChildScrollView(
-      child: Center(
-        child: Container(
-          decoration: const BoxDecoration(
-            color: AppColors.whiteSmoke,
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                AppDimensions.d16,
-              ),
+    return Align(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFieldWidget(
+              controller: _emailController,
+              error: widget.emailError?.errorText(context),
+              hintText: context.tr.email,
             ),
-          ),
-          height: context.mqs.height / 1.6,
-          width: context.mqs.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              Text(
-                context.tr.welcome,
-                style: context.tht.headlineMedium,
-                textAlign: TextAlign.center,
-              ),
-              const Spacer(),
-              GestureDetector(
-                onTap: () => context.router.push(
-                  const LoginRoute(),
-                ),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                      right: AppDimensions.d16,
-                    ),
-                    child: Text(
-                      context.tr.goToLogin,
-                      style: context.tht.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: AppDimensions.d10,
-                        color: AppColors.daintree,
-                      ),
-                    ),
+            PasswordTextFieldWidget(
+              controller: _passwordController,
+              error: widget.passwordError?.errorText(context),
+              hintText: context.tr.password,
+            ),
+            PasswordTextFieldWidget(
+              controller: _repeatPasswordController,
+              error: widget.repeatPasswordError?.errorText(context),
+              hintText: context.tr.passwordRepeat,
+            ),
+            const Gap(AppDimensions.d100),
+            AppElevatedButton(
+              onPressed: () => context.read<RegistrationPageCubit>().onRegisterClick(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    repeatPassword: _repeatPasswordController.text,
                   ),
-                ),
-              ),
-              TextFieldWidget(
-                controller: emailController,
-                error: emailError?.errorText(context),
-                hintText: context.tr.email,
-              ),
-              PasswordTextFieldWidget(
-                obscurePassword: obscurePassword,
-                controller: passwordController,
-                error: passwordError?.errorText(context),
-                hintText: context.tr.password,
-              ),
-              PasswordTextFieldWidget(
-                obscurePassword: obscurePassword,
-                controller: repeatPasswordController,
-                error: repeatPasswordError?.errorText(context),
-                hintText: context.tr.passwordRepeat,
-              ),
-              const Spacer(
-                flex: 2,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppDimensions.d40,
-                ),
-                child: AppElevatedButton(
-                  onPressed: () => context.read<RegistrationPageCubit>().onRegisterClick(
-                        email: emailController.text,
-                        password: passwordController.text,
-                        repeatPassword: repeatPasswordController.text,
-                      ),
-                  text: context.tr.createAcc,
-                ),
-              ),
-              const Spacer(),
-            ],
-          ),
+              text: context.tr.createAcc,
+            ).animate().fade(delay: 400.ms).slideX(delay: 400.ms),
+            const Gap(AppDimensions.d40),
+            CustomIconTextButton(
+              onPressed: () => context.router.pop(),
+              icon: Icons.account_box,
+              text: context.tr.logIn,
+            ).animate().fade(delay: 600.ms).slideX(delay: 600.ms),
+          ].animate().fade().slideY(curve: Curves.easeIn),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _repeatPasswordController.dispose();
+    super.dispose();
   }
 }

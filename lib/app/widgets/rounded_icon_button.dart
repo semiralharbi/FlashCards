@@ -5,7 +5,7 @@ import '../theme/app_dimensions.dart';
 
 class RoundedIconButton extends StatelessWidget {
   const RoundedIconButton({
-    Key? key,
+    super.key,
     this.iconPadding,
     this.iconData,
     this.stringPath,
@@ -13,7 +13,7 @@ class RoundedIconButton extends StatelessWidget {
     this.iconColor,
     required this.onTap,
     this.elementHeight,
-  }) : super(key: key);
+  });
 
   final EdgeInsetsGeometry? iconPadding;
   final String? stringPath;

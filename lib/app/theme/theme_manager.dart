@@ -1,6 +1,8 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../gen/fonts.gen.dart';
 import 'app_colors.dart';
 import 'app_dimensions.dart';
 
@@ -10,8 +12,21 @@ class ThemeManager {
     brightness: Brightness.light,
     scaffoldBackgroundColor: AppColors.white,
     primaryColor: AppColors.pacificBlue,
-    fontFamily: 'Nunito',
+    fontFamily: FontFamily.nunito,
     textTheme: lightThemeText,
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        elevation: const MaterialStatePropertyAll<double>(2),
+        backgroundColor: const MaterialStatePropertyAll<Color>(AppColors.white),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              AppDimensions.d12,
+            ),
+          ),
+        ),
+      ),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -19,55 +34,25 @@ class ThemeManager {
             borderRadius: BorderRadius.circular(
               AppDimensions.d12,
             ),
-            side: const BorderSide(
-              color: AppColors.daintree,
-            ),
           ),
         ),
-        textStyle: MaterialStateProperty.resolveWith<TextStyle>((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return const TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: AppDimensions.d18,
-              color: AppColors.daintree,
-            );
-          } else if (states.contains(MaterialState.pressed)) {
-            return const TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: AppDimensions.d18,
-              color: AppColors.whiteSmoke,
-            );
+        elevation: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.pressed)) {
+            return AppDimensions.d4;
+          } else {
+            return AppDimensions.d2;
           }
-          return const TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: AppDimensions.d18,
+        }),
+        textStyle: MaterialStateProperty.all<TextStyle>(
+          const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: AppDimensions.d16,
             color: AppColors.daintree,
-          );
-        }),
-        foregroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return AppColors.daintree;
-          } else if (states.contains(MaterialState.pressed)) {
-            return AppColors.whiteSmoke;
-          }
-          return AppColors.whiteSmoke;
-        }),
-        shadowColor: MaterialStateProperty.resolveWith<Color>((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return AppColors.gallery;
-          } else if (states.contains(MaterialState.pressed)) {
-            return AppColors.black;
-          }
-          return AppColors.black;
-        }),
-        backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return AppColors.gallery;
-          } else if (states.contains(MaterialState.pressed)) {
-            return AppColors.aliceBlue;
-          }
-          return AppColors.whiteSmoke;
-        }),
+          ),
+        ),
+        foregroundColor: MaterialStateProperty.all<Color>(AppColors.daintree),
+        shadowColor: MaterialStateProperty.all<Color>(AppColors.daintree),
+        backgroundColor: MaterialStateProperty.all<Color>(AppColors.white),
       ),
     ),
   );
@@ -176,6 +161,35 @@ class ThemeManager {
       color: darkTextColor,
       letterSpacing: 1.05,
       fontWeight: FontWeight.w700,
+    ),
+  );
+
+  static CountryListThemeData countryListThemeData = const CountryListThemeData(
+    searchTextStyle: TextStyle(
+      fontSize: 18,
+      color: darkTextColor,
+      letterSpacing: 1.05,
+      fontWeight: FontWeight.w700,
+    ),
+    inputDecoration: InputDecoration(
+      icon: Icon(Icons.search),
+      hintText: 'Search',
+      hintStyle: TextStyle(
+        fontSize: 14,
+        color: AppColors.sliverChalice,
+        letterSpacing: 1.05,
+        fontWeight: FontWeight.w700,
+      ),
+      helperStyle: TextStyle(
+        fontSize: 18,
+        color: darkTextColor,
+        letterSpacing: 1.05,
+        fontWeight: FontWeight.w700,
+      ),
+      iconColor: AppColors.daintree,
+      enabledBorder: UnderlineInputBorder(),
+      focusedBorder: UnderlineInputBorder(),
+      border: UnderlineInputBorder(),
     ),
   );
 

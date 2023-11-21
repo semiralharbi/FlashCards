@@ -20,10 +20,7 @@ import 'widgets/edit_word_container.dart';
 
 @RoutePage()
 class EditWordsPage extends HookWidget {
-  const EditWordsPage({
-    Key? key,
-    required this.flashcardEntity,
-  }) : super(key: key);
+  const EditWordsPage({super.key, required this.flashcardEntity});
 
   final FlashcardEntity flashcardEntity;
 
@@ -53,7 +50,7 @@ class EditWordsPage extends HookWidget {
                       translatedWordController.text,
                       flashcardEntity.folderName,
                     );
-                if(!mounted) return;
+                if (!mounted) return;
                 await dialogContext.router.pop(true);
               },
             ),
@@ -89,11 +86,11 @@ class EditWordsPage extends HookWidget {
 
 class _Body extends StatelessWidget {
   const _Body({
-    Key? key,
     required this.flashcardEntity,
     required this.enWordController,
     required this.translatedWordController,
-  }) : super(key: key);
+  });
+
   final FlashcardEntity flashcardEntity;
   final TextEditingController enWordController;
   final TextEditingController translatedWordController;
@@ -176,7 +173,8 @@ class _Body extends StatelessWidget {
 }
 
 class _LoadingBody extends StatelessWidget {
-  const _LoadingBody({Key? key, required this.entity}) : super(key: key);
+  const _LoadingBody({required this.entity});
+
   final FlashcardEntity entity;
 
   @override

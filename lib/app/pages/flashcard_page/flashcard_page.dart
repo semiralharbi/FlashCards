@@ -1,19 +1,13 @@
 import 'dart:math';
 
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../domain/entities/database/flashcard_entity.dart';
 import '../../../domain/entities/database/words_entity.dart';
+import '../../../gen/assets.gen.dart';
 import '../../../injectable/injectable.dart';
-import '../../theme/app_colors.dart';
-import '../../theme/app_dimensions.dart';
-import '../../theme/app_paths.dart';
 import '../../theme/consts.dart';
-import '../../utils/enums/context_extension.dart';
-import '../../utils/router/app_router.dart';
+import '../../theme/global_imports.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 import '../../widgets/flashcard_container.dart';
@@ -24,11 +18,11 @@ import 'cubit/flashcard_state.dart';
 @RoutePage()
 class FlashcardPage extends StatelessWidget {
   const FlashcardPage({
-    Key? key,
+    super.key,
     required this.flashcardEntity,
     required this.index,
     this.newEntityList,
-  }) : super(key: key);
+  });
 
   final FlashcardEntity flashcardEntity;
   final List<WordsEntity>? newEntityList;
@@ -67,11 +61,10 @@ class FlashcardPage extends StatelessWidget {
 
 class _Body extends HookWidget {
   const _Body({
-    Key? key,
     required this.flashcardEntity,
     required this.index,
     this.newEntityList,
-  }) : super(key: key);
+  });
 
   final FlashcardEntity flashcardEntity;
   final List<WordsEntity>? newEntityList;
@@ -80,7 +73,7 @@ class _Body extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final controller = useAnimationController(
-      duration: const Duration(milliseconds: AppConst.milliseconds600),
+      duration: 600.ms,
     );
     final animation = useAnimation(controller);
     final isAnimationCompleted = animation > 0;
@@ -110,15 +103,15 @@ class _Body extends HookWidget {
                       ),
                     ),
                     child: Image.asset(
-                      AppPaths.monkeyBlind,
+                      Assets.png.monkeyBlind.path,
                       fit: BoxFit.scaleDown,
                       scale: AppDimensions.d3,
                     ),
                   ),
-                  animation: Tween<double>(begin: AppConst.staticZero, end: AppDimensions.d90).animate(
+                  animation: Tween<double>(begin: staticZero, end: AppDimensions.d90).animate(
                     CurvedAnimation(
                       parent: controller,
-                      curve: const Interval(AppConst.staticZero, 0.6),
+                      curve: const Interval(staticZero, 0.6),
                     ),
                   ),
                 ),
@@ -132,9 +125,7 @@ class _Body extends HookWidget {
         FlashcardContainer(text: flashcardEntity.words[index].translatedWord),
         const Spacer(),
         AnimatedSwitcher(
-          duration: const Duration(
-            milliseconds: AppConst.millisecond400,
-          ),
+          duration: 400.ms,
           transitionBuilder: (child, animation) => AbsorbPointer(
             absorbing: animation.status == AnimationStatus.forward,
             child: ScaleTransition(
@@ -148,7 +139,7 @@ class _Body extends HookWidget {
                   children: [
                     RoundedIconButton(
                       elementHeight: AppDimensions.d24,
-                      stringPath: AppPaths.close,
+                      stringPath: Assets.png.close.path,
                       buttonColor: AppColors.whiteSmoke,
                       iconColor: AppColors.daintree,
                       onTap: () => context.read<FlashcardCubit>().next(
@@ -201,8 +192,8 @@ class AnimatedFlashcard extends AnimatedWidget {
     this.child,
     this.first = false,
     this.lastChild,
-    Key? key,
-  }) : super(listenable: animation, key: key);
+    super.key,
+  }) : super(listenable: animation);
   final Animation<double> animation;
   final Widget? child;
   final Widget? lastChild;

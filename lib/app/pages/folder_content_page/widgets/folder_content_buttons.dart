@@ -9,11 +9,11 @@ import '../cubit/folder_content_cubit.dart';
 
 class FolderContentButtons extends StatelessWidget {
   const FolderContentButtons({
-    Key? key,
+    super.key,
     required this.animationController,
     required this.onChange,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   final AnimationController animationController;
   final ValueNotifier<bool> onChange;
@@ -32,11 +32,10 @@ class FolderContentButtons extends StatelessWidget {
 
 class _Body extends StatelessWidget {
   const _Body({
-    Key? key,
     required this.onPressed,
     required this.animationController,
     required this.onChange,
-  }) : super(key: key);
+  });
 
   final VoidCallback onPressed;
   final AnimationController animationController;

@@ -5,9 +5,9 @@ import '../theme/app_dimensions.dart';
 
 class AppFloatingActionButton extends StatelessWidget {
   const AppFloatingActionButton({
-    Key? key,
+    super.key,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   final VoidCallback onPressed;
 

@@ -10,7 +10,7 @@ import 'expansion_panel_item.dart';
 
 class DictionaryContainer extends HookWidget {
   const DictionaryContainer({
-    Key? key,
+    super.key,
     this.definition,
     required this.actualIndex,
     required this.listLength,
@@ -18,7 +18,7 @@ class DictionaryContainer extends HookWidget {
     this.synonyms,
     this.typeOf,
     this.examples,
-  }) : super(key: key);
+  });
 
   final String? definition;
   final String? partOfSpeech;
@@ -97,7 +97,7 @@ class DictionaryContainer extends HookWidget {
               ],
             ),
             child: ExpansionPanelList(
-              elevation: AppConst.staticZero,
+              elevation: staticZero,
               dividerColor: AppColors.daintree,
               expansionCallback: (index, isExpanded) {
                 expansionPanelItems.value[index] = ExpansionPanelItem(

@@ -1,20 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../../domain/entities/database/flashcard_entity.dart';
-import '../../../theme/app_colors.dart';
-import '../../../theme/app_dimensions.dart';
-import '../../../theme/consts.dart';
+import '../../../theme/global_imports.dart';
 import '../../../utils/enums/capitalize.dart';
-import '../../../utils/enums/context_extension.dart';
 
 class FolderContainer extends StatelessWidget {
   const FolderContainer({
-    Key? key,
+    super.key,
     this.onTap,
     required this.entityElement,
     required this.onDismissed,
-  }) : super(key: key);
+  });
   final VoidCallback? onTap;
   final FlashcardEntity? entityElement;
   final Function(DismissDirection) onDismissed;
@@ -128,7 +124,7 @@ class FolderContainer extends StatelessWidget {
                           AppDimensions.d16,
                         ),
                         animation: true,
-                        animationDuration: AppConst.milliseconds1000,
+                        animationDuration: 1000,
                       ),
                       const SizedBox(
                         height: AppDimensions.d3,
