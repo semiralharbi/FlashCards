@@ -147,7 +147,6 @@ class _BodyState extends State<_Body> {
             child: widget.wordsList.isNotEmpty ? AddedWordsGrid(wordsList: widget.wordsList) : null,
           ),
           TextFieldWidget(
-            key: const Key('textField1'),
             error: _initialWordError,
             controller: _initialWordController,
             hintText: context.tr.translationWordDesc,
@@ -155,7 +154,6 @@ class _BodyState extends State<_Body> {
           ).animate().slideX().fade(),
           if (_isInitialWordNotEmpty)
             TextFieldWidget(
-              key: const Key('textField2'),
               error: _translatedWordError,
               onChanged: _onChangedTranslatedWord,
               suffixIcon: IconButton(
