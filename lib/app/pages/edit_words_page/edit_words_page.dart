@@ -113,7 +113,6 @@ class _Body extends StatelessWidget {
                       translatedWordController.text,
                       flashcardEntity.folderName,
                     );
-                await dialogContext.router.pop(true);
               },
             ),
           );
