@@ -1,22 +1,71 @@
+import 'package:translator_plus/translator_plus.dart';
+
+import '../../../domain/entities/database/words_entity.dart';
+import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
+import '../../utils/enums/errors.dart';
 import '../../widgets/app_scaffold.dart';
+import '../../widgets/app_snackbar.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
+import '../../widgets/progress_indicator.dart';
 import '../../widgets/textfield_widget.dart';
+import 'cubit/add_folder_words_cubit.dart';
+import 'widgets/added_words_grid.dart';
 
 @RoutePage()
-class AddFolderWordsPage extends StatefulWidget {
-  const AddFolderWordsPage({super.key, required this.folderName});
+class AddFolderWordsPage extends StatelessWidget {
+  const AddFolderWordsPage({
+    super.key,
+    required this.folderName,
+    @visibleForTesting this.cubit,
+  });
 
   final String folderName;
+  final AddFolderWordsCubit? cubit;
 
   @override
-  State<AddFolderWordsPage> createState() => _AddFolderWordsPageState();
+  Widget build(BuildContext context) => BlocProvider(
+        create: (context) => cubit ?? getIt<AddFolderWordsCubit>(),
+        child: AppScaffold(
+          appBarTitle: folderName,
+          drawer: const CustomDrawer(),
+          onlyBottomWood: true,
+          child: BlocConsumer<AddFolderWordsCubit, AddFolderWordsState>(
+            listener: (context, state) => state.whenOrNull(
+              success: () => context.router.push(const HomeRoute()),
+              failure: (error) => showAppSnackBar(context, error.errorText(context)),
+            ),
+            builder: (context, state) => state.maybeWhen(
+              loaded: (wordsList) => _Body(
+                folderName: folderName,
+                wordsList: wordsList,
+              ),
+              orElse: () => const AppProgressIndicator(),
+            ),
+          ),
+        ),
+      );
 }
 
-class _AddFolderWordsPageState extends State<AddFolderWordsPage> {
+class _Body extends StatefulWidget {
+  const _Body({
+    required this.folderName,
+    required this.wordsList,
+  });
+
+  final String folderName;
+  final List<WordsEntity> wordsList;
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
   late TextEditingController _initialWordController;
   late TextEditingController _translatedWordController;
   late bool _isInitialWordNotEmpty = false;
+  String? _initialWordError;
+  String? _translatedWordError;
 
   @override
   void initState() {
@@ -25,64 +74,124 @@ class _AddFolderWordsPageState extends State<AddFolderWordsPage> {
     super.initState();
   }
 
-  void _updateInitialWordNotEmpty(String? text) {
-    bool isNotEmpty = text?.isNotEmpty ?? false;
-    if (_isInitialWordNotEmpty != isNotEmpty) {
+  void _onChangedInitialWord(String? text) {
+    setState(() {
+      _isInitialWordNotEmpty = text?.isNotEmpty ?? false;
+      _initialWordError = null;
+    });
+  }
+
+  void _onChangedTranslatedWord(String? text) {
+    if (text?.isNotEmpty ?? false) {
       setState(() {
-        _isInitialWordNotEmpty = isNotEmpty;
+        _translatedWordError = null;
       });
     }
   }
 
+  bool _validateFields() {
+    bool isValid = true;
+    setState(() {
+      if (_initialWordController.text.isEmpty) {
+        _initialWordError = context.tr.addWordFolderPage_textFieldError;
+        _translatedWordError = context.tr.addWordFolderPage_textFieldError;
+        isValid = false;
+      } else {
+        _initialWordError = null;
+      }
+
+      if (_translatedWordController.text.isEmpty) {
+        _translatedWordError = context.tr.addWordFolderPage_textFieldError;
+        isValid = false;
+      } else {
+        _translatedWordError = null;
+      }
+    });
+    return isValid;
+  }
+
+  void _validateAndAddWord() {
+    if (_validateFields()) {
+      context.read<AddFolderWordsCubit>().addWord(
+            WordsEntity(
+              enWord: _initialWordController.text,
+              translatedWord: _translatedWordController.text,
+              nrRepeated: 0,
+            ),
+          );
+      _resetState();
+    }
+  }
+
+  void _resetState() {
+    _initialWordController.clear();
+    _translatedWordController.clear();
+    setState(() {
+      _isInitialWordNotEmpty = false;
+    });
+  }
+
+  Future<void> _onTranslateTap() async {
+    //TODO(): Add proper lang handling
+    final translation = await getIt<GoogleTranslator>().translate(_initialWordController.text, from: 'pl');
+    setState(() {
+      _translatedWordController.text = translation.text;
+    });
+  }
+
   @override
-  Widget build(BuildContext context) => AppScaffold(
-        appBarTitle: widget.folderName,
-        drawer: const CustomDrawer(),
-        onlyBottomWood: true,
-        child: Column(
-          children: [
-            const Spacer(),
+  Widget build(BuildContext context) => Column(
+        children: [
+          SizedBox(
+            height: AppDimensions.d244,
+            child: widget.wordsList.isNotEmpty ? AddedWordsGrid(wordsList: widget.wordsList) : null,
+          ),
+          TextFieldWidget(
+            key: const Key('textField1'),
+            error: _initialWordError,
+            controller: _initialWordController,
+            hintText: context.tr.translationWordDesc,
+            onChanged: _onChangedInitialWord,
+          ).animate().slideX().fade(),
+          if (_isInitialWordNotEmpty)
             TextFieldWidget(
-              controller: _initialWordController,
-              hintText: context.tr.translationWordDesc,
-              onChanged: _updateInitialWordNotEmpty,
+              key: const Key('textField2'),
+              error: _translatedWordError,
+              onChanged: _onChangedTranslatedWord,
+              suffixIcon: IconButton(
+                icon: const Icon(
+                  Icons.auto_fix_high_outlined,
+                  color: AppColors.daintree,
+                ),
+                onPressed: _onTranslateTap,
+              ),
+              controller: _translatedWordController,
+              hintText: context.tr.translatedWordDesc,
             ).animate().slideX().fade(),
-            if (_isInitialWordNotEmpty)
-              TextFieldWidget(
-                suffixIcon: IconButton(
-                  icon: const Icon(
-                    Icons.auto_fix_high_outlined,
-                    color: AppColors.daintree,
-                  ),
-                  onPressed: () {
-                    //TODO: add auto translation
-                  },
+          const Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                onPressed: _validateAndAddWord,
+                child: Text(
+                  context.tr.addWordFolderPage_addButtonText,
+                  style: context.tht.displayMedium,
                 ),
-                controller: _translatedWordController,
-                hintText: context.tr.translatedWordDesc,
-              ).animate().slideX().fade(),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    context.tr.addWordFolderPage_addButtonText,
-                    style: context.tht.displayMedium,
-                  ),
+              ),
+              TextButton(
+                onPressed: () {
+                  _validateAndAddWord();
+                  context.read<AddFolderWordsCubit>().createFolder(folderName: widget.folderName);
+                },
+                child: Text(
+                  context.tr.addWordFolderPage_finishButtonText,
+                  style: context.tht.displayMedium,
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    context.tr.addWordFolderPage_finishButtonText,
-                    style: context.tht.displayMedium,
-                  ),
-                ),
-              ],
-            ).animate(delay: 400.ms).slideX().fade(),
-          ],
-        ),
+              ),
+            ],
+          ).animate(delay: 400.ms).slideX().fade(),
+        ],
       );
 
   @override

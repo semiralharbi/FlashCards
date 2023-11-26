@@ -68,5 +68,6 @@
   "createFolderPage_targetLanguageText": "A na jaki przetłumaczymy?",
   "createFolderPage_continueButtonText": "Gotowe!",
   "addWordFolderPage_addButtonText": "Dodaj",
-  "addWordFolderPage_finishButtonText": "Zakończ"
+  "addWordFolderPage_finishButtonText": "Zakończ",
+  "addWordFolderPage_textFieldError": "To pole nie może być puste"
 }

@@ -52,6 +52,7 @@ android/app/release
 *.g.dart
 *.gr.dart
 *.mocks.dart
+**/failures/*.png
 
 upload.keystore
 firebase-app-distribution.json

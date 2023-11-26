@@ -8,8 +8,8 @@ import '../utils/success.dart';
 import '../utils/use_case.dart';
 
 @injectable
-class NewDataFolderUseCase implements UseCase<Success, FlashcardEntity> {
-  const NewDataFolderUseCase(this._databaseRepository);
+class CreateFolderUseCase implements UseCase<Success, FlashcardEntity> {
+  const CreateFolderUseCase(this._databaseRepository);
 
   final DatabaseRepository _databaseRepository;
 

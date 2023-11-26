@@ -1,7 +1,7 @@
 import '../../../domain/entities/database/flashcard_entity.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
-import '../../utils/enums/capitalize.dart';
+import '../../utils/enums/string_extensions.dart';
 import '../../utils/enums/errors.dart';
 import '../../utils/translation/generated/l10n.dart';
 import '../../widgets/app_floating_action_button.dart';

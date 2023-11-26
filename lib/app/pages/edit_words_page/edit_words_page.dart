@@ -7,7 +7,7 @@ import '../../../domain/entities/database/flashcard_entity.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
-import '../../utils/enums/capitalize.dart';
+import '../../utils/enums/string_extensions.dart';
 import '../../utils/router/app_router.dart';
 import '../../widgets/app_floating_action_button.dart';
 import '../../widgets/app_scaffold.dart';
