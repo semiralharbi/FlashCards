@@ -4,7 +4,7 @@ import '../../../domain/entities/database/flashcard_entity.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/consts.dart';
 import '../../theme/global_imports.dart';
-import '../../utils/enums/capitalize.dart';
+import '../../utils/enums/string_extensions.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 import 'cubit/folder_content_cubit.dart';

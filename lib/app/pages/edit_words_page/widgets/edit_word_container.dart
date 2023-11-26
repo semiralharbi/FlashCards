@@ -4,8 +4,8 @@ import '../../../../domain/entities/database/flashcard_entity.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_dimensions.dart';
-import '../../../utils/enums/capitalize.dart';
 import '../../../utils/enums/context_extension.dart';
+import '../../../utils/enums/string_extensions.dart';
 
 class EditWordContainer extends StatelessWidget {
   const EditWordContainer({

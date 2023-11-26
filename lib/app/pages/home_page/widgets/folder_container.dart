@@ -2,7 +2,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../../domain/entities/database/flashcard_entity.dart';
 import '../../../theme/global_imports.dart';
-import '../../../utils/enums/capitalize.dart';
+import '../../../utils/enums/string_extensions.dart';
 
 class FolderContainer extends StatelessWidget {
   const FolderContainer({
