@@ -73,7 +73,9 @@ class RegistrationPageCubit extends Cubit<RegistrationPageState> {
       return const ValidationErrors(emailError: Errors.fieldCantBeEmpty);
     } else if (password.isEmpty || repeatPassword.isEmpty) {
       return const ValidationErrors(
-          passwordError: Errors.fieldCantBeEmpty, repeatPasswordError: Errors.fieldCantBeEmpty);
+        passwordError: Errors.fieldCantBeEmpty,
+        repeatPasswordError: Errors.fieldCantBeEmpty,
+      );
     } else if (password != repeatPassword) {
       return const ValidationErrors(passwordError: Errors.passwordMatch, repeatPasswordError: Errors.passwordMatch);
     }
