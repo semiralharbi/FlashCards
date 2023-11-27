@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/entities/database/flashcard_entity.dart';
+import '../../../domain/entities/database/folder_entity.dart';
 import '../../../domain/entities/database/words_entity.dart';
 import '../../pages/add_folder_words_page/add_folder_words_page.dart';
 import '../../pages/create_folder_page/create_folder_page.dart';
@@ -17,6 +17,7 @@ import '../../pages/login_page/login_page.dart';
 import '../../pages/registration_page/registration_page.dart';
 import '../../pages/result_page/result_page.dart';
 import '../../pages/username_page/username_page.dart';
+import 'cubit_imports.dart';
 
 part 'app_router.gr.dart';
 

@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../domain/entities/database/flashcard_entity.dart';
+import '../../../../domain/entities/database/folder_entity.dart';
 import '../../../../domain/entities/database/words_entity.dart';
 import '../../../../domain/use_case/new_data_folder_use_case.dart';
 import '../../../theme/global_imports.dart';
@@ -23,14 +23,14 @@ class AddFolderWordsCubit extends Cubit<AddFolderWordsState> {
   }) async {
     emit(const AddFolderWordsState.loading());
     final result = await _createFolderUseCase(
-      FlashcardEntity(
+      FolderEntity(
         folderName: folderName,
         correctAnswers: 0,
         words: wordsList,
       ),
     );
     result.fold(
-      (l) => emit(AddFolderWordsState.failure(l.appError ?? Errors.unknownError)),
+      (l) => emit(AddFolderWordsState.failure(l.error)),
       (r) => emit(const AddFolderWordsState.success()),
     );
   }

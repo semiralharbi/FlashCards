@@ -1,19 +1,19 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../data/dto/database/flashcard_dto.dart';
+import '../../../data/dto/database/folder_dto.dart';
 import 'words_entity.dart';
 
-part 'flashcard_entity.freezed.dart';
+part 'folder_entity.freezed.dart';
 
 @freezed
-class FlashcardEntity with _$FlashcardEntity {
-  const factory FlashcardEntity({
+class FolderEntity with _$FolderEntity {
+  const factory FolderEntity({
     required String folderName,
     required List<WordsEntity> words,
     int? correctAnswers,
-  }) = _FlashcardEntity;
+  }) = _FolderEntity;
 
-  factory FlashcardEntity.fromDto(FlashcardDto dto) => FlashcardEntity(
+  factory FolderEntity.fromDto(FolderDto dto) => FolderEntity(
         folderName: dto.folderName,
         words: dto.words.map((dto) => WordsEntity.fromDto(dto)).toList(),
         correctAnswers: dto.correctAnswers,

@@ -19,4 +19,8 @@ abstract class AuthenticationRepo {
   Future<Either<Failure, Success>> updateUser(
     UpdateUserEntity entity,
   );
+
+  Future<Either<Failure, User>> getCurrentUser();
+
+  Future<Either<Failure, Success>> signOut();
 }

@@ -21,11 +21,11 @@ class WordsRepositoryImpl implements WordsRepository {
       return Right(EverythingEntity.fromDto(dto));
     } on ApiException catch (e) {
       return Left(
-        Failure(appError: e.failure),
+        Failure(error: e.failure),
       );
     } catch (e) {
       return const Left(
-        Failure(appError: Errors.unknownError),
+        Failure(error: Errors.unknownError),
       );
     }
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../domain/entities/database/flashcard_entity.dart';
+import '../../../../domain/entities/database/folder_entity.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_dimensions.dart';
@@ -17,7 +17,7 @@ class WordsContainer extends StatelessWidget {
     required this.onDismissed,
   });
 
-  final FlashcardEntity flashcardEntity;
+  final FolderEntity flashcardEntity;
   final AnimationController animationController;
   final int index;
   final bool value;

@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../domain/entities/database/flashcard_entity.dart';
+import '../../../../domain/entities/database/folder_entity.dart';
 import '../../../../domain/entities/database/words_entity.dart';
 import '../../../../domain/use_case/add_word_use_case.dart' as add_word;
 import '../../../../domain/use_case/delete_word_use_case.dart' as delete_word;
 import '../../../../domain/use_case/edit_word_use_case.dart' as edit_word;
-import '../../../../domain/use_case/get_collections_use_case.dart';
+import '../../../../domain/use_case/get_folders_use_case.dart';
 import 'edit_words_state.dart';
 
 @injectable
@@ -21,10 +21,10 @@ class EditWordsCubit extends Cubit<EditWordsState> {
   final delete_word.DeleteWordUseCase _deleteWordUseCase;
   final add_word.AddWordUseCase _addWordUseCase;
   final edit_word.EditWordUseCase _editWordUseCase;
-  final GetCollectionsUseCase _getCollectionsUseCase;
-  late FlashcardEntity flashcardEntity;
+  final GetFoldersUseCase _getCollectionsUseCase;
+  late FolderEntity flashcardEntity;
 
-  Future<void> entityInit(FlashcardEntity entity) async {
+  Future<void> entityInit(FolderEntity entity) async {
     flashcardEntity = entity;
   }
 
@@ -54,7 +54,7 @@ class EditWordsCubit extends Cubit<EditWordsState> {
     });
   }
 
-  Future<void> deleteWord(FlashcardEntity entity, int index, {bool withoutReload = false}) async {
+  Future<void> deleteWord(FolderEntity entity, int index, {bool withoutReload = false}) async {
     emit(const EditWordsState.loading(withPop: false));
     final result = await _deleteWordUseCase(delete_word.Params(index, entity));
     result.fold(
@@ -70,7 +70,7 @@ class EditWordsCubit extends Cubit<EditWordsState> {
     String folderName, {
     isEditWord = false,
     int index = -1,
-    FlashcardEntity? entity,
+    FolderEntity? entity,
   }) async {
     if (enWord.isNotEmpty && translatedWord.isNotEmpty) {
       emit(const EditWordsState.loading(withPop: false));

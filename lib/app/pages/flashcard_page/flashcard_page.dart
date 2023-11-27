@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../domain/entities/database/flashcard_entity.dart';
+import '../../../domain/entities/database/folder_entity.dart';
 import '../../../domain/entities/database/words_entity.dart';
 import '../../../gen/assets.gen.dart';
 import '../../../injectable/injectable.dart';
@@ -24,7 +24,7 @@ class FlashcardPage extends StatelessWidget {
     this.newEntityList,
   });
 
-  final FlashcardEntity flashcardEntity;
+  final FolderEntity flashcardEntity;
   final List<WordsEntity>? newEntityList;
   final int index;
 
@@ -44,7 +44,7 @@ class FlashcardPage extends StatelessWidget {
                   index: index,
                 ),
               ),
-              results: (entity) => context.router.replace(ResultRoute(entity: entity)),
+              results: (entity) => context.router.replace(ResultRoute(folder: entity)),
               orElse: () => const SizedBox.shrink(),
             ),
             builder: (context, state) {
@@ -66,7 +66,7 @@ class _Body extends HookWidget {
     this.newEntityList,
   });
 
-  final FlashcardEntity flashcardEntity;
+  final FolderEntity flashcardEntity;
   final List<WordsEntity>? newEntityList;
   final int index;
 
@@ -174,9 +174,9 @@ class _Body extends HookWidget {
                   child: Text(
                     context.tr.guessHiddenWordDesc,
                     style: context.tht.titleMedium?.copyWith(
-                          color: AppColors.daintree,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      color: AppColors.daintree,
+                      fontWeight: FontWeight.w500,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -225,7 +225,9 @@ class AnimatedFlashcard extends AnimatedWidget {
                   ),
                 ),
               ),
-              child: (first && animation.value < halfAngle || (animation.value == 0.0 && !hasLastChild)) ? child : lastChild,
+              child: (first && animation.value < halfAngle || (animation.value == 0.0 && !hasLastChild))
+                  ? child
+                  : lastChild,
             ),
           );
   }

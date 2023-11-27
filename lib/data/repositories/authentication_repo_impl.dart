@@ -29,9 +29,9 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
       final createUser = await _remoteSource.createUser(CreateUserDto.fromEntity(entity));
       return Right(createUser);
     } on ApiException catch (e) {
-      return Left(Failure(appError: e.failure));
+      return Left(Failure(error: e.failure));
     } catch (e) {
-      return const Left(Failure(appError: Errors.unknownError));
+      return const Left(Failure(error: Errors.unknownError));
     }
   }
 
@@ -42,12 +42,12 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
       if (user != null) {
         return Right(user);
       } else {
-        return const Left(Failure(appError: Errors.userNotFound));
+        return const Left(Failure(error: Errors.userNotFound));
       }
     } on ApiException catch (e) {
-      return Left(Failure(appError: e.failure));
+      return Left(Failure(error: e.failure));
     } catch (e) {
-      return const Left(Failure(appError: Errors.unknownError));
+      return const Left(Failure(error: Errors.unknownError));
     }
   }
 
@@ -57,9 +57,30 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
       await _remoteSource.updateUser(UpdateUserDto.fromEntity(entity));
       return const Right(Success());
     } on ApiException catch (e) {
-      return Left(Failure(appError: e.failure));
+      return Left(Failure(error: e.failure));
     } catch (e) {
-      return const Left(Failure(appError: Errors.unknownError));
+      return const Left(Failure(error: Errors.unknownError));
+    }
+  }
+
+  @override
+  Future<Either<Failure, User>> getCurrentUser() async {
+    try {
+      final user = await _remoteSource.getCurrentUser();
+      return Right(user);
+    } on ApiException catch (e) {
+      return Left(Failure(error: e.failure));
+    } catch (e) {
+      return const Left(Failure(error: Errors.unknownError));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Success>> signOut() async {
+    try {
+      return Right(await _remoteSource.signOut());
+    } catch (e) {
+      return const Left(Failure(error: Errors.unknownError));
     }
   }
 }

@@ -1,4 +1,3 @@
-
 import '../../../gen/fonts.gen.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
@@ -32,7 +31,7 @@ class UsernamePage extends StatelessWidget {
                     context,
                     context.tr.unknownError,
                   ),
-            success: () => context.router.replaceAll([const HomeRoute()]),
+            success: () => context.router.replaceAll([HomeRoute()]),
           ),
           builder: (context, state) => state.maybeWhen(
             success: () => const AppProgressIndicator(),

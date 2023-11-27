@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../domain/entities/database/flashcard_entity.dart';
+import '../../../../domain/entities/database/folder_entity.dart';
 import '../../../../domain/entities/database/words_entity.dart';
 import '../../../../domain/use_case/update_folder_data.dart';
 import 'flashcard_state.dart';
@@ -25,7 +25,7 @@ class FlashcardCubit extends Cubit<FlashcardState> {
   }
 
   Future<void> next({
-    required FlashcardEntity entity,
+    required FolderEntity entity,
     required AnimationController controller,
     required int index,
     required bool isCorrect,
@@ -39,8 +39,8 @@ class FlashcardCubit extends Cubit<FlashcardState> {
     }
     List<WordsEntity> wordsList = newEntityList?.toList() ?? entity.words.toList();
     if (!isLastWord) {
-      wordsList[index] = entity.words[index]
-          .copyWith(correctAnswer: isCorrect, nrRepeated: wordsList[index].nrRepeated + 1);
+      wordsList[index] =
+          entity.words[index].copyWith(correctAnswer: isCorrect, nrRepeated: wordsList[index].nrRepeated + 1);
     }
     if (index < entity.words.length - 1) {
       index++;

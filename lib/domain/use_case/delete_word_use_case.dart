@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../entities/database/flashcard_entity.dart';
+import '../entities/database/folder_entity.dart';
 import '../repositories/database_repository.dart';
 import '../utils/failure.dart';
 import '../utils/success.dart';
@@ -28,5 +28,5 @@ class Params {
   const Params(this.index, this.entity);
 
   final int index;
-  final FlashcardEntity entity;
+  final FolderEntity entity;
 }

@@ -15,17 +15,12 @@ class AlphabetContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) => TextButton(
         style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+            isSelectedLetter ? AppColors.aliceBlue : AppColors.white,
+          ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                AppDimensions.d44,
-              ),
-            ),
-          ),
-          minimumSize: MaterialStateProperty.all<Size?>(
-            const Size(
-              AppDimensions.d10,
-              AppDimensions.d10,
+              borderRadius: BorderRadius.circular(AppDimensions.d10),
             ),
           ),
         ),
@@ -33,7 +28,7 @@ class AlphabetContainer extends StatelessWidget {
         child: Text(
           text,
           style: context.tht.titleMedium?.copyWith(
-            fontWeight: isSelectedLetter ? FontWeight.w800 : FontWeight.w600,
+            fontWeight: isSelectedLetter ? FontWeight.w900 : FontWeight.w600,
             fontSize: isSelectedLetter ? AppDimensions.d18 : AppDimensions.d14,
           ),
         ),

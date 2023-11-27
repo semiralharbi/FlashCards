@@ -69,5 +69,5 @@
   "createFolderPage_continueButtonText": "Gotowe!",
   "addWordFolderPage_addButtonText": "Dodaj",
   "addWordFolderPage_finishButtonText": "Zakończ",
-  "addWordFolderPage_textFieldError": "To pole nie może być puste"
+  "addWordFolderPage_textFieldError": "Ups! Chyba coś tutaj zabrakło"
 }

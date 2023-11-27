@@ -21,10 +21,10 @@ class LoginPageCubit extends Cubit<LoginPageState> {
     );
     result.fold(
       (l) {
-        emit(LoginPageState.fail(error: l.appError));
+        emit(LoginPageState.fail(error: l.error));
         emit(LoginPageState.initial(email: email, password: password));
       },
-          (r) {
+      (r) {
         if (r.displayName == null) {
           emit(const LoginPageState.showUsernamePage());
         } else {

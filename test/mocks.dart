@@ -1,13 +1,34 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:flash_cards/app/pages/add_folder_words_page/cubit/add_folder_words_cubit.dart';
+import 'package:flash_cards/app/pages/home_page/cubit/home_cubit.dart';
+import 'package:flash_cards/domain/use_case/delete_folder_use_case.dart';
+import 'package:flash_cards/domain/use_case/get_currect_user_use_case.dart';
+import 'package:flash_cards/domain/use_case/get_folders_use_case.dart';
 import 'package:flash_cards/domain/use_case/new_data_folder_use_case.dart';
+import 'package:flash_cards/domain/use_case/sign_out_use_case.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 
 @GenerateMocks([
   CreateFolderUseCase,
   FirebaseAppPlatform,
+  GetCurrentUserUseCase,
+  SingOutUseCase,
+  DeleteFolderDataUseCase,
+  GetFoldersUseCase,
+  HomeCubit,
 ])
 void main() {}
 
 class MockAddFolderWordsCubit extends MockCubit<AddFolderWordsState> implements AddFolderWordsCubit {}
+
+class FakeUser extends Fake implements User {
+  FakeUser({this.mockedDisplayName});
+
+  final String? mockedDisplayName;
+
+  @override
+  String? get displayName => mockedDisplayName;
+}

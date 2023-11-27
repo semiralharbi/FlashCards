@@ -1,17 +1,17 @@
-import '../../../data/dto/database/flashcard_dto.dart';
+import '../../../data/dto/database/folder_dto.dart';
 import '../../../data/dto/database/words_dto.dart';
 import '../../utils/success.dart';
 
 abstract class DatabaseRemoteSource {
-  Future<Success> newFolder(FlashcardDto dto);
+  Future<Success> newFolder(FolderDto dto);
 
-  Future<List<FlashcardDto>> getCollection();
+  Future<List<FolderDto>> getCollection();
 
-  Future<Success> updateCollection(FlashcardDto dto);
+  Future<Success> updateCollection(FolderDto dto);
 
-  Future<Success> deleteCollection(FlashcardDto dto);
+  Future<Success> deleteCollection(FolderDto dto);
 
-  Future<Success> deleteWord(FlashcardDto dto, int index);
+  Future<Success> deleteWord(FolderDto dto, int index);
 
   Future<Success> addWord(WordsDto dto, String folderName);
 

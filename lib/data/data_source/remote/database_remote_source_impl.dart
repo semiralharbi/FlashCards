@@ -6,7 +6,7 @@ import '../../../app/utils/enums/errors.dart';
 import '../../../domain/data_source/remote/database_remote_source.dart';
 import '../../../domain/utils/exception.dart';
 import '../../../domain/utils/success.dart';
-import '../../dto/database/flashcard_dto.dart';
+import '../../dto/database/folder_dto.dart';
 import '../../dto/database/words_dto.dart';
 
 @Injectable(as: DatabaseRemoteSource)
@@ -15,7 +15,7 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   final userId = FirebaseAuth.instance.currentUser?.uid;
 
   @override
-  Future<Success> newFolder(FlashcardDto dto) async {
+  Future<Success> newFolder(FolderDto dto) async {
     if (userId != null) {
       await database.collection("$userId").doc(dto.folderName.toUpperCase()).set(dto.toJson());
       return const Success();
@@ -25,12 +25,12 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   }
 
   @override
-  Future<List<FlashcardDto>> getCollection() async {
+  Future<List<FolderDto>> getCollection() async {
     try {
       QuerySnapshot<Map<String, dynamic>> collection = await database.collection('$userId').get();
       List<Map<String, dynamic>> allData = collection.docs.map((e) => e.data()).toList();
       if (allData.isNotEmpty) {
-        List<FlashcardDto> dto = allData.map((e) => FlashcardDto.fromJson(e)).toList();
+        List<FolderDto> dto = allData.map((e) => FolderDto.fromJson(e)).toList();
         dto.sort((a, b) => a.folderName.toLowerCase().compareTo(b.folderName.toLowerCase()));
         return dto;
       } else {
@@ -42,7 +42,7 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   }
 
   @override
-  Future<Success> updateCollection(FlashcardDto dto) async {
+  Future<Success> updateCollection(FolderDto dto) async {
     try {
       database.collection("$userId").doc(dto.folderName.toUpperCase()).set(dto.toJson());
       return const Success();
@@ -52,7 +52,7 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   }
 
   @override
-  Future<Success> deleteCollection(FlashcardDto dto) async {
+  Future<Success> deleteCollection(FolderDto dto) async {
     try {
       await database.collection("$userId").doc(dto.folderName.toUpperCase()).delete();
       return const Success();
@@ -62,7 +62,7 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   }
 
   @override
-  Future<Success> deleteWord(FlashcardDto dto, int index) async {
+  Future<Success> deleteWord(FolderDto dto, int index) async {
     try {
       await database.collection("$userId").doc(dto.folderName.toUpperCase()).update({
         "words": FieldValue.arrayRemove([dto.words[index].toJson()]),

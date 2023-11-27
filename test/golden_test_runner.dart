@@ -33,6 +33,7 @@ Future<void> runGoldenTest(
     ),
     constraints: constraints,
     textScaleFactor: textScaleFactor,
+    pumpBeforeTest: precacheImages,
     whilePerforming: (tester) async {
       await whilePerforming?.call(tester);
       await tester.pumpAndSettle();

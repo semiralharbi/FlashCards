@@ -6,7 +6,5 @@ part 'failure.freezed.dart';
 
 @freezed
 class Failure with _$Failure {
-  const factory Failure({
-    Errors? appError,
-  }) = _Failure;
+  const factory Failure({required Errors error}) = _Failure;
 }

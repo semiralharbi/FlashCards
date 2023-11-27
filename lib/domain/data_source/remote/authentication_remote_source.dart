@@ -17,4 +17,8 @@ abstract class AuthenticationRemoteSource {
   Future<User?> login(
     LoginDto dto,
   );
+
+  Future<User> getCurrentUser();
+
+  Future<Success> signOut();
 }
