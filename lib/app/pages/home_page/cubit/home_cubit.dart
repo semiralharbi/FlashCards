@@ -13,9 +13,7 @@ class HomeCubit extends Cubit<HomeState> {
     this._getFoldersUseCase,
     this._deleteFolderDataUseCase,
     this._singOutUseCase,
-  ) : super(const HomeState.loading()) {
-    fetchFolders();
-  }
+  ) : super(const HomeState.loading());
 
   final GetFoldersUseCase _getFoldersUseCase;
   final DeleteFolderDataUseCase _deleteFolderDataUseCase;
