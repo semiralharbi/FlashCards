@@ -20,8 +20,8 @@ class AddFolderWordsPage extends StatelessWidget {
     @visibleForTesting this.cubit,
   });
 
-  final String folderName;
   final AddFolderWordsCubit? cubit;
+  final String folderName;
 
   @override
   Widget build(BuildContext context) => BlocProvider(
@@ -32,7 +32,7 @@ class AddFolderWordsPage extends StatelessWidget {
           onlyBottomWood: true,
           child: BlocConsumer<AddFolderWordsCubit, AddFolderWordsState>(
             listener: (context, state) => state.whenOrNull(
-              success: () => context.router.push(const HomeRoute()),
+              success: () => context.router.push(HomeRoute()),
               failure: (error) => showAppSnackBar(context, error.errorText(context)),
             ),
             builder: (context, state) => state.maybeWhen(

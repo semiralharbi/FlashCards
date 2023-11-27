@@ -46,7 +46,7 @@ class RegistrationPageCubit extends Cubit<RegistrationPageState> {
       );
       return result.fold(
         (l) => _emitFailureThenContentState(
-          error: l.appError,
+          error: l.error,
           email: email,
           password: password,
           repeatPassword: repeatPassword,
@@ -72,7 +72,10 @@ class RegistrationPageCubit extends Cubit<RegistrationPageState> {
     if (email.isEmpty) {
       return const ValidationErrors(emailError: Errors.fieldCantBeEmpty);
     } else if (password.isEmpty || repeatPassword.isEmpty) {
-      return const ValidationErrors(passwordError: Errors.fieldCantBeEmpty, repeatPasswordError: Errors.fieldCantBeEmpty);
+      return const ValidationErrors(
+        passwordError: Errors.fieldCantBeEmpty,
+        repeatPasswordError: Errors.fieldCantBeEmpty,
+      );
     } else if (password != repeatPassword) {
       return const ValidationErrors(passwordError: Errors.passwordMatch, repeatPasswordError: Errors.passwordMatch);
     }

@@ -1,4 +1,3 @@
-
 import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
@@ -25,7 +24,7 @@ class LoginPage extends StatelessWidget {
         child: BlocConsumer<LoginPageCubit, LoginPageState>(
           listener: (context, state) => state.whenOrNull(
             showUsernamePage: () => context.router.push(const UsernameRoute()),
-            showHomePage: () => context.router.replaceAll([const HomeRoute()]),
+            showHomePage: () => context.router.replaceAll([HomeRoute()]),
             fail: (error) => error != null
                 ? showAppSnackBar(
                     context,

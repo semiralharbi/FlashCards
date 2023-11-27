@@ -86,4 +86,28 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       throw ApiException(e.failure);
     }
   }
+
+  @override
+  Future<User> getCurrentUser() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        return user;
+      } else {
+        throw ApiException(Errors.userNotFound);
+      }
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+
+  @override
+  Future<Success> signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      return const Success();
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
 }

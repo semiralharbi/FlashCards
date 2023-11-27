@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/entities/database/flashcard_entity.dart';
+import '../../../domain/entities/database/folder_entity.dart';
 import '../../../gen/assets.gen.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
@@ -15,10 +15,10 @@ import '../../widgets/custom_drawer/custom_drawer.dart';
 class ResultPage extends StatelessWidget {
   const ResultPage({
     super.key,
-    required this.entity,
+    required this.folder,
   });
 
-  final FlashcardEntity entity;
+  final FolderEntity folder;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class ResultPage extends StatelessWidget {
               ),
               const SizedBox(height: AppDimensions.d10),
               Text(
-                '${entity.correctAnswers}/${entity.words.length}',
+                '${folder.correctAnswers}/${folder.words.length}',
                 style: context.tht.titleMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: AppDimensions.d28,
@@ -70,7 +70,7 @@ class ResultPage extends StatelessWidget {
                       text: context.tr.retry,
                       onPressed: () => context.router.replace(
                         FolderContentRoute(
-                          flashcardEntity: entity,
+                          flashcardEntity: folder,
                         ),
                       ),
                     ),
@@ -81,7 +81,7 @@ class ResultPage extends StatelessWidget {
                     child: AppElevatedButton(
                       text: context.tr.chooseOtherFolder,
                       onPressed: () => context.router.replace(
-                        const HomeRoute(),
+                        HomeRoute(),
                       ),
                     ),
                   ),

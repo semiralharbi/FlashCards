@@ -21,14 +21,14 @@ void main() {
   blocTest<AddFolderWordsCubit, AddFolderWordsState>(
     'Add word to cache and emit loaded',
     build: createCubit,
-    act: (bloc) => bloc.addWord(mockedWordEntity),
+    act: (bloc) => bloc.addWord(mockedWordEntityV1),
     expect: () => <AddFolderWordsState>[
       const AddFolderWordsState.loading(),
-      const AddFolderWordsState.loaded([mockedWordEntity]),
+      const AddFolderWordsState.loaded([mockedWordEntityV1]),
     ],
     verify: (bloc) {
       verifyZeroInteractions(mockCreateFolderUseCase);
-      expect(bloc.wordsList, contains(mockedWordEntity));
+      expect(bloc.wordsList, contains(mockedWordEntityV1));
     },
   );
 

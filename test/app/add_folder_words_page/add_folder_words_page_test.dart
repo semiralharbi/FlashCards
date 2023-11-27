@@ -44,7 +44,7 @@ void main() {
         mockAddFolderWordsCubit,
         Stream.fromIterable(
           const [
-            AddFolderWordsState.loaded([mockedWordEntity]),
+            AddFolderWordsState.loaded([mockedWordEntityV1]),
           ],
         ),
         initialState: const AddFolderWordsState.loaded([]),
@@ -58,7 +58,6 @@ void main() {
 
       await tester.enterText(textFieldWidget.first, 'my initial word');
       await tester.pumpAndSettle();
-
 
       expect(textFieldWidget, findsNWidgets(2));
 

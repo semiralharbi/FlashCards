@@ -1,6 +1,6 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../domain/entities/database/flashcard_entity.dart';
+import '../../../domain/entities/database/folder_entity.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/consts.dart';
 import '../../theme/global_imports.dart';
@@ -19,7 +19,7 @@ class FolderContentPage extends HookWidget {
     required this.flashcardEntity,
   });
 
-  final FlashcardEntity flashcardEntity;
+  final FolderEntity flashcardEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class FolderContentPage extends HookWidget {
           ),
         ),
       ],
-      onBackPress: () => context.router.push(const HomeRoute()),
+      onBackPress: () => context.router.push(HomeRoute()),
       drawer: const CustomDrawer(),
       child: BlocProvider(
         create: (context) => getIt<FolderContentCubit>(),
@@ -92,7 +92,7 @@ class _Body extends StatelessWidget {
     required this.getText,
   });
 
-  final FlashcardEntity flashcardEntity;
+  final FolderEntity flashcardEntity;
   final AnimationController animationController;
   final ValueNotifier<bool> getText;
 

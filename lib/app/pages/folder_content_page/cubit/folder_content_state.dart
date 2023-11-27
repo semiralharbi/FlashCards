@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../domain/entities/database/flashcard_entity.dart';
+import '../../../../domain/entities/database/folder_entity.dart';
 
 part 'folder_content_state.freezed.dart';
 
@@ -8,10 +8,10 @@ part 'folder_content_state.freezed.dart';
 class FolderContentState with _$FolderContentState {
   const factory FolderContentState.initial() = _Initial;
 
-  const factory FolderContentState.reload(FlashcardEntity entity) = _Reload;
+  const factory FolderContentState.reload(FolderEntity entity) = _Reload;
 
   const factory FolderContentState.nextPage(
-    FlashcardEntity entity,
+    FolderEntity entity,
     int index,
   ) = _NextPage;
 }

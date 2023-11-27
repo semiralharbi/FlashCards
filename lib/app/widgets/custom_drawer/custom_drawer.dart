@@ -72,7 +72,7 @@ class _Body extends StatelessWidget {
                     children: [
                       DrawerIconButton(
                         onTap: () => context.router.push(
-                          const HomeRoute(),
+                          HomeRoute(),
                         ),
                         text: context.tr.yourFolders,
                         textPadding: const EdgeInsets.only(top: AppDimensions.d24),
@@ -86,7 +86,7 @@ class _Body extends StatelessWidget {
                       ),
                       DrawerIconButton(
                         onTap: () => context.router.push(
-                          const HomeRoute(),
+                          HomeRoute(),
                         ),
                         text: context.tr.profile,
                         textPadding: const EdgeInsets.only(top: AppDimensions.d16),

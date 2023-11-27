@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../domain/entities/database/flashcard_entity.dart';
+import '../../../domain/entities/database/folder_entity.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_dimensions.dart';
@@ -22,7 +22,7 @@ import 'widgets/edit_word_container.dart';
 class EditWordsPage extends HookWidget {
   const EditWordsPage({super.key, required this.flashcardEntity});
 
-  final FlashcardEntity flashcardEntity;
+  final FolderEntity flashcardEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +91,7 @@ class _Body extends StatelessWidget {
     required this.translatedWordController,
   });
 
-  final FlashcardEntity flashcardEntity;
+  final FolderEntity flashcardEntity;
   final TextEditingController enWordController;
   final TextEditingController translatedWordController;
 
@@ -174,7 +174,7 @@ class _Body extends StatelessWidget {
 class _LoadingBody extends StatelessWidget {
   const _LoadingBody({required this.entity});
 
-  final FlashcardEntity entity;
+  final FolderEntity entity;
 
   @override
   Widget build(BuildContext context) => AppScaffold(

@@ -18,7 +18,7 @@ class UsernamePageCubit extends Cubit<UsernamePageState> {
     );
     result.fold(
       (l) {
-        emit(UsernamePageState.fail(error: l.appError));
+        emit(UsernamePageState.fail(error: l.error));
         emit(UsernamePageState.initial(username: username));
       },
       (r) => emit(const UsernamePageState.success()),

@@ -1,43 +1,45 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../domain/entities/database/flashcard_entity.dart';
+import '../../../../domain/entities/database/folder_entity.dart';
 import '../../../../domain/use_case/delete_folder_use_case.dart';
-import '../../../../domain/use_case/get_collections_use_case.dart';
-import '../../../utils/enums/errors.dart';
+import '../../../../domain/use_case/get_folders_use_case.dart';
+import '../../../../domain/use_case/sign_out_use_case.dart';
 import 'home_state.dart';
 
 @injectable
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(
-    this._getCollectionsUseCase,
+    this._getFoldersUseCase,
     this._deleteFolderDataUseCase,
-  ) : super(const HomeState.initial());
+    this._singOutUseCase,
+  ) : super(const HomeState.loading());
 
-  final GetCollectionsUseCase _getCollectionsUseCase;
+  final GetFoldersUseCase _getFoldersUseCase;
   final DeleteFolderDataUseCase _deleteFolderDataUseCase;
+  final SingOutUseCase _singOutUseCase;
 
-  Future<void> init() async {
-    emit(const HomeState.loading());
-    final result = await _getCollectionsUseCase();
+  Future<void> fetchFolders() async {
+    final result = await _getFoldersUseCase();
     result.fold(
-      (l) => emit(HomeState.initial(failure: l)),
-      (r) => emit(HomeState.initial(entity: r)),
+      (l) => emit(HomeState.empty(failure: l.error)),
+      (folders) => emit(HomeState.loaded(folders: folders)),
     );
   }
 
   Future<void> logout() async {
-    await FirebaseAuth.instance.signOut().then(
-          (value) => emit(const HomeState.logout()),
-        );
+    final result = await _singOutUseCase();
+    result.fold(
+      (l) => emit(HomeState.fail(l.error)),
+      (r) => emit(const HomeState.logout()),
+    );
   }
 
-  Future<void> deleteFolder(FlashcardEntity entity) async {
+  Future<void> deleteFolder(FolderEntity entity) async {
     final result = await _deleteFolderDataUseCase(entity);
     result.fold(
-      (l) => emit(HomeState.fail(l.appError ?? Errors.unknownError)),
-      (r) async => await init(),
+      (l) => emit(HomeState.fail(l.error)),
+      (r) async => await fetchFolders(),
     );
   }
 }
