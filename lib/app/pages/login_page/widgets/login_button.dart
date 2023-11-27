@@ -1,7 +1,7 @@
 import '../../../../environment_config.dart';
 import '../../../theme/global_imports.dart';
 import '../../../widgets/app_elevated_button.dart';
-import '../cubit/login_page_cubit.dart';
+import '../cubit/login_cubit.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({
@@ -21,7 +21,7 @@ class LoginButton extends StatelessWidget {
         passwordController.text = EnvConfig.password;
       },
       child: AppElevatedButton(
-        onPressed: () => context.read<LoginPageCubit>().onLoginButton(
+        onPressed: () => context.read<LoginCubit>().onLoginButton(
               emailController.text,
               passwordController.text,
             ),

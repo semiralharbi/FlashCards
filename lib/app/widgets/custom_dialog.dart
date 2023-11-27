@@ -1,6 +1,6 @@
 import '../theme/global_imports.dart';
 import 'app_snackbar.dart';
-import 'textfield_widget.dart';
+import 'custom_textfield.dart';
 
 class CreateFolderDialog extends StatelessWidget {
   const CreateFolderDialog({
@@ -17,7 +17,7 @@ class CreateFolderDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Gap(AppDimensions.d20),
-            TextFieldWidget(
+            CustomTextField(
               textFieldPadding: EdgeInsets.zero,
               controller: controller,
               hintText: context.tr.folderName,
@@ -46,8 +46,8 @@ class CreateFolderDialog extends StatelessWidget {
           ),
         ],
       );
-  
-  void _onCreatePressed(BuildContext context){
+
+  void _onCreatePressed(BuildContext context) {
     if (controller.text.isEmpty) {
       showAppSnackBar(context, context.tr.folderNameError);
       return;
@@ -55,7 +55,7 @@ class CreateFolderDialog extends StatelessWidget {
     context.router.pop(true);
   }
 
-  void _onCancelPressed(BuildContext context){
+  void _onCancelPressed(BuildContext context) {
     controller.clear();
     context.router.pop(false);
   }

@@ -1,48 +1,42 @@
 import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
+import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
-import '../../widgets/custom_icon_text_button.dart';
-import '../../widgets/password_texfield_widget.dart';
+import '../../widgets/custom_textfield.dart';
 import '../../widgets/progress_indicator.dart';
-import '../../widgets/textfield_widget.dart';
-import 'cubit/login_page_cubit.dart';
-import 'cubit/login_page_state.dart';
+import 'cubit/login_cubit.dart';
+import 'cubit/login_state.dart';
 import 'widgets/login_button.dart';
 
 @RoutePage()
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  const LoginPage({super.key, @visibleForTesting this.cubit});
+
+  final LoginCubit? cubit;
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       withAppBar: false,
       child: BlocProvider(
-        create: (context) => getIt<LoginPageCubit>(),
-        child: BlocConsumer<LoginPageCubit, LoginPageState>(
+        create: (context) => cubit ?? getIt<LoginCubit>(),
+        child: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) => state.whenOrNull(
             showUsernamePage: () => context.router.push(const UsernameRoute()),
             showHomePage: () => context.router.replaceAll([HomeRoute()]),
-            fail: (error) => error != null
-                ? showAppSnackBar(
-                    context,
-                    error.errorText(context),
-                  )
-                : showAppSnackBar(
-                    context,
-                    context.tr.unknownError,
-                  ),
+            fail: (error) => showAppSnackBar(
+              context,
+              error.errorText(context),
+            ),
           ),
           builder: (context, state) => state.maybeWhen(
-            initial: (email, password) => _LoginPageBody(
+            loaded: (email, password) => _LoginPageBody(
               email: email,
               password: password,
             ),
-            loading: () => const AppProgressIndicator(
-              color: AppColors.daintree,
-            ),
+            loading: () => const AppProgressIndicator(color: AppColors.daintree),
             orElse: _LoginPageBody.new,
           ),
         ),
@@ -79,23 +73,23 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Gap(AppDimensions.d100),
-          TextFieldWidget(
+          CustomTextField(
             controller: _emailController,
             hintText: context.tr.email,
           ),
-          PasswordTextFieldWidget(
+          CustomTextField(
             controller: _passwordController,
             hintText: context.tr.password,
+            hasPassword: true,
           ),
           const Gap(AppDimensions.d100),
           LoginButton(
             emailController: _emailController,
             passwordController: _passwordController,
           ).animate().fade(delay: 400.ms).slideX(delay: 400.ms),
-          const Gap(AppDimensions.d40),
-          CustomIconTextButton(
-            onPressed: () => context.router.push(const RegistrationRoute()),
-            icon: Icons.account_box,
+          const Gap(AppDimensions.d20),
+          AppElevatedButton(
+            onPressed: () => context.router.push(RegistrationRoute()),
             text: context.tr.createAcc,
           ).animate().fade(delay: 600.ms).slideX(delay: 600.ms),
         ].animate().fade().slideY(curve: Curves.easeIn),

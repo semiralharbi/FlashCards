@@ -5,12 +5,11 @@ import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
 import '../utils/enums/context_extension.dart';
 
-class TextFieldWidget extends StatelessWidget {
-  const TextFieldWidget({
+class CustomTextField extends StatefulWidget {
+  const CustomTextField({
     required this.controller,
     required this.hintText,
     this.error,
-    this.obscure = false,
     this.keyboardType,
     this.inputFormatters,
     this.maxLength,
@@ -21,11 +20,11 @@ class TextFieldWidget extends StatelessWidget {
     this.textFieldPadding,
     super.key,
     this.onChanged,
+    this.hasPassword = false,
   });
 
   final TextEditingController? controller;
   final String hintText;
-  final bool obscure;
   final String? error;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
@@ -36,18 +35,32 @@ class TextFieldWidget extends StatelessWidget {
   final IconData? iconData;
   final EdgeInsets? textFieldPadding;
   final Function(String?)? onChanged;
+  final bool hasPassword;
+
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  late bool _obscurePassword;
+
+  @override
+  void initState() {
+    super.initState();
+    _obscurePassword = widget.hasPassword;
+  }
 
   @override
   Widget build(BuildContext context) => Row(
         children: [
           Icon(
-            iconData,
-            size: iconData != null ? AppDimensions.d50 : 0,
+            widget.iconData,
+            size: widget.iconData != null ? AppDimensions.d50 : 0,
             color: AppColors.daintree,
           ),
           Flexible(
             child: Padding(
-              padding: textFieldPadding ??
+              padding: widget.textFieldPadding ??
                   const EdgeInsets.only(
                     top: AppDimensions.d12,
                     bottom: AppDimensions.d8,
@@ -55,30 +68,35 @@ class TextFieldWidget extends StatelessWidget {
                     left: AppDimensions.d12,
                   ),
               child: TextField(
-                onChanged: onChanged,
-                textInputAction: textInputAction,
-                textCapitalization: textCapitalization,
-                maxLength: maxLength,
-                keyboardType: keyboardType,
-                inputFormatters: inputFormatters,
-                obscureText: obscure,
-                controller: controller,
+                onChanged: widget.onChanged,
+                textInputAction: widget.textInputAction,
+                textCapitalization: widget.textCapitalization,
+                maxLength: widget.maxLength,
+                keyboardType: widget.keyboardType,
+                inputFormatters: widget.inputFormatters,
+                obscureText: _obscurePassword,
+                controller: widget.controller,
                 style: const TextStyle(color: AppColors.daintree),
                 decoration: InputDecoration(
-                  labelStyle: context.tht.titleSmall,
-                  suffixIcon: suffixIcon,
+                  suffixIcon: widget.hasPassword
+                      ? IconButton(
+                          onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                          icon: Icon(_obscurePassword ? Icons.visibility_off_outlined : Icons.remove_red_eye_outlined),
+                          color: AppColors.daintree,
+                        )
+                      : widget.suffixIcon,
                   counterText: '',
-                  errorText: error,
+                  errorText: widget.error,
                   filled: true,
                   fillColor: AppColors.whiteSmoke,
-                  hintText: hintText,
+                  hintText: widget.hintText,
                   hintStyle: context.tht.titleSmall?.copyWith(
                     color: AppColors.manatee,
                   ),
                   errorStyle: TextStyle(
                     height: 0.8,
                     color: AppColors.red,
-                    fontSize: error != '' ? AppDimensions.d12 : 0,
+                    fontSize: widget.error != '' ? AppDimensions.d12 : 0,
                   ),
                   errorBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(

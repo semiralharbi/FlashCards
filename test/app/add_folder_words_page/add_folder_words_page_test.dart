@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flash_cards/app/pages/add_folder_words_page/add_folder_words_page.dart';
 import 'package:flash_cards/app/pages/add_folder_words_page/cubit/add_folder_words_cubit.dart';
 import 'package:flash_cards/app/theme/global_imports.dart';
-import 'package:flash_cards/app/widgets/textfield_widget.dart';
+import 'package:flash_cards/app/widgets/custom_textfield.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../golden_test_runner.dart';
@@ -52,7 +52,7 @@ void main() {
       return testedPage;
     },
     whilePerforming: (tester) async {
-      final textFieldWidget = find.byType(TextFieldWidget);
+      final textFieldWidget = find.byType(CustomTextField);
 
       expect(textFieldWidget, findsOneWidget);
 

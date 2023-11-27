@@ -12,8 +12,8 @@ import '../../utils/enums/errors.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
+import '../../widgets/custom_textfield.dart';
 import '../../widgets/progress_indicator.dart';
-import '../../widgets/textfield_widget.dart';
 import 'cubit/dictionary_cubit.dart';
 import 'cubit/dictionary_state.dart';
 import 'widgets/dictionary_container.dart';
@@ -40,8 +40,8 @@ class DictionaryPage extends StatelessWidget {
               context,
               error.errorText(context),
             ),
-                orElse: () => null,
-              ),
+            orElse: () => null,
+          ),
           builder: (context, state) => state.maybeWhen(
             orElse: () => const _StableBody(),
             loading: () => const _StableBody(
@@ -72,7 +72,7 @@ class _StableBody extends HookWidget {
     final textFieldController = useTextEditingController();
     return Column(
       children: [
-        TextFieldWidget(
+        CustomTextField(
           controller: textFieldController,
           hintText: context.tr.enterWord,
           suffixIcon: IconButton(

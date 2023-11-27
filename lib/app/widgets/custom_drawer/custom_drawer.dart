@@ -22,7 +22,7 @@ class CustomDrawer extends Drawer {
         child: BlocListener<HomeCubit, HomeState>(
           listener: (context, state) => state.maybeWhen(
             logout: () => context.router.replaceAll([
-              const LoginRoute(),
+              LoginRoute(),
             ]),
             orElse: () => null,
           ),

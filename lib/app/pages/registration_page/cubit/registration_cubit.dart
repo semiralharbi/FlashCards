@@ -5,11 +5,11 @@ import '../../../../domain/entities/create_user_entity.dart';
 import '../../../../domain/use_case/create_user_use_case.dart';
 import '../../../utils/enums/errors.dart';
 import '../models/validation_errors.dart';
-import 'registration_page_state.dart';
+import 'registration_state.dart';
 
 @injectable
-class RegistrationPageCubit extends Cubit<RegistrationPageState> {
-  RegistrationPageCubit(this._createUserUseCase) : super(const RegistrationPageState.initial());
+class RegistrationCubit extends Cubit<RegistrationState> {
+  RegistrationCubit(this._createUserUseCase) : super(const RegistrationState.loaded());
 
   final CreateUserUseCase _createUserUseCase;
 
@@ -18,7 +18,7 @@ class RegistrationPageCubit extends Cubit<RegistrationPageState> {
     required String password,
     required String repeatPassword,
   }) async {
-    emit(const RegistrationPageState.loading());
+    emit(const RegistrationState.loading());
 
     final validationErrors = _validateInput(email, password, repeatPassword);
     final passwordsMatch = repeatPassword.compareTo(password) == 0;
@@ -26,7 +26,7 @@ class RegistrationPageCubit extends Cubit<RegistrationPageState> {
 
     if (validationErrors != null) {
       return emit(
-        RegistrationPageState.content(
+        RegistrationState.loaded(
           email: email,
           password: password,
           repeatPassword: repeatPassword,
@@ -51,21 +51,19 @@ class RegistrationPageCubit extends Cubit<RegistrationPageState> {
           password: password,
           repeatPassword: repeatPassword,
         ),
-        (r) => emit(const RegistrationPageState.registerSuccess()),
+        (r) => emit(const RegistrationState.success()),
       );
-    } else {
-      return _emitFailureThenContentState(error: Errors.unknownError);
     }
   }
 
   void _emitFailureThenContentState({
-    Errors? error,
+    required Errors error,
     String? email,
     String? password,
     String? repeatPassword,
   }) {
-    emit(RegistrationPageState.fail(error: error));
-    emit(RegistrationPageState.content(email: email, password: password, repeatPassword: repeatPassword));
+    emit(RegistrationState.fail(error: error));
+    emit(RegistrationState.loaded(email: email, password: password, repeatPassword: repeatPassword));
   }
 
   ValidationErrors? _validateInput(String email, String password, String repeatPassword) {

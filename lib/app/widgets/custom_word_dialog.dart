@@ -4,8 +4,8 @@ import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
 import '../utils/enums/context_extension.dart';
 import '../utils/enums/errors.dart';
+import 'custom_textfield.dart';
 import 'rounded_icon_button.dart';
-import 'textfield_widget.dart';
 
 class CustomWordDialog extends StatelessWidget {
   const CustomWordDialog({
@@ -49,12 +49,12 @@ class CustomWordDialog extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextFieldWidget(
+                CustomTextField(
                   error: enWordError ? Errors.fieldCantBeEmpty.errorText(context) : null,
                   controller: enWordController,
                   hintText: context.tr.translationWordDesc,
                 ),
-                TextFieldWidget(
+                CustomTextField(
                   error: translatedWordError ? Errors.fieldCantBeEmpty.errorText(context) : null,
                   controller: translatedWordController,
                   hintText: context.tr.translatedWordDesc,

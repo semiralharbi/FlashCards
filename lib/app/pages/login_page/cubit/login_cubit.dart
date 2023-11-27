@@ -3,16 +3,16 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../domain/entities/login_entity.dart';
 import '../../../../domain/use_case/login_use_case.dart';
-import 'login_page_state.dart';
+import 'login_state.dart';
 
 @injectable
-class LoginPageCubit extends Cubit<LoginPageState> {
-  LoginPageCubit(this._loginUseCase) : super(const LoginPageState.initial());
+class LoginCubit extends Cubit<LoginState> {
+  LoginCubit(this._loginUseCase) : super(const LoginState.loaded());
 
   final LoginUseCase _loginUseCase;
 
   Future<void> onLoginButton(String email, String password) async {
-    emit(const LoginPageState.loading());
+    emit(const LoginState.loading());
     final result = await _loginUseCase(
       LoginEntity(
         email: email,
@@ -21,14 +21,14 @@ class LoginPageCubit extends Cubit<LoginPageState> {
     );
     result.fold(
       (l) {
-        emit(LoginPageState.fail(error: l.error));
-        emit(LoginPageState.initial(email: email, password: password));
+        emit(LoginState.fail(error: l.error));
+        emit(LoginState.loaded(email: email, password: password));
       },
       (r) {
-        if (r.displayName == null) {
-          emit(const LoginPageState.showUsernamePage());
+        if (r.displayName == null || r.displayName!.isEmpty) {
+          emit(const LoginState.showUsernamePage());
         } else {
-          emit(const LoginPageState.showHomePage());
+          emit(const LoginState.showHomePage());
         }
       },
     );

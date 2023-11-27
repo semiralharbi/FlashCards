@@ -5,8 +5,8 @@ import '../../utils/enums/errors.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
+import '../../widgets/custom_textfield.dart';
 import '../../widgets/progress_indicator.dart';
-import '../../widgets/textfield_widget.dart';
 import 'cubit/username_page_cubit.dart';
 import 'cubit/username_page_state.dart';
 
@@ -82,7 +82,7 @@ class _BodyState extends State<_Body> {
             textAlign: TextAlign.center,
           ),
           const Gap(AppDimensions.d80),
-          TextFieldWidget(
+          CustomTextField(
             controller: _usernameController,
             hintText: context.tr.username,
           ),

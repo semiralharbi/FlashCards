@@ -7,8 +7,8 @@ import '../../utils/enums/errors.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
+import '../../widgets/custom_textfield.dart';
 import '../../widgets/progress_indicator.dart';
-import '../../widgets/textfield_widget.dart';
 import 'cubit/add_folder_words_cubit.dart';
 import 'widgets/added_words_grid.dart';
 
@@ -146,14 +146,14 @@ class _BodyState extends State<_Body> {
             height: AppDimensions.d244,
             child: widget.wordsList.isNotEmpty ? AddedWordsGrid(wordsList: widget.wordsList) : null,
           ),
-          TextFieldWidget(
+          CustomTextField(
             error: _initialWordError,
             controller: _initialWordController,
             hintText: context.tr.translationWordDesc,
             onChanged: _onChangedInitialWord,
           ).animate().slideX().fade(),
           if (_isInitialWordNotEmpty)
-            TextFieldWidget(
+            CustomTextField(
               error: _translatedWordError,
               onChanged: _onChangedTranslatedWord,
               suffixIcon: IconButton(

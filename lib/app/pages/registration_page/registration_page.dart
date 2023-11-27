@@ -4,42 +4,36 @@ import '../../utils/enums/errors.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
-import '../../widgets/custom_icon_text_button.dart';
-import '../../widgets/password_texfield_widget.dart';
+import '../../widgets/custom_textfield.dart';
 import '../../widgets/progress_indicator.dart';
-import '../../widgets/textfield_widget.dart';
-import 'cubit/registration_page_cubit.dart';
-import 'cubit/registration_page_state.dart';
+import 'cubit/registration_cubit.dart';
+import 'cubit/registration_state.dart';
 
 @RoutePage()
 class RegistrationPage extends StatelessWidget {
-  const RegistrationPage({super.key});
+  const RegistrationPage({super.key, this.cubit});
+
+  final RegistrationCubit? cubit;
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       withAppBar: false,
       child: BlocProvider(
-        create: (context) => getIt<RegistrationPageCubit>(),
-        child: BlocConsumer<RegistrationPageCubit, RegistrationPageState>(
+        create: (context) => cubit ?? getIt<RegistrationCubit>(),
+        child: BlocConsumer<RegistrationCubit, RegistrationState>(
           listener: (context, state) => state.whenOrNull(
-            fail: (error) => error != null
-                ? showAppSnackBar(
-                    context,
-                    error.errorText(context),
-                  )
-                : showAppSnackBar(
-                    context,
-                    context.tr.unknownError,
-                  ),
-            registerSuccess: () => context.router.push(const UsernameRoute()),
+            fail: (error) => showAppSnackBar(
+              context,
+              error.errorText(context),
+            ),
+            success: () => context.router.push(const UsernameRoute()),
           ),
           builder: (context, state) => state.maybeMap(
             orElse: () => const AppProgressIndicator(
               color: AppColors.daintree,
             ),
-            initial: (state) => const _Body(),
-            content: (state) => _Body(
+            loaded: (state) => _Body(
               email: state.email,
               password: state.password,
               repeatPassword: state.repeatPassword,
@@ -93,36 +87,36 @@ class _BodyState extends State<_Body> {
     return Align(
       child: SingleChildScrollView(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
-            TextFieldWidget(
+            CustomTextField(
               controller: _emailController,
               error: widget.emailError?.errorText(context),
               hintText: context.tr.email,
             ),
-            PasswordTextFieldWidget(
+            CustomTextField(
               controller: _passwordController,
               error: widget.passwordError?.errorText(context),
               hintText: context.tr.password,
+              hasPassword: true,
             ),
-            PasswordTextFieldWidget(
+            CustomTextField(
               controller: _repeatPasswordController,
               error: widget.repeatPasswordError?.errorText(context),
               hintText: context.tr.passwordRepeat,
+              hasPassword: true,
             ),
             const Gap(AppDimensions.d100),
             AppElevatedButton(
-              onPressed: () => context.read<RegistrationPageCubit>().onRegisterClick(
+              onPressed: () => context.read<RegistrationCubit>().onRegisterClick(
                     email: _emailController.text,
                     password: _passwordController.text,
                     repeatPassword: _repeatPasswordController.text,
                   ),
               text: context.tr.createAcc,
             ).animate().fade(delay: 400.ms).slideX(delay: 400.ms),
-            const Gap(AppDimensions.d40),
-            CustomIconTextButton(
+            const Gap(AppDimensions.d20),
+            AppElevatedButton(
               onPressed: () => context.router.pop(),
-              icon: Icons.account_box,
               text: context.tr.logIn,
             ).animate().fade(delay: 600.ms).slideX(delay: 600.ms),
           ].animate().fade().slideY(curve: Curves.easeIn),

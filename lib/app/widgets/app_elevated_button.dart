@@ -21,13 +21,17 @@ class AppElevatedButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           child: Container(
-            constraints: const BoxConstraints(minHeight: AppDimensions.d50),
-            child: Center(
-              child: Text(
-                text,
-                style: context.tht.bodyLarge,
-                textAlign: TextAlign.center,
+            constraints: const BoxConstraints(
+              minHeight: AppDimensions.d50,
+              minWidth: AppDimensions.d280,
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              text,
+              style: context.tht.titleMedium?.copyWith(
+                fontSize: AppDimensions.d16,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
         ),
