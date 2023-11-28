@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../golden_test_runner.dart';
+import '../../mocked_data.dart';
 import '../../mocks.mocks.dart';
 
 void main() {
@@ -25,10 +26,10 @@ void main() {
   runGoldenTest(
     'UsernamePage - Loaded with data',
     builder: () {
-      when(mockUsernameCubit.state).thenAnswer((_) => const UsernameState.loaded(username: 'example'));
+      when(mockUsernameCubit.state).thenAnswer((_) => const UsernameState.loaded(username: mockedUsername));
       when(mockUsernameCubit.stream).thenAnswer(
         (_) => Stream.value(
-          const UsernameState.loaded(username: 'example'),
+          const UsernameState.loaded(username: mockedUsername),
         ),
       );
 
