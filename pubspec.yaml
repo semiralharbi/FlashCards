@@ -88,10 +88,6 @@ dependencies:
   country_picker: ^2.0.22
   country_flags: ^2.1.1
   translator_plus: ^1.0.1
-  alchemist: ^0.7.0
-
-  #Testing
-  #mockito: any
 
 dev_dependencies:
   flutter_test:
@@ -110,7 +106,7 @@ dev_dependencies:
   mockito: ^5.4.3
   golden_toolkit: ^0.15.0
   fake_cloud_firestore: ^2.4.3
-  firebase_core_platform_interface: ^5.0.0
+  alchemist: ^0.7.0
 
 flutter:
   uses-material-design: true
