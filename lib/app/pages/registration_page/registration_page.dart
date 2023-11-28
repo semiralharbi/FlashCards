@@ -27,7 +27,7 @@ class RegistrationPage extends StatelessWidget {
               context,
               error.errorText(context),
             ),
-            success: () => context.router.push(const UsernameRoute()),
+            success: () => context.router.push(UsernameRoute()),
           ),
           builder: (context, state) => state.maybeMap(
             orElse: () => const AppProgressIndicator(

@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
         create: (context) => cubit ?? getIt<LoginCubit>(),
         child: BlocConsumer<LoginCubit, LoginState>(
           listener: (context, state) => state.whenOrNull(
-            showUsernamePage: () => context.router.push(const UsernameRoute()),
+            showUsernamePage: () => context.router.push(UsernameRoute()),
             showHomePage: () => context.router.replaceAll([HomeRoute()]),
             fail: (error) => showAppSnackBar(
               context,

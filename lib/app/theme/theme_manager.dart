@@ -57,7 +57,7 @@ class ThemeManager {
     ),
   );
 
-  static const Color darkTextColor = AppColors.daintree;
+  static const Color _darkTextColor = AppColors.daintree;
 
   static TextTheme darkThemeText = const TextTheme(
     displayLarge: TextStyle(
@@ -115,59 +115,59 @@ class ThemeManager {
   static TextTheme lightThemeText = const TextTheme(
     displayLarge: TextStyle(
       fontSize: 24,
-      color: darkTextColor,
+      color: _darkTextColor,
       letterSpacing: 1.05,
       fontWeight: FontWeight.w700,
     ),
     displayMedium: TextStyle(
       fontSize: 20,
-      color: darkTextColor,
+      color: _darkTextColor,
       letterSpacing: 1.05,
       fontWeight: FontWeight.w700,
     ),
     displaySmall: TextStyle(
       fontSize: 18,
-      color: darkTextColor,
+      color: _darkTextColor,
       letterSpacing: 1.05,
       fontWeight: FontWeight.w700,
     ),
     bodyLarge: TextStyle(
       fontSize: 18,
-      color: darkTextColor,
+      color: _darkTextColor,
       letterSpacing: 1.05,
       height: 1.4,
       fontWeight: FontWeight.w700,
     ),
     bodyMedium: TextStyle(
       fontSize: 11,
-      color: darkTextColor,
+      color: _darkTextColor,
       letterSpacing: 1.05,
       fontWeight: FontWeight.w700,
     ),
     labelLarge: TextStyle(
       fontSize: 22,
-      color: darkTextColor,
+      color: _darkTextColor,
       fontWeight: FontWeight.w800,
       letterSpacing: 1.3,
     ),
     titleLarge: TextStyle(
       fontSize: 28,
-      color: darkTextColor,
+      color: _darkTextColor,
       letterSpacing: 1.05,
       fontWeight: FontWeight.w700,
     ),
     titleMedium: TextStyle(
-      fontSize: 16,
-      color: darkTextColor,
-      letterSpacing: 1.05,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
+      fontSize: AppDimensions.d16,
+      color: _darkTextColor,
+      letterSpacing: 1.25,
     ),
   );
 
   static CountryListThemeData countryListThemeData = const CountryListThemeData(
     searchTextStyle: TextStyle(
       fontSize: 18,
-      color: darkTextColor,
+      color: _darkTextColor,
       letterSpacing: 1.05,
       fontWeight: FontWeight.w700,
     ),
@@ -182,7 +182,7 @@ class ThemeManager {
       ),
       helperStyle: TextStyle(
         fontSize: 18,
-        color: darkTextColor,
+        color: _darkTextColor,
         letterSpacing: 1.05,
         fontWeight: FontWeight.w700,
       ),

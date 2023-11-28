@@ -37,7 +37,7 @@ class FlashCardsApp extends StatelessWidget {
         child: BlocListener<AppCubit, AppState>(
           listener: (context, state) => state.whenOrNull(
             toHomePage: () => getIt<AppRouter>().push(HomeRoute()),
-            toUsernamePage: () => getIt<AppRouter>().push(const UsernameRoute()),
+            toUsernamePage: () => getIt<AppRouter>().push(UsernameRoute()),
           ),
           child: MaterialApp.router(
             routerConfig: getIt<AppRouter>().config(),

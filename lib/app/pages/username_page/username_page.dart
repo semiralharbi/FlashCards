@@ -1,4 +1,3 @@
-import '../../../gen/fonts.gen.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
@@ -7,36 +6,34 @@ import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
 import '../../widgets/custom_textfield.dart';
 import '../../widgets/progress_indicator.dart';
-import 'cubit/username_page_cubit.dart';
-import 'cubit/username_page_state.dart';
+import 'cubit/username_cubit.dart';
+import 'cubit/username_state.dart';
 
 @RoutePage()
 class UsernamePage extends StatelessWidget {
-  const UsernamePage({super.key});
+  const UsernamePage({super.key, @visibleForTesting this.cubit});
+
+  final UsernameCubit? cubit;
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       withAppBar: false,
       child: BlocProvider(
-        create: (context) => getIt<UsernamePageCubit>(),
-        child: BlocConsumer<UsernamePageCubit, UsernamePageState>(
+        create: (context) => cubit ?? getIt<UsernameCubit>(),
+        child: BlocConsumer<UsernameCubit, UsernameState>(
           listener: (context, state) => state.whenOrNull(
-            fail: (error) => error != null
-                ? showAppSnackBar(
-                    context,
-                    error.errorText(context),
-                  )
-                : showAppSnackBar(
-                    context,
-                    context.tr.unknownError,
-                  ),
+            fail: (error) => showAppSnackBar(
+              context,
+              error.errorText(context),
+            ),
             success: () => context.router.replaceAll([HomeRoute()]),
           ),
           builder: (context, state) => state.maybeWhen(
             success: () => const AppProgressIndicator(),
-            initial: (username) => _Body(
+            loaded: (username, error) => _Body(
               username: username,
+              usernameError: error,
             ),
             orElse: () => const AppProgressIndicator(),
           ),
@@ -47,9 +44,10 @@ class UsernamePage extends StatelessWidget {
 }
 
 class _Body extends StatefulWidget {
-  const _Body({this.username});
+  const _Body({this.username, this.usernameError});
 
   final String? username;
+  final Errors? usernameError;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -70,25 +68,21 @@ class _BodyState extends State<_Body> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Gap(AppDimensions.d80),
           Text(
             context.tr.welcomeUser,
-            style: context.tht.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-              fontSize: AppDimensions.d18,
-              color: AppColors.daintree,
-              fontFamily: FontFamily.gloriaHallelujah,
-              letterSpacing: 1.25,
-            ),
+            style: context.tht.titleMedium,
             textAlign: TextAlign.center,
           ),
-          const Gap(AppDimensions.d80),
+          const Gap(AppDimensions.d100),
           CustomTextField(
             controller: _usernameController,
             hintText: context.tr.username,
+            error: widget.usernameError?.errorText(context),
           ),
-          const Gap(AppDimensions.d60),
+          const Gap(AppDimensions.d152),
           AppElevatedButton(
-            onPressed: () => context.read<UsernamePageCubit>().onUpdateButton(_usernameController.text),
+            onPressed: () => context.read<UsernameCubit>().onUpdateButton(_usernameController.text),
             text: context.tr.continueNav,
           ),
         ],

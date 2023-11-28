@@ -33,3 +33,4 @@ const CreateUserEntity mockedCreateUserEntity = CreateUserEntity(email: mockedEm
 const String mockedEmail = 'email@email.com';
 const String mockedPassword = 'Password1';
 const String mockedPasswordV2 = 'Password2';
+const String mockedUsername = 'example';

@@ -18,7 +18,7 @@ packages:
     source: hosted
     version: "1.3.12"
   alchemist:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: alchemist
       sha256: "2efa90870003e10bf01af52329f2ddf9ccc44cd519adb2c8aea1713db2e84760"
@@ -458,7 +458,7 @@ packages:
     source: hosted
     version: "2.22.0"
   firebase_core_platform_interface:
-    dependency: "direct dev"
+    dependency: transitive
     description:
       name: firebase_core_platform_interface
       sha256: c437ae5d17e6b5cc7981cf6fd458a5db4d12979905f9aafd1fea930428a9fe63
