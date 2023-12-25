@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
 import '../entities/database/folder_entity.dart';
@@ -23,10 +23,12 @@ class DeleteWordUseCase implements UseCase<Success, Params> {
   }
 }
 
-@immutable
-class Params {
+class Params extends Equatable {
   const Params(this.index, this.entity);
 
   final int index;
   final FolderEntity entity;
+
+  @override
+  List<Object?> get props => [index, entity];
 }

@@ -9,11 +9,13 @@ class AppElevatedButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.padding = const EdgeInsets.symmetric(horizontal: 40),
+    this.constraints,
   });
 
   final String text;
   final EdgeInsets padding;
   final VoidCallback onPressed;
+  final BoxConstraints? constraints;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -21,15 +23,16 @@ class AppElevatedButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: onPressed,
           child: Container(
-            constraints: const BoxConstraints(
-              minHeight: AppDimensions.d50,
-              minWidth: AppDimensions.d280,
-            ),
+            constraints: constraints ??
+                const BoxConstraints(
+                  minHeight: AppDimensions.d50,
+                  minWidth: AppDimensions.d280,
+                ),
             alignment: Alignment.center,
             child: Text(
               text,
               style: context.tht.titleMedium?.copyWith(
-                fontSize: AppDimensions.d16,
+                fontSize: AppDimensions.d14,
               ),
               textAlign: TextAlign.center,
             ),

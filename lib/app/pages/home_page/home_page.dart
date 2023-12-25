@@ -88,7 +88,7 @@ class _BodyState extends State<_Body> {
             itemBuilder: (context, index) => FolderContainer(
               onTap: () => context.router.push(
                 FolderContentRoute(
-                  flashcardEntity: widget.folders[index],
+                  folder: widget.folders[index],
                 ),
               ),
               key: UniqueKey(),

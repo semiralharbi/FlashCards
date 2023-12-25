@@ -69,5 +69,6 @@
   "createFolderPage_continueButtonText": "Gotowe!",
   "addWordFolderPage_addButtonText": "Dodaj",
   "addWordFolderPage_finishButtonText": "Zakończ",
-  "addWordFolderPage_textFieldError": "Ups! Chyba coś tutaj zabrakło"
+  "addWordFolderPage_textFieldError": "Ups! Chyba coś tutaj zabrakło",
+  "folderContent_editWords": "Tryb edycji"
 }

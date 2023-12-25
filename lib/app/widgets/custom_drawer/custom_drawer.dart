@@ -12,26 +12,21 @@ import '../../utils/router/app_router.dart';
 import 'drawer_icon_button.dart';
 
 class CustomDrawer extends Drawer {
-  const CustomDrawer({
-    super.key,
-  });
+  const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) => BlocProvider(
         create: (context) => getIt<HomeCubit>(),
         child: BlocListener<HomeCubit, HomeState>(
-          listener: (context, state) => state.maybeWhen(
-            logout: () => context.router.replaceAll([
-              LoginRoute(),
-            ]),
-            orElse: () => null,
+          listener: (context, state) => state.whenOrNull(
+            logout: () => context.router.replaceAll([LoginRoute()]),
           ),
           child: const _Body(),
         ),
       );
 }
 
-class _Body extends StatelessWidget {
+class _Body extends Drawer {
   const _Body();
 
   @override
