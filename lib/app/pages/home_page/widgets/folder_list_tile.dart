@@ -7,17 +7,13 @@ class FolderListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
+        clipBehavior: Clip.hardEdge,
         constraints: const BoxConstraints(minHeight: AppDimensions.d68),
-        margin: const EdgeInsets.symmetric(
-          vertical: AppDimensions.d10,
-          horizontal: AppDimensions.d4,
-        ),
+        margin: const EdgeInsets.symmetric(vertical: AppDimensions.d10),
         decoration: const BoxDecoration(
           color: AppColors.whiteSmoke,
           borderRadius: BorderRadius.all(
-            Radius.circular(
-              AppDimensions.d8,
-            ),
+            Radius.circular(AppDimensions.d8),
           ),
           boxShadow: [
             BoxShadow(
@@ -28,8 +24,8 @@ class FolderListTile extends StatelessWidget {
           ],
         ),
         child: child?.animate().fadeIn(
-              delay: 300.ms,
-              duration: 800.ms,
+              delay: 200.ms,
+              duration: 600.ms,
               curve: Curves.easeIn,
             ),
       );

@@ -56,7 +56,7 @@ class EditWordsPage extends HookWidget {
             ),
           ),
           onBackButton: (entity) => context.router.push(
-            FolderContentRoute(flashcardEntity: entity),
+            FolderContentRoute(folder: entity),
           ),
         ),
         builder: (context, state) => state.maybeWhen(

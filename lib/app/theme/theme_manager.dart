@@ -162,6 +162,12 @@ class ThemeManager {
       color: _darkTextColor,
       letterSpacing: 1.25,
     ),
+    titleSmall: TextStyle(
+      fontWeight: FontWeight.w700,
+      fontSize: AppDimensions.d14,
+      color: AppColors.daintree,
+      letterSpacing: 1.05,
+    ),
   );
 
   static CountryListThemeData countryListThemeData = const CountryListThemeData(

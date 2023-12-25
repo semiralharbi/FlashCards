@@ -70,7 +70,7 @@ class ResultPage extends StatelessWidget {
                       text: context.tr.retry,
                       onPressed: () => context.router.replace(
                         FolderContentRoute(
-                          flashcardEntity: folder,
+                          folder: folder,
                         ),
                       ),
                     ),

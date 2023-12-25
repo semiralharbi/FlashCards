@@ -1,100 +1,54 @@
-import 'package:flutter_hooks/flutter_hooks.dart';
-
 import '../../../domain/entities/database/folder_entity.dart';
 import '../../../injectable/injectable.dart';
-import '../../theme/consts.dart';
 import '../../theme/global_imports.dart';
 import '../../utils/enums/string_extensions.dart';
+import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 import 'cubit/folder_content_cubit.dart';
 import 'cubit/folder_content_state.dart';
-import 'widgets/folder_content_buttons.dart';
 import 'widgets/words_container.dart';
 
 @RoutePage()
-class FolderContentPage extends HookWidget {
+class FolderContentPage extends StatelessWidget {
+  @visibleForTesting
   const FolderContentPage({
     super.key,
-    required this.flashcardEntity,
+    required this.folder,
+    this.cubit,
   });
 
-  final FolderEntity flashcardEntity;
+  final FolderEntity folder;
+  final FolderContentCubit? cubit;
 
   @override
-  Widget build(BuildContext context) {
-    final animationController = useAnimationController(
-      duration: 600.ms,
-      initialValue: staticZero,
-    );
-    final getText = useState(false);
-
-    return AppScaffold(
-      appBarTitle: flashcardEntity.folderName.capitalize(),
-      appBarTitlePadding: const EdgeInsets.only(left: AppDimensions.d44),
-      onlyBottomWood: true,
-      actions: [
-        IconButton(
-          onPressed: () => context.router.push(
-            EditWordsRoute(flashcardEntity: flashcardEntity),
-          ),
-          icon: const Icon(Icons.edit),
-        ),
-        Builder(
-          builder: (context) => IconButton(
-            onPressed: () => Scaffold.of(context).openEndDrawer(),
-            icon: const Icon(Icons.menu),
-          ),
-        ),
-      ],
-      onBackPress: () => context.router.push(HomeRoute()),
-      drawer: const CustomDrawer(),
-      child: BlocProvider(
-        create: (context) => getIt<FolderContentCubit>(),
-        child: BlocConsumer<FolderContentCubit, FolderContentState>(
-          listener: (context, state) => state.maybeWhen(
-            nextPage: (entity, index) => context.router.push(
-              FlashcardRoute(
-                flashcardEntity: entity,
-                index: index,
+  Widget build(BuildContext context) => AppScaffold(
+        drawer: const CustomDrawer(),
+        appBarTitle: folder.folderName.capitalize(),
+        onlyBottomWood: true,
+        onBackPress: () => context.router.replace(HomeRoute()),
+        child: BlocProvider(
+          create: (context) => cubit ?? getIt<FolderContentCubit>(),
+          child: BlocConsumer<FolderContentCubit, FolderContentState>(
+            listener: (context, state) => state.whenOrNull(
+              nextPage: (entity, index) => context.router.push(
+                FlashcardRoute(flashcardEntity: entity, index: index),
               ),
             ),
-            initial: () => _Body(
-              flashcardEntity: flashcardEntity,
-              animationController: animationController,
-              getText: getText,
-            ),
-            orElse: () => const SizedBox.shrink(),
-          ),
-          builder: (context, state) => state.maybeWhen(
-            orElse: () => const SizedBox.shrink(),
-            reload: (entity) => _Body(
-              flashcardEntity: entity,
-              animationController: animationController,
-              getText: getText,
-            ),
-            initial: () => _Body(
-              flashcardEntity: flashcardEntity,
-              animationController: animationController,
-              getText: getText,
+            builder: (context, state) => state.maybeWhen(
+              orElse: () => const SizedBox.shrink(),
+              loaded: (folder) => _Body(folder: folder),
+              initial: () => _Body(folder: folder),
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class _Body extends StatelessWidget {
-  const _Body({
-    required this.flashcardEntity,
-    required this.animationController,
-    required this.getText,
-  });
+  const _Body({required this.folder});
 
-  final FolderEntity flashcardEntity;
-  final AnimationController animationController;
-  final ValueNotifier<bool> getText;
+  final FolderEntity folder;
 
   @override
   Widget build(BuildContext context) {
@@ -102,25 +56,42 @@ class _Body extends StatelessWidget {
       children: [
         Expanded(
           child: ListView.builder(
-            itemCount: flashcardEntity.words.length,
+            itemCount: folder.words.length,
             itemBuilder: (context, index) => WordsContainer(
               key: UniqueKey(),
               onDismissed: (_) async {
-                await context.read<FolderContentCubit>().deleteWord(flashcardEntity, index);
+                await context.read<FolderContentCubit>().deleteWord(folder, index);
               },
-              flashcardEntity: flashcardEntity,
-              animationController: animationController,
-              index: index,
-              value: getText.value,
+              wordNumber: index,
+              wordsEntity: folder.words[index],
             ),
           ),
         ),
-        FolderContentButtons(
-          animationController: animationController,
-          onChange: getText,
-          onPressed: () => context.read<FolderContentCubit>().nextPage(
-                flashcardEntity,
+        const Gap(AppDimensions.d20),
+        Row(
+          children: [
+            AppElevatedButton(
+              constraints: const BoxConstraints(
+                minHeight: AppDimensions.d50,
+                maxWidth: AppDimensions.d120,
               ),
+              padding: EdgeInsets.zero,
+              onPressed: () => context.router.push(
+                EditWordsRoute(flashcardEntity: folder),
+              ),
+              text: context.tr.folderContent_editWords,
+            ),
+            const Gap(AppDimensions.d20),
+            AppElevatedButton(
+              constraints: const BoxConstraints(
+                minHeight: AppDimensions.d50,
+                maxWidth: AppDimensions.d120,
+              ),
+              padding: EdgeInsets.zero,
+              onPressed: () => context.read<FolderContentCubit>().nextPage(folder),
+              text: context.tr.startFlashcard,
+            ),
+          ],
         ),
       ],
     );
