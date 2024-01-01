@@ -8,12 +8,15 @@ import '../../../domain/utils/exception.dart';
 import '../../../domain/utils/success.dart';
 import '../../dto/database/folder_dto.dart';
 import '../../dto/database/words_dto.dart';
+import '../../dto/user/user_profile_dto.dart';
 
 @Injectable(as: DatabaseRemoteSource)
 class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
+  DatabaseRemoteSourceImpl(this.firestore, this.firebaseAuth);
   final database = FirebaseFirestore.instance;
   final userId = FirebaseAuth.instance.currentUser?.uid;
-
+  final FirebaseFirestore firestore;
+  final FirebaseAuth firebaseAuth;
   @override
   Future<Success> newFolder(FolderDto dto) async {
     if (userId != null) {
@@ -92,6 +95,32 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
         "words": FieldValue.arrayUnion([dto.toJson()]),
       });
       return const Success();
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+  @override
+  Future<Success> updateUserProfile(UserProfileDto dto) async {
+    try {
+      final userId = firebaseAuth.currentUser?.uid;
+      if (userId != null) {
+        final doc = await firestore.collection("users").doc(userId).get();
+        if (doc.exists) {
+          final UserProfileDto existingUserDoc = UserProfileDto.fromJson(doc.data()!);
+          final updatedUserDoc = existingUserDoc.copyWith(
+            name: dto.name.isNotEmpty ? dto.name : existingUserDoc.name,
+            userId: dto.userId.isNotEmpty ? dto.userId : existingUserDoc.userId,
+            initialLanguage: dto.initialLanguage.isNotEmpty ? dto.initialLanguage : existingUserDoc.initialLanguage,
+            userFolders: dto.userFolders.isNotEmpty ? dto.userFolders : existingUserDoc.userFolders,
+          );
+          await firestore.collection("users").doc(userId).set(updatedUserDoc.toJson());
+        } else {
+          await firestore.collection("users").doc(userId).set(dto.toJson());
+        }
+        return const Success();
+      } else {
+        throw ApiException(Errors.userNotFound);
+      }
     } catch (e) {
       throw ApiException(Errors.somethingWentWrong);
     }

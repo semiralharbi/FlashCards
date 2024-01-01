@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '../entities/database/folder_entity.dart';
 import '../entities/database/words_entity.dart';
+import '../entities/user/user_profile_entity.dart';
 import '../utils/failure.dart';
 import '../utils/success.dart';
 
@@ -19,4 +20,6 @@ abstract class DatabaseRepository {
   Future<Either<Failure, Success>> addWord(WordsEntity entity, String folderName);
 
   Future<Either<Failure, Success>> editWord(WordsEntity entity, String folderName);
+  Future<Either<Failure, Success>> updateUserProfile(UserProfileEntity entity);
+
 }
