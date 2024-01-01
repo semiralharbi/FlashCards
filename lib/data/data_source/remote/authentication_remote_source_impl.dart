@@ -18,6 +18,8 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
         email: dto.email,
         password: dto.password,
       );
+
+
       return user;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
