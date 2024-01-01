@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
@@ -8,18 +9,28 @@ import '../../../domain/utils/success.dart';
 import '../../dto/user/create_user_dto.dart';
 import '../../dto/user/login_dto.dart';
 import '../../dto/user/update_user_dto.dart';
+import '../../dto/user/user_profile_dto.dart';
 
 @Injectable(as: AuthenticationRemoteSource)
 class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
+  AuthenticationRemoteSourceImpl(this.firestore, this.firebaseAuth);
+
+  final FirebaseFirestore firestore;
+  final FirebaseAuth firebaseAuth;
+
   @override
   Future<UserCredential> createUser(CreateUserDto dto) async {
     try {
-      final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final user = await firebaseAuth.createUserWithEmailAndPassword(
         email: dto.email,
         password: dto.password,
       );
-
-
+      if (user.user != null) {
+        final userId = user.user!.uid;
+        await firestore.collection("users").doc(userId).set(
+              UserProfileDto(name: '', userId: user.user!.uid, initialLanguage: 'pl', userFolders: []).toJson(),
+            );
+      }
       return user;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
