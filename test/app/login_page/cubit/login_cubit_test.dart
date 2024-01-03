@@ -23,7 +23,7 @@ void main() {
   blocTest<LoginCubit, LoginState>(
     'LoginCubit - onLoginButton with empty user display name',
     setUp: () {
-      when(mockLoginUseCase(any)).thenAnswer((_) async => Right(FakeUser(mockedDisplayName: '')));
+      when(mockLoginUseCase(any)).thenAnswer((_) async => Right(FakeUser(mockedDisplayName: 'name',  mockedUid: "userId")));
     },
     build: createCubit,
     act: (cubit) => cubit.onLoginButton(mockedEmail, mockedPassword),
@@ -40,7 +40,7 @@ void main() {
   blocTest<LoginCubit, LoginState>(
     'LoginCubit - onLoginButton with user display name',
     setUp: () {
-      when(mockLoginUseCase(any)).thenAnswer((_) async => Right(FakeUser(mockedDisplayName: 'name')));
+      when(mockLoginUseCase(any)).thenAnswer((_) async => Right(FakeUser(mockedDisplayName: 'name',  mockedUid: "userId")));
     },
     build: createCubit,
     act: (cubit) => cubit.onLoginButton(mockedEmail, mockedPassword),

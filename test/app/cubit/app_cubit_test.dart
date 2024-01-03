@@ -24,7 +24,7 @@ void main() {
     setUp: () {
       when(mockGetCurrentUserUseCase()).thenAnswer(
         (_) async => Right(
-          FakeUser(mockedDisplayName: ''),
+          FakeUser(mockedDisplayName: 'UserName', mockedUid: "userId"),
         ),
       );
     },
@@ -42,7 +42,7 @@ void main() {
     setUp: () {
       when(mockGetCurrentUserUseCase()).thenAnswer(
         (_) async => Right(
-          FakeUser(mockedDisplayName: 'UserName'),
+          FakeUser(mockedDisplayName: 'UserName', mockedUid: "userId"),
         ),
       );
     },
