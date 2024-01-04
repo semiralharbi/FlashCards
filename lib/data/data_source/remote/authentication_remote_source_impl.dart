@@ -8,7 +8,6 @@ import '../../../domain/utils/exception.dart';
 import '../../../domain/utils/success.dart';
 import '../../dto/user/create_user_dto.dart';
 import '../../dto/user/login_dto.dart';
-import '../../dto/user/update_user_dto.dart';
 import '../../dto/user/user_profile_dto.dart';
 
 @Injectable(as: AuthenticationRemoteSource)
@@ -86,11 +85,11 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   }
 
   @override
-  Future<Success> updateUser(UpdateUserDto dto) async {
+  Future<Success> updateUser(UserProfileDto dto) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        await user.updateDisplayName(dto.username);
+        await user.updateDisplayName(dto.name);
         return const Success();
       } else {
         throw ApiException(Errors.unknownError);

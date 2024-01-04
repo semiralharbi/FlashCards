@@ -1,16 +1,23 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../data/dto/user/update_user_dto.dart';
+import '../../data/dto/database/folder_dto.dart';
+import '../../data/dto/user/user_profile_dto.dart';
 
 part 'update_user_entity.freezed.dart';
 
 @freezed
-class UpdateUserEntity with _$UpdateUserEntity {
-  const factory UpdateUserEntity({
-    required String username,
-  }) = _UpdateUserEntity;
+class UserProfileEntity with _$UserProfileEntity {
+  const factory UserProfileEntity({
+    required String name,
+    required String userId,
+    required String initialLanguage,
+    required List<FolderDto> userFolders,
+  }) = _UserProfileEntity;
 
-  factory UpdateUserEntity.fromDto(UpdateUserDto dto) => UpdateUserEntity(
-        username: dto.username,
+  factory UserProfileEntity.fromDto(UserProfileDto dto) => UserProfileEntity(
+    name: dto.name,
+    userId: dto.userId,
+    initialLanguage: dto.initialLanguage,
+    userFolders: dto.userFolders,
       );
 }
