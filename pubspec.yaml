@@ -88,11 +88,12 @@ dependencies:
   country_picker: ^2.0.22
   country_flags: ^2.1.1
   translator_plus: ^1.0.1
-  fake_cloud_firestore: ^2.4.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  fake_cloud_firestore: ^2.4.5
+
 
   flutter_lints: ^3.0.1
   auto_route_generator: ^7.3.1
