@@ -15,7 +15,9 @@ class UsernameCubit extends Cubit<UsernameState> {
   Future<void> onUpdateButton(String username) async {
     emit(const UsernameState.loading());
     if (username.isNotEmpty) {
-      final result = await _updateUserUseCase(UserProfileEntity(name: username, userId: '', initialLanguage: '', userFolders: []));
+      final result =
+          await _updateUserUseCase(UserProfileEntity(name: username, userId: '', initialLanguage: '', userFolders: []));
+      //TODO: add correct values
       result.fold(
         (l) {
           emit(UsernameState.fail(error: l.error));

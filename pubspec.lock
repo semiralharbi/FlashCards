@@ -370,7 +370,7 @@ packages:
     source: hosted
     version: "1.3.1"
   fake_cloud_firestore:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: fake_cloud_firestore
       sha256: fde50855d65a7054bbd2de3a91847d19f83e520442c040648fc2918f937466d9
