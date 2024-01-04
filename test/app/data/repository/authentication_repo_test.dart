@@ -20,7 +20,7 @@ void main() {
   });
 
   test('UpdateUserProfile updates user profile', () async {
-    when(mockedAuthenticationRemoteSource.updateUserProfile(mockedUserProfileDto)).thenAnswer((_) async => const Success());
+    when(mockedAuthenticationRemoteSource.userFolders(mockedUserProfileDto)).thenAnswer((_) async => const Success());
     final result = await repository.updateUserProfile(mockedUserProfileEntity);
     Success? success;
     result.fold(
@@ -28,12 +28,12 @@ void main() {
       (r) => success = r,
     );
     expect(success, const Success());
-    verify(mockedAuthenticationRemoteSource.updateUserProfile(mockedUserProfileDto));
+    verify(mockedAuthenticationRemoteSource.userFolders(mockedUserProfileDto));
     verifyNoMoreInteractions(mockedAuthenticationRemoteSource);
   });
 
   test("UpdateUserProfile updates user profile failure", () async {
-    when(mockedAuthenticationRemoteSource.updateUserProfile(mockedUserProfileDto)).thenThrow(ApiException(Errors.unknownError));
+    when(mockedAuthenticationRemoteSource.userFolders(mockedUserProfileDto)).thenThrow(ApiException(Errors.unknownError));
     final result = await repository.updateUserProfile(mockedUserProfileEntity);
     Errors? failure;
     result.fold(
@@ -41,7 +41,7 @@ void main() {
       (r) => null,
     );
     expect(failure, Errors.unknownError);
-    verify(mockedAuthenticationRemoteSource.updateUserProfile(mockedUserProfileDto));
+    verify(mockedAuthenticationRemoteSource.userFolders(mockedUserProfileDto));
     verifyNoMoreInteractions(mockedAuthenticationRemoteSource);
   });
 }

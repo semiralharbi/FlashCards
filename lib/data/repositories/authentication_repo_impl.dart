@@ -75,7 +75,7 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
   @override
   Future<Either<Failure, Success>> updateUserProfile(UserProfileEntity entity) async {
     try {
-      await _remoteSource.updateUserProfile(UserProfileDto.fromEntity(entity));
+      await _remoteSource.userFolders(UserProfileDto.fromEntity(entity));
       return const Right(Success());
     } on ApiException catch (e) {
       return Left(Failure(error: e.failure));
