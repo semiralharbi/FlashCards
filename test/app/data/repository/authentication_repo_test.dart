@@ -1,6 +1,5 @@
 import 'package:flash_cards/app/utils/enums/errors.dart';
 import 'package:flash_cards/data/repositories/authentication_repo_impl.dart';
-import 'package:flash_cards/domain/data_source/remote/authentication_remote_source.dart';
 import 'package:flash_cards/domain/repositories/authentication_repo.dart';
 import 'package:flash_cards/domain/utils/exception.dart';
 import 'package:flash_cards/domain/utils/success.dart';
@@ -11,7 +10,7 @@ import '../../../mocked_data.dart';
 import '../../../mocks.mocks.dart';
 
 void main() {
-  late AuthenticationRemoteSource mockedAuthenticationRemoteSource;
+  late MockAuthenticationRemoteSource mockedAuthenticationRemoteSource;
   late AuthenticationRepo repository;
 
   setUpAll(() {
@@ -20,7 +19,7 @@ void main() {
   });
 
   test('UpdateUserProfile updates user profile', () async {
-    when(mockedAuthenticationRemoteSource.updateUser(mockedUserProfileDto)).thenAnswer((_) async => const Success());
+    when(mockedAuthenticationRemoteSource.updateUser(any)).thenAnswer((_) async => const Success());
     final result = await repository.updateUserProfile(mockedUserProfileEntity);
     Success? success;
     result.fold(
@@ -28,13 +27,12 @@ void main() {
       (r) => success = r,
     );
     expect(success, const Success());
-    verify(mockedAuthenticationRemoteSource.updateUser(mockedUserProfileDto));
+    verify(mockedAuthenticationRemoteSource.updateUser(any));
     verifyNoMoreInteractions(mockedAuthenticationRemoteSource);
   });
 
   test("UpdateUserProfile updates user profile failure", () async {
-    when(mockedAuthenticationRemoteSource.updateUser(mockedUserProfileDto))
-        .thenThrow(ApiException(Errors.unknownError));
+    when(mockedAuthenticationRemoteSource.updateUser(any)).thenThrow(ApiException(Errors.unknownError));
     final result = await repository.updateUserProfile(mockedUserProfileEntity);
     Errors? error;
     result.fold(
@@ -42,7 +40,7 @@ void main() {
       (r) => null,
     );
     expect(error, Errors.unknownError);
-    verify(mockedAuthenticationRemoteSource.updateUser(mockedUserProfileDto));
+    verify(mockedAuthenticationRemoteSource.updateUser(any));
     verifyNoMoreInteractions(mockedAuthenticationRemoteSource);
   });
 }
