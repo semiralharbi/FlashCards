@@ -21,7 +21,7 @@ void main() {
   test('UserProfileUseCas updates information about user success', () async {
     when(mockAuthenticationRepo.updateUserProfile(mockedUserProfileEntity)).thenAnswer((_) async => const Right(Success()));
     Success? success;
-    final result = await updateUserProfileUseCase.call(mockedUserProfileEntity);
+    final result = await updateUserProfileUseCase(mockedUserProfileEntity);
     result.fold((l) => null, (r) => success = r);
     expect(success, const Success());
     verify(mockAuthenticationRepo.updateUserProfile(mockedUserProfileEntity));
@@ -31,7 +31,7 @@ void main() {
   test('UserProfileUseCase updates information about user failure', () async {
     when(mockAuthenticationRepo.updateUserProfile(mockedUserProfileEntity))
         .thenAnswer((_) async => const Left(Failure(error: Errors.unknownError)));
-    final result = await updateUserProfileUseCase.call(mockedUserProfileEntity);
+    final result = await updateUserProfileUseCase(mockedUserProfileEntity);
     Errors? error;
     result.fold((l) => error = l.error, (r) => null);
     expect(error, Errors.unknownError);
