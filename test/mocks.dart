@@ -9,7 +9,7 @@ import 'package:flash_cards/app/pages/username_page/cubit/username_cubit.dart';
 import 'package:flash_cards/domain/data_source/remote/authentication_remote_source.dart';
 import 'package:flash_cards/domain/data_source/remote/database_remote_source.dart';
 import 'package:flash_cards/domain/repositories/authentication_repo.dart';
-import 'package:flash_cards/domain/repositories/database_repository.dart';
+import 'package:flash_cards/domain/repositories/folders_repository.dart';
 import 'package:flash_cards/domain/use_case/create_user_use_case.dart';
 import 'package:flash_cards/domain/use_case/delete_folder_use_case.dart';
 import 'package:flash_cards/domain/use_case/delete_word_use_case.dart';
@@ -36,8 +36,8 @@ import 'package:mockito/mockito.dart';
   UsernameCubit,
   FolderContentCubit,
   DeleteWordUseCase,
-  DatabaseRemoteSource,
-  DatabaseRepository,
+  FoldersDataSource,
+  FoldersRepository,
   AuthenticationRepo,
   AuthenticationRemoteSource,
   UpdateUserProfileUseCase,

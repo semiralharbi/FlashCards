@@ -9,9 +9,9 @@ import '../../../domain/utils/success.dart';
 import '../../dto/database/folder_dto.dart';
 import '../../dto/database/words_dto.dart';
 
-@Injectable(as: DatabaseRemoteSource)
-class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
-  DatabaseRemoteSourceImpl(this.firestore, this.firebaseAuth);
+@Injectable(as: FoldersDataSource)
+class FoldersDataSourceImpl implements FoldersDataSource {
+  FoldersDataSourceImpl(this.firestore, this.firebaseAuth);
 
   final FirebaseFirestore firestore;
   final FirebaseAuth firebaseAuth;
@@ -100,6 +100,4 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
       throw ApiException(Errors.somethingWentWrong);
     }
   }
-
-
 }

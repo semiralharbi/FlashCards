@@ -1,10 +1,8 @@
 import '../../../data/dto/database/folder_dto.dart';
 import '../../../data/dto/database/words_dto.dart';
-// ignore: unused_import
-import '../../../data/dto/user/user_profile_dto.dart';
 import '../../utils/success.dart';
 
-abstract class DatabaseRemoteSource {
+abstract class FoldersDataSource {
   Future<Success> newFolder(FolderDto dto);
 
   Future<List<FolderDto>> getCollection();
@@ -18,5 +16,4 @@ abstract class DatabaseRemoteSource {
   Future<Success> addWord(WordsDto dto, String folderName);
 
   Future<Success> editWord(WordsDto dto, String folderName);
-
 }

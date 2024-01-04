@@ -2,12 +2,10 @@ import 'package:dartz/dartz.dart';
 
 import '../entities/database/folder_entity.dart';
 import '../entities/database/words_entity.dart';
-// ignore: unused_import
-import '../entities/user/user_profile_entity.dart';
 import '../utils/failure.dart';
 import '../utils/success.dart';
 
-abstract class DatabaseRepository {
+abstract class FoldersRepository {
   Future<Either<Failure, Success>> newFolder(FolderEntity entity);
 
   Future<Either<Failure, List<FolderEntity>>> getFolders();
@@ -21,5 +19,4 @@ abstract class DatabaseRepository {
   Future<Either<Failure, Success>> addWord(WordsEntity entity, String folderName);
 
   Future<Either<Failure, Success>> editWord(WordsEntity entity, String folderName);
-
 }

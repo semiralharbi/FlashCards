@@ -55,11 +55,11 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   @override
   Future<User> login(LoginDto dto) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await firebaseAuth.signInWithEmailAndPassword(
         email: dto.email,
         password: dto.password,
       );
-      final user = FirebaseAuth.instance.currentUser;
+      final user = firebaseAuth.currentUser;
       if (user != null) {
         return user;
       } else {
@@ -85,11 +85,10 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
     }
   }
 
-
   @override
   Future<User> getCurrentUser() async {
     try {
-      final user = FirebaseAuth.instance.currentUser;
+      final user = firebaseAuth.currentUser;
       if (user != null) {
         return user;
       } else {
@@ -103,14 +102,15 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   @override
   Future<Success> signOut() async {
     try {
-      await FirebaseAuth.instance.signOut();
+      await firebaseAuth.signOut();
       return const Success();
     } catch (e) {
       throw ApiException(Errors.somethingWentWrong);
     }
   }
+
   @override
-  Future<Success> userFolders(UserProfileDto dto) async {
+  Future<Success> updateUser(UserProfileDto dto) async {
     try {
       if (userId != null) {
         final doc = await firestore.collection("users").doc(userId).get();
@@ -134,6 +134,4 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       throw ApiException(Errors.somethingWentWrong);
     }
   }
-
-
 }
