@@ -6,7 +6,9 @@ import 'package:flash_cards/app/pages/home_page/cubit/home_cubit.dart';
 import 'package:flash_cards/app/pages/login_page/cubit/login_cubit.dart';
 import 'package:flash_cards/app/pages/registration_page/cubit/registration_cubit.dart';
 import 'package:flash_cards/app/pages/username_page/cubit/username_cubit.dart';
+import 'package:flash_cards/domain/data_source/remote/authentication_remote_source.dart';
 import 'package:flash_cards/domain/data_source/remote/database_remote_source.dart';
+import 'package:flash_cards/domain/repositories/authentication_repo.dart';
 import 'package:flash_cards/domain/repositories/database_repository.dart';
 import 'package:flash_cards/domain/use_case/create_user_use_case.dart';
 import 'package:flash_cards/domain/use_case/delete_folder_use_case.dart';
@@ -36,6 +38,8 @@ import 'package:mockito/mockito.dart';
   DeleteWordUseCase,
   DatabaseRemoteSource,
   DatabaseRepository,
+  AuthenticationRepo,
+  AuthenticationRemoteSource,
   UpdateUserProfileUseCase,
 ])
 void main() {}

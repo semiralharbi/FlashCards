@@ -122,6 +122,32 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       throw ApiException(Errors.somethingWentWrong);
     }
   }
+  @override
+  Future<Success> updateUserProfile(UserProfileDto dto) async {
+    try {
+      final userId = firebaseAuth.currentUser?.uid;
+      if (userId != null) {
+        final doc = await firestore.collection("users").doc(userId).get();
+        if (doc.exists) {
+          final UserProfileDto existingUserDoc = UserProfileDto.fromJson(doc.data()!);
+          final updatedUserDoc = existingUserDoc.copyWith(
+            name: dto.name.isNotEmpty ? dto.name : existingUserDoc.name,
+            userId: dto.userId.isNotEmpty ? dto.userId : existingUserDoc.userId,
+            initialLanguage: dto.initialLanguage.isNotEmpty ? dto.initialLanguage : existingUserDoc.initialLanguage,
+            userFolders: dto.userFolders.isNotEmpty ? dto.userFolders : existingUserDoc.userFolders,
+          );
+          await firestore.collection("users").doc(userId).set(updatedUserDoc.toJson());
+        } else {
+          await firestore.collection("users").doc(userId).set(dto.toJson());
+        }
+        return const Success();
+      } else {
+        throw ApiException(Errors.userNotFound);
+      }
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
 
 
 }

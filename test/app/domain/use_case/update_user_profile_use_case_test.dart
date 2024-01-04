@@ -10,32 +10,32 @@ import '../../../mocked_data.dart';
 import '../../../mocks.mocks.dart';
 
 void main() {
-  late MockDatabaseRepository mockDatabaseRepository;
+  late MockAuthenticationRepo mockAuthenticationRepo;
   late UpdateUserProfileUseCase updateUserProfileUseCase;
 
   setUp(() {
-    mockDatabaseRepository = MockDatabaseRepository();
-    updateUserProfileUseCase = UpdateUserProfileUseCase(mockDatabaseRepository);
+    mockAuthenticationRepo = MockAuthenticationRepo();
+    updateUserProfileUseCase = UpdateUserProfileUseCase(mockAuthenticationRepo);
   });
 
   test('UserProfileUseCas updates information about user success', () async {
-    when(mockDatabaseRepository.updateUserProfile(mockedUserProfileEntity)).thenAnswer((_) async => const Right(Success()));
+    when(mockAuthenticationRepo.updateUserProfile(mockedUserProfileEntity)).thenAnswer((_) async => const Right(Success()));
     Success? success;
     final result = await updateUserProfileUseCase.call(mockedUserProfileEntity);
     result.fold((l) => null, (r) => success = r);
     expect(success, const Success());
-    verify(mockDatabaseRepository.updateUserProfile(mockedUserProfileEntity));
-    verifyNoMoreInteractions(mockDatabaseRepository);
+    verify(mockAuthenticationRepo.updateUserProfile(mockedUserProfileEntity));
+    verifyNoMoreInteractions(mockAuthenticationRepo);
   });
 
   test('UserProfileUseCase updates information about user failure', () async {
-    when(mockDatabaseRepository.updateUserProfile(mockedUserProfileEntity))
+    when(mockAuthenticationRepo.updateUserProfile(mockedUserProfileEntity))
         .thenAnswer((_) async => const Left(Failure(error: Errors.unknownError)));
     final result = await updateUserProfileUseCase.call(mockedUserProfileEntity);
     Errors? error;
     result.fold((l) => error = l.error, (r) => null);
     expect(error, Errors.unknownError);
-    verify(mockDatabaseRepository.updateUserProfile(mockedUserProfileEntity));
-    verifyNoMoreInteractions(mockDatabaseRepository);
+    verify(mockAuthenticationRepo.updateUserProfile(mockedUserProfileEntity));
+    verifyNoMoreInteractions(mockAuthenticationRepo);
   });
 }

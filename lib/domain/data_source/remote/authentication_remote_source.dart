@@ -10,7 +10,7 @@ abstract class AuthenticationRemoteSource {
   );
 
   Future<Success> updateUser(
-      UserProfileDto dto,
+    UserProfileDto dto,
   );
 
   Future<User?> login(
@@ -20,4 +20,8 @@ abstract class AuthenticationRemoteSource {
   Future<User> getCurrentUser();
 
   Future<Success> signOut();
+
+  Future<Success> updateUserProfile(
+    UserProfileDto dto,
+  );
 }

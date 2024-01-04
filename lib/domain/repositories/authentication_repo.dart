@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../entities/create_user_entity.dart';
 import '../entities/login_entity.dart';
+import '../entities/user/user_profile_entity.dart';
 import '../utils/failure.dart';
 import '../utils/success.dart';
 
@@ -19,4 +20,6 @@ abstract class AuthenticationRepo {
   Future<Either<Failure, User>> getCurrentUser();
 
   Future<Either<Failure, Success>> signOut();
+  Future<Either<Failure, Success>> updateUserProfile(UserProfileEntity entity);
+
 }
