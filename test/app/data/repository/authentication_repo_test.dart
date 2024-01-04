@@ -35,12 +35,12 @@ void main() {
   test("UpdateUserProfile updates user profile failure", () async {
     when(mockedAuthenticationRemoteSource.userFolders(mockedUserProfileDto)).thenThrow(ApiException(Errors.unknownError));
     final result = await repository.updateUserProfile(mockedUserProfileEntity);
-    Errors? failure;
+    Errors? error;
     result.fold(
-      (l) => failure = l.error,
+      (l) => error = l.error,
       (r) => null,
     );
-    expect(failure, Errors.unknownError);
+    expect(error, Errors.unknownError);
     verify(mockedAuthenticationRemoteSource.userFolders(mockedUserProfileDto));
     verifyNoMoreInteractions(mockedAuthenticationRemoteSource);
   });
