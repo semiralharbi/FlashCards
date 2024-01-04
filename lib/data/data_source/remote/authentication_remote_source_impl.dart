@@ -16,6 +16,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
 
   final FirebaseFirestore firestore;
   final FirebaseAuth firebaseAuth;
+  String? get userId => firebaseAuth.currentUser?.uid;
 
   @override
   Future<UserCredential> createUser(CreateUserDto dto) async {
@@ -84,20 +85,6 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
     }
   }
 
-  @override
-  Future<Success> updateUser(UserProfileDto dto) async {
-    try {
-      final user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        await user.updateDisplayName(dto.name);
-        return const Success();
-      } else {
-        throw ApiException(Errors.unknownError);
-      }
-    } on ApiException catch (e) {
-      throw ApiException(e.failure);
-    }
-  }
 
   @override
   Future<User> getCurrentUser() async {
@@ -123,9 +110,8 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
     }
   }
   @override
-  Future<Success> updateUserProfile(UserProfileDto dto) async {
+  Future<Success> userFolders(UserProfileDto dto) async {
     try {
-      final userId = firebaseAuth.currentUser?.uid;
       if (userId != null) {
         final doc = await firestore.collection("users").doc(userId).get();
         if (doc.exists) {
