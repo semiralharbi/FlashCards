@@ -31,7 +31,7 @@ void main() {
         initialLanguage: mockedUserProfileDto.initialLanguage,
       );
       final collection = fakeFirebaseFirestore.collection('users');
-      final result = await authenticationRemoteSource.updateUserProfile(dto);
+      final result = await authenticationRemoteSource.userFolders(dto);
       final userDoc = await collection.doc(dto.userId).get();
 
       expect(userDoc.data(), dto.toJson());
