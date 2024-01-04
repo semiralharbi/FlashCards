@@ -1,5 +1,4 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_cards/data/data_source/remote/database_remote_source_impl.dart';
 import 'package:flash_cards/data/dto/user/user_profile_dto.dart';
 import 'package:flash_cards/domain/data_source/remote/database_remote_source.dart';
@@ -12,7 +11,7 @@ import '../../../../mocks.dart';
 void main() {
   late FakeFirebaseFirestore fakeFirebaseFirestore;
   late MockFirebaseAuth mockFirebaseAuth;
-  late User fakeUser;
+  late FakeUser fakeUser;
   late DatabaseRemoteSource databaseRemoteSource;
 
   setUp(() {
@@ -23,7 +22,7 @@ void main() {
   });
 
   test(
-    "UpdateUserProfile updates user profile",
+    "UpdateUserProfile updates user profile success",
     () async {
       final dto = UserProfileDto(
         name: mockedUserProfileDto.name,

@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../app/utils/enums/errors.dart';
@@ -18,11 +16,10 @@ import '../dto/user/user_profile_dto.dart';
 
 @Injectable(as: DatabaseRepository)
 class DatabaseRepositoryImpl implements DatabaseRepository {
-  DatabaseRepositoryImpl(this._remoteSource, this.firestore, this.firebaseAuth);
+  DatabaseRepositoryImpl(this._remoteSource);
 
   final DatabaseRemoteSource _remoteSource;
-  final FirebaseFirestore firestore;
-  final FirebaseAuth firebaseAuth;
+
 
   @override
   Future<Either<Failure, Success>> newFolder(FolderEntity entity) async {
