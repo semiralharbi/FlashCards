@@ -5,7 +5,7 @@ import '../entities/database/words_entity.dart';
 import '../utils/failure.dart';
 import '../utils/success.dart';
 
-abstract class DatabaseRepository {
+abstract class FoldersRepository {
   Future<Either<Failure, Success>> newFolder(FolderEntity entity);
 
   Future<Either<Failure, List<FolderEntity>>> getFolders();
