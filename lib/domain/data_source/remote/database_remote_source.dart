@@ -2,7 +2,7 @@ import '../../../data/dto/database/folder_dto.dart';
 import '../../../data/dto/database/words_dto.dart';
 import '../../utils/success.dart';
 
-abstract class DatabaseRemoteSource {
+abstract class FoldersDataSource {
   Future<Success> newFolder(FolderDto dto);
 
   Future<List<FolderDto>> getCollection();

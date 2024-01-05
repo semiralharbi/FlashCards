@@ -9,15 +9,19 @@ import '../../../domain/utils/success.dart';
 import '../../dto/database/folder_dto.dart';
 import '../../dto/database/words_dto.dart';
 
-@Injectable(as: DatabaseRemoteSource)
-class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
-  final database = FirebaseFirestore.instance;
-  final userId = FirebaseAuth.instance.currentUser?.uid;
+@Injectable(as: FoldersDataSource)
+class FoldersDataSourceImpl implements FoldersDataSource {
+  FoldersDataSourceImpl(this.firestore, this.firebaseAuth);
+
+  final FirebaseFirestore firestore;
+  final FirebaseAuth firebaseAuth;
+
+  String? get userId => firebaseAuth.currentUser?.uid;
 
   @override
   Future<Success> newFolder(FolderDto dto) async {
     if (userId != null) {
-      await database.collection("$userId").doc(dto.folderName.toUpperCase()).set(dto.toJson());
+      await firestore.collection("$userId").doc(dto.folderName.toUpperCase()).set(dto.toJson());
       return const Success();
     } else {
       throw ApiException(Errors.somethingWentWrong);
@@ -27,7 +31,7 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   @override
   Future<List<FolderDto>> getCollection() async {
     try {
-      QuerySnapshot<Map<String, dynamic>> collection = await database.collection('$userId').get();
+      QuerySnapshot<Map<String, dynamic>> collection = await firestore.collection('$userId').get();
       List<Map<String, dynamic>> allData = collection.docs.map((e) => e.data()).toList();
       if (allData.isNotEmpty) {
         List<FolderDto> dto = allData.map((e) => FolderDto.fromJson(e)).toList();
@@ -44,7 +48,7 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   @override
   Future<Success> updateCollection(FolderDto dto) async {
     try {
-      database.collection("$userId").doc(dto.folderName.toUpperCase()).set(dto.toJson());
+      firestore.collection("$userId").doc(dto.folderName.toUpperCase()).set(dto.toJson());
       return const Success();
     } catch (e) {
       throw ApiException(Errors.somethingWentWrong);
@@ -54,7 +58,7 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   @override
   Future<Success> deleteCollection(FolderDto dto) async {
     try {
-      await database.collection("$userId").doc(dto.folderName.toUpperCase()).delete();
+      await firestore.collection("$userId").doc(dto.folderName.toUpperCase()).delete();
       return const Success();
     } catch (e) {
       throw ApiException(Errors.somethingWentWrong);
@@ -64,7 +68,7 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   @override
   Future<Success> deleteWord(FolderDto dto, int index) async {
     try {
-      await database.collection("$userId").doc(dto.folderName.toUpperCase()).update({
+      await firestore.collection("$userId").doc(dto.folderName.toUpperCase()).update({
         "words": FieldValue.arrayRemove([dto.words[index].toJson()]),
       });
       return const Success();
@@ -76,7 +80,7 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   @override
   Future<Success> addWord(WordsDto dto, String folderName) async {
     try {
-      await database.collection("$userId").doc(folderName.toUpperCase()).update({
+      await firestore.collection("$userId").doc(folderName.toUpperCase()).update({
         "words": FieldValue.arrayUnion([dto.toJson()]),
       });
       return const Success();
@@ -88,7 +92,7 @@ class DatabaseRemoteSourceImpl implements DatabaseRemoteSource {
   @override
   Future<Success> editWord(WordsDto dto, String folderName) async {
     try {
-      await database.collection("$userId").doc(folderName.toUpperCase()).update({
+      await firestore.collection("$userId").doc(folderName.toUpperCase()).update({
         "words": FieldValue.arrayUnion([dto.toJson()]),
       });
       return const Success();

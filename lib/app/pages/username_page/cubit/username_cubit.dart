@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../domain/entities/update_user_entity.dart';
-import '../../../../domain/use_case/update_user_use_case.dart';
+import '../../../../domain/entities/user/user_profile_entity.dart';
+import '../../../../domain/use_case/update_user_profile_use_case.dart';
 import '../../../utils/enums/errors.dart';
 import 'username_state.dart';
 
@@ -10,12 +10,14 @@ import 'username_state.dart';
 class UsernameCubit extends Cubit<UsernameState> {
   UsernameCubit(this._updateUserUseCase) : super(const UsernameState.loaded());
 
-  final UpdateUserUseCase _updateUserUseCase;
+  final UpdateUserProfileUseCase _updateUserUseCase;
 
   Future<void> onUpdateButton(String username) async {
     emit(const UsernameState.loading());
     if (username.isNotEmpty) {
-      final result = await _updateUserUseCase(UpdateUserEntity(username: username));
+      final result =
+          await _updateUserUseCase(UserProfileEntity(name: username, userId: '', initialLanguage: '', userFolders: []));
+      //TODO: add correct values
       result.fold(
         (l) {
           emit(UsernameState.fail(error: l.error));
