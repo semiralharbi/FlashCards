@@ -1,6 +1,8 @@
+import 'package:country_flags/country_flags.dart';
 import 'package:translator_plus/translator_plus.dart';
 
 import '../../../domain/entities/database/words_entity.dart';
+
 import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
@@ -55,6 +57,8 @@ class _Body extends StatefulWidget {
 
   final String folderName;
   final List<WordsEntity> wordsList;
+
+  //TODO:Add entity, which contains language
 
   @override
   State<_Body> createState() => _BodyState();
@@ -133,7 +137,8 @@ class _BodyState extends State<_Body> {
 
   Future<void> _onTranslateTap() async {
     //TODO(): Add proper lang handling
-    final translation = await getIt<GoogleTranslator>().translate(_initialWordController.text, from: 'pl');
+    final translation =
+        await getIt<GoogleTranslator>().translate(_initialWordController.text, from: 'pl'); // from: "entity.language"
     setState(() {
       _translatedWordController.text = translation.text;
     });
@@ -147,6 +152,14 @@ class _BodyState extends State<_Body> {
             child: widget.wordsList.isNotEmpty ? AddedWordsGrid(wordsList: widget.wordsList) : null,
           ),
           CustomTextField(
+            prefix: Padding(
+              padding: const EdgeInsets.only(top: AppDimensions.d8, right: AppDimensions.d8),
+              child: CountryFlag.fromLanguageCode(
+                'de',
+                height: AppDimensions.d26,
+                width: AppDimensions.d26,
+              ), //TODO:Add flag
+            ),
             error: _initialWordError,
             controller: _initialWordController,
             hintText: context.tr.translationWordDesc,
@@ -154,6 +167,14 @@ class _BodyState extends State<_Body> {
           ).animate().slideX().fade(),
           if (_isInitialWordNotEmpty)
             CustomTextField(
+              prefix: Padding(
+                padding: const EdgeInsets.only(top: AppDimensions.d10, right: AppDimensions.d8),
+                child: CountryFlag.fromLanguageCode(
+                  'en',
+                  height: AppDimensions.d26,
+                  width: AppDimensions.d26,
+                ), //entity.language
+              ),
               error: _translatedWordError,
               onChanged: _onChangedTranslatedWord,
               suffixIcon: IconButton(

@@ -21,6 +21,7 @@ class CustomTextField extends StatefulWidget {
     super.key,
     this.onChanged,
     this.hasPassword = false,
+    this.prefix,
   });
 
   final TextEditingController? controller;
@@ -36,6 +37,7 @@ class CustomTextField extends StatefulWidget {
   final EdgeInsets? textFieldPadding;
   final Function(String?)? onChanged;
   final bool hasPassword;
+  final Widget? prefix;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -78,6 +80,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 controller: widget.controller,
                 style: const TextStyle(color: AppColors.daintree),
                 decoration: InputDecoration(
+                  prefix: widget.prefix,
                   suffixIcon: widget.hasPassword
                       ? IconButton(
                           onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
