@@ -27,12 +27,12 @@ class CreateFolderPage extends StatelessWidget {
                 ),
               ),
               Text(
-                context.tr.createFolderPage_sourceLanguageText,
+                context.tr.your_native_language,
                 style: context.tht.displaySmall,
               ),
               const CountryButton(initialCountryCode: 'US'),
               Text(
-                context.tr.createFolderPage_targetLanguageText,
+                context.tr.language_to_learn,
                 style: context.tht.displaySmall,
               ),
               const CountryButton(initialCountryCode: 'PL'),
