@@ -20,4 +20,6 @@ abstract class AuthenticationRemoteSource {
   Future<Success> updateUser(
     UserProfileDto dto,
   );
+
+  Future<UserProfileDto> getUserProfile();
 }

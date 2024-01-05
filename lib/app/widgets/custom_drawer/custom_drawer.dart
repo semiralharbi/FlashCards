@@ -80,7 +80,7 @@ class _Body extends Drawer {
                         iconData: Icons.abc,
                       ),
                       DrawerIconButton(
-                        onTap: () => context.router.push(const UserProfileRoute()),
+                        onTap: () => context.router.push(UserProfileRoute()),
                         text: context.tr.profile,
                         textPadding: const EdgeInsets.only(top: AppDimensions.d16),
                         iconData: Icons.person_outline,

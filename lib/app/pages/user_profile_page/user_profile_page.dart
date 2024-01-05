@@ -1,3 +1,4 @@
+import '../../../domain/entities/user/user_profile_entity.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
@@ -10,21 +11,35 @@ import 'cubit/user_profile_state.dart';
 
 @RoutePage()
 class UserProfilePage extends StatelessWidget {
-  const UserProfilePage({super.key});
+  const UserProfilePage({
+    super.key,
+    this.cubit,
+    this.entity,
+  });
+
+  final UserProfileCubit? cubit;
+  final UserProfileEntity? entity;
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       withAppBar: false,
       child: BlocProvider(
-        create: (context) => getIt<UserProfileCubit>(),
+        create: (context) => cubit ?? getIt<UserProfileCubit>()
+          ..init(),
         child: BlocConsumer<UserProfileCubit, UserProfileState>(
           listener: (context, state) => state.maybeWhen(
-            loaded: (username, error) => _Body(username, error),
+            loaded: (entity, error) => _Body(
+              usernameError: error,
+              entity: entity,
+            ),
             orElse: () => const SizedBox.shrink(),
           ),
           builder: (context, state) => state.maybeWhen(
-            loaded: (username, error) => _Body(username, error),
+            loaded: (username, error) => _Body(
+              usernameError: error,
+              entity: entity,
+            ),
             orElse: () => const AppProgressIndicator(),
           ),
         ),
@@ -34,9 +49,9 @@ class UserProfilePage extends StatelessWidget {
 }
 
 class _Body extends StatefulWidget {
-  const _Body(this.username, this.usernameError);
+  const _Body({this.usernameError, this.entity});
 
-  final String? username;
+  final UserProfileEntity? entity;
   final Errors? usernameError;
 
   @override
@@ -60,7 +75,7 @@ class _BodyState extends State<_Body> {
             children: [
               SizedBox(
                 child: Text(
-                  "${context.tr.hi} UserName",
+                  "${context.tr.hi}, ${widget.entity?.name ?? ''}",
                   style: context.tht.titleLarge,
                   textAlign: TextAlign.center,
                 ),

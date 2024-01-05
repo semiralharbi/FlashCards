@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/entities/database/folder_entity.dart';
 import '../../../domain/entities/database/words_entity.dart';
+import '../../../domain/entities/user/user_profile_entity.dart';
 import '../../pages/add_folder_words_page/add_folder_words_page.dart';
 import '../../pages/create_folder_page/create_folder_page.dart';
 import '../../pages/dictionary_page/dictionary_page.dart';

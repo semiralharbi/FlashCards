@@ -83,4 +83,14 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
       return const Left(Failure(error: Errors.unknownError));
     }
   }
+
+  @override
+  Future<Either<Failure, UserProfileEntity>> getUserProfile() async {
+    try {
+      final doc = await _remoteSource.getUserProfile();
+      return Right(UserProfileEntity.fromDto(doc));
+    } catch (e) {
+      return const Left(Failure(error: Errors.unknownError));
+    }
+  }
 }

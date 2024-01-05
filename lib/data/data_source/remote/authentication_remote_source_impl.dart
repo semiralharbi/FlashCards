@@ -16,6 +16,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
 
   final FirebaseFirestore firestore;
   final FirebaseAuth firebaseAuth;
+
   String? get userId => firebaseAuth.currentUser?.uid;
 
   @override
@@ -127,6 +128,25 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
           await firestore.collection("users").doc(userId).set(dto.toJson());
         }
         return const Success();
+      } else {
+        throw ApiException(Errors.userNotFound);
+      }
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+
+  @override
+  Future<UserProfileDto> getUserProfile() async {
+    try {
+      if (userId != null) {
+        final doc = await firestore.collection("users").doc(userId).get();
+        if (doc.exists) {
+          final UserProfileDto userDoc = UserProfileDto.fromJson(doc.data()!);
+          return userDoc;
+        } else {
+          throw ApiException(Errors.somethingWentWrong);
+        }
       } else {
         throw ApiException(Errors.userNotFound);
       }
