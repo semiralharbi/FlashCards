@@ -154,4 +154,14 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       throw ApiException(Errors.somethingWentWrong);
     }
   }
+
+  @override
+  Future<Success> deleteAccount() async {
+    try {
+      await firebaseAuth.currentUser?.delete();
+      return const Success();
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
 }

@@ -89,4 +89,13 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
       return const Left(Failure(error: Errors.unknownError));
     }
   }
+
+  @override
+  Future<Either<Failure, Success>> deleteAccount() async {
+    try {
+      return Right(await _remoteSource.deleteAccount());
+    } catch (e) {
+      return const Left(Failure(error: Errors.unknownError));
+    }
+  }
 }

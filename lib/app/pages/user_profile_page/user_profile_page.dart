@@ -244,7 +244,7 @@ class _BodyState extends State<_Body> {
               Padding(
                 padding: const EdgeInsets.all(AppDimensions.d8),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () => context.read<UserProfileCubit>().onDeleteAccount(),
                   child: const Text(
                     'Usuń konto',
                     style: TextStyle(color: Colors.red),

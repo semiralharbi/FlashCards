@@ -16,6 +16,7 @@ abstract class AuthenticationRemoteSource {
   Future<User> getCurrentUser();
 
   Future<Success> signOut();
+  Future<Success> deleteAccount();
 
   Future<Success> updateUser(
     UserProfileDto dto,
