@@ -16,6 +16,7 @@ import 'package:flash_cards/domain/use_case/delete_folder_use_case.dart';
 import 'package:flash_cards/domain/use_case/delete_word_use_case.dart';
 import 'package:flash_cards/domain/use_case/get_currect_user_use_case.dart';
 import 'package:flash_cards/domain/use_case/get_folders_use_case.dart';
+import 'package:flash_cards/domain/use_case/get_user_profile_use_case.dart';
 import 'package:flash_cards/domain/use_case/login_use_case.dart';
 import 'package:flash_cards/domain/use_case/new_data_folder_use_case.dart';
 import 'package:flash_cards/domain/use_case/sign_out_use_case.dart';
@@ -43,6 +44,7 @@ import 'package:mockito/mockito.dart';
   AuthenticationRemoteSource,
   UpdateUserProfileUseCase,
   UserProfileCubit,
+  GetUserProfileUseCase,
 ])
 void main() {}
 

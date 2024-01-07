@@ -26,11 +26,15 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
         email: dto.email,
         password: dto.password,
       );
-      if (user.user != null) {
-        final userId = user.user!.uid;
-        await firestore.collection("users").doc(userId).set(
-              UserProfileDto(name: '', userId: user.user!.uid, initialLanguage: 'pl', userFolders: []).toJson(),
-            );
+      if (userId != null) {
+        final dto = UserProfileDto(
+          name: '',
+          userId: userId!,
+          initialLanguage: 'pl',
+          userFolders: [],
+          email: firebaseAuth.currentUser?.email ?? '',
+        );
+        await firestore.collection("users").doc(userId).set(dto.toJson());
       }
       return user;
     } on FirebaseAuthException catch (e) {
@@ -54,18 +58,13 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   }
 
   @override
-  Future<User> login(LoginDto dto) async {
+  Future<Success> login(LoginDto dto) async {
     try {
       await firebaseAuth.signInWithEmailAndPassword(
         email: dto.email,
         password: dto.password,
       );
-      final user = firebaseAuth.currentUser;
-      if (user != null) {
-        return user;
-      } else {
-        throw ApiException(Errors.unknownError);
-      }
+      return const Success();
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'user-disabled':
@@ -122,6 +121,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
             userId: dto.userId.isNotEmpty ? dto.userId : existingUserDoc.userId,
             initialLanguage: dto.initialLanguage.isNotEmpty ? dto.initialLanguage : existingUserDoc.initialLanguage,
             userFolders: dto.userFolders.isNotEmpty ? dto.userFolders : existingUserDoc.userFolders,
+            email: dto.email.isNotEmpty ? dto.email : existingUserDoc.email,
           );
           await firestore.collection("users").doc(userId).set(updatedUserDoc.toJson());
         } else {

@@ -27,8 +27,27 @@ const FolderEntity mockedFolderEntityV2 = FolderEntity(
   words: [mockedWordEntityV1, mockedWordEntityV2],
 );
 
-const mockedUserProfileDto = UserProfileDto(name: 'aaa', userId: 'userId', initialLanguage: 'pl', userFolders: []);
-const mockedUserProfileEntity = UserProfileEntity(name: 'aaa', userId: 'userId', initialLanguage: 'pl', userFolders: []);
+const mockedUserProfileDto = UserProfileDto(
+  name: 'aaa',
+  userId: 'userId',
+  initialLanguage: 'pl',
+  userFolders: [],
+  email: 'email',
+);
+const mockedUserProfileEntity = UserProfileEntity(
+  name: 'aaa',
+  userId: 'userId',
+  initialLanguage: 'pl',
+  userFolders: [],
+  email: 'email',
+);
+const mockedUserProfileEntityWithoutUsername = UserProfileEntity(
+  name: '',
+  userId: 'userId',
+  initialLanguage: 'pl',
+  userFolders: [],
+  email: 'email',
+);
 
 const List<FolderEntity> mockedFoldersList = [mockedFolderEntityV1, mockedFolderEntityV2];
 

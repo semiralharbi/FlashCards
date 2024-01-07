@@ -14,6 +14,7 @@ class UserProfileDto with _$UserProfileDto {
     required String userId,
     required String initialLanguage,
     required List<FolderDto> userFolders,
+    required String email,
   }) = _UserProfileDto;
 
   factory UserProfileDto.fromJson(Map<String, dynamic> json) => _$UserProfileDtoFromJson(json);
@@ -22,6 +23,7 @@ class UserProfileDto with _$UserProfileDto {
     return UserProfileDto(
       name: entity.name,
       userId: entity.userId,
+      email: entity.email,
       initialLanguage: entity.initialLanguage,
       userFolders: entity.userFolders,
     );

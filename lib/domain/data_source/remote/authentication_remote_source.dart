@@ -9,7 +9,7 @@ abstract class AuthenticationRemoteSource {
     CreateUserDto dto,
   );
 
-  Future<User?> login(
+  Future<Success> login(
     LoginDto dto,
   );
 

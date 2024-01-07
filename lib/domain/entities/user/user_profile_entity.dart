@@ -11,6 +11,7 @@ class UserProfileEntity with _$UserProfileEntity {
     required String name,
     required String userId,
     required String initialLanguage,
+    required String email,
     required List<FolderDto> userFolders,
   }) = _UserProfileEntity;
 
@@ -20,6 +21,7 @@ class UserProfileEntity with _$UserProfileEntity {
       userId: dto.userId,
       initialLanguage: dto.initialLanguage,
       userFolders: dto.userFolders,
+      email: dto.email,
     );
   }
 }

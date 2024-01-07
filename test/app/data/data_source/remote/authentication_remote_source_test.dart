@@ -29,6 +29,7 @@ void main() {
         userId: fakeUser.uid,
         userFolders: mockedUserProfileDto.userFolders,
         initialLanguage: mockedUserProfileDto.initialLanguage,
+        email: mockedUserProfileDto.email,
       );
       final collection = fakeFirebaseFirestore.collection('users');
       final result = await authenticationRemoteSource.updateUser(dto);

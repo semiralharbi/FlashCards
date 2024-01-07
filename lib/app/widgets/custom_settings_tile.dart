@@ -9,14 +9,13 @@ class CustomSettingsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: context.mqs.width * 1,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
             style: context.tht.displaySmall,
           ),
-          const Spacer(),
           const SizedBox(width: 60, height: 60, child: CountryButton(initialCountryCode: 'PL')),
         ],
       ),

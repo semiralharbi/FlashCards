@@ -12,7 +12,11 @@ import '../../utils/router/app_router.dart';
 import 'drawer_icon_button.dart';
 
 class CustomDrawer extends Drawer {
-  const CustomDrawer({super.key});
+  const CustomDrawer({
+    super.key,
+    this.title = '',
+  });
+  final String? title;
 
   @override
   Widget build(BuildContext context) => BlocProvider(
@@ -21,14 +25,14 @@ class CustomDrawer extends Drawer {
           listener: (context, state) => state.whenOrNull(
             logout: () => context.router.replaceAll([LoginRoute()]),
           ),
-          child: const _Body(),
+          child: _Body(title),
         ),
       );
 }
 
 class _Body extends Drawer {
-  const _Body();
-
+  const _Body(this.title);
+  final String? title;
   @override
   Widget build(BuildContext context) => Drawer(
         backgroundColor: AppColors.whiteSmoke,
@@ -39,7 +43,7 @@ class _Body extends Drawer {
               right: 0,
               left: 0,
               child: Container(
-                height: context.mqs.height * 0.3,
+                height: context.mqs.height * 0.35,
                 decoration: const BoxDecoration(
                   color: AppColors.daintree,
                 ),
@@ -50,7 +54,7 @@ class _Body extends Drawer {
               right: 0,
               left: 0,
               child: SizedBox(
-                height: context.mqs.height * 0.6,
+                height: context.mqs.height * 0.55,
                 child: DrawerHeader(
                   padding: const EdgeInsets.symmetric(
                     horizontal: AppDimensions.d16,
@@ -69,7 +73,7 @@ class _Body extends Drawer {
                         onTap: () => context.router.push(
                           HomeRoute(),
                         ),
-                        text: context.tr.yourFolders,
+                        text: title ?? '',
                         textPadding: const EdgeInsets.only(top: AppDimensions.d24),
                         iconData: Icons.folder_copy_outlined,
                       ),

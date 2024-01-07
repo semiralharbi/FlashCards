@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/entities/database/folder_entity.dart';
 import '../../../domain/entities/database/words_entity.dart';
-import '../../../domain/entities/user/user_profile_entity.dart';
 import '../../pages/add_folder_words_page/add_folder_words_page.dart';
 import '../../pages/create_folder_page/create_folder_page.dart';
 import '../../pages/dictionary_page/dictionary_page.dart';
@@ -27,7 +26,7 @@ part 'app_router.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: LoginRoute.page, initial: true),
+        AutoRoute(page: LoginRoute.page),
         AutoRoute(page: RegistrationRoute.page),
         AutoRoute(page: UsernameRoute.page),
         AutoRoute(page: HomeRoute.page),
@@ -38,6 +37,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: DictionaryRoute.page),
         AutoRoute(page: CreateFolderRoute.page),
         AutoRoute(page: AddFolderWordsRoute.page),
-        AutoRoute(page: UserProfileRoute.page),
+        AutoRoute(page: UserProfileRoute.page, initial: true),
       ];
 }

@@ -3,6 +3,8 @@ import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
 import '../../widgets/app_scaffold.dart';
+import '../../widgets/app_snackbar.dart';
+import '../../widgets/custom_drawer/custom_drawer.dart';
 import '../../widgets/custom_settings_tile.dart';
 import '../../widgets/progress_conrainer.dart';
 import '../../widgets/progress_indicator.dart';
@@ -14,16 +16,17 @@ class UserProfilePage extends StatelessWidget {
   const UserProfilePage({
     super.key,
     this.cubit,
-    this.entity,
   });
 
   final UserProfileCubit? cubit;
-  final UserProfileEntity? entity;
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      withAppBar: false,
+      onlyBottomWood: true,
+      drawer: const CustomDrawer(
+        title: 'Twój profil',
+      ),
       child: BlocProvider(
         create: (context) => cubit ?? getIt<UserProfileCubit>()
           ..init(),
@@ -33,14 +36,18 @@ class UserProfilePage extends StatelessWidget {
               usernameError: error,
               entity: entity,
             ),
-            orElse: () => const SizedBox.shrink(),
+            loading: () => const AppProgressIndicator(),
+            orElse: () => const AppProgressIndicator(),
+            fail: (error) => showAppSnackBar(context, context.tr.unknownError),
+            success: () => context.router.push(LoginRoute()),
           ),
           builder: (context, state) => state.maybeWhen(
-            loaded: (username, error) => _Body(
+            loaded: (entity, error) => _Body(
               usernameError: error,
               entity: entity,
             ),
             orElse: () => const AppProgressIndicator(),
+            fail: (error) => const _Body(),
           ),
         ),
       ),
@@ -59,33 +66,107 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
+  bool isEditMode = false;
+  late final TextEditingController _textController;
+
   @override
   void initState() {
     super.initState();
+    _textController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                child: Text(
-                  "${context.tr.hi}, ${widget.entity?.name ?? ''}",
-                  style: context.tht.titleLarge,
-                  textAlign: TextAlign.center,
+          if (!isEditMode)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 260,
+                  height: 80,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: Text(
+                      "${context.tr.hi}, ${widget.entity?.name ?? ''}",
+                      style: context.tht.labelLarge,
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
                 ),
-              ),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.draw_outlined)),
-            ],
-          ),
-          const Text(
-            'email@gmail.com',
-            textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isEditMode = !isEditMode;
+                      });
+                    },
+                    child: const Icon(Icons.draw_outlined),
+                  ),
+                ),
+              ],
+            )
+          else
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 260,
+                  height: 80,
+                  child: TextField(
+                    decoration: const InputDecoration(labelText: 'Wpisz swoje nowe imię'),
+                    textAlign: TextAlign.center,
+                    controller: _textController,
+                    maxLength: 11,
+                  ),
+                ),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          context.read<UserProfileCubit>().onUpdateNameButton(_textController.text);
+                          setState(() {
+                            isEditMode = !isEditMode;
+                            _textController.clear();
+                          });
+                        },
+                        child: const Icon(Icons.check),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          context.read<UserProfileCubit>().onUpdateNameButton(_textController.text);
+                          setState(() {
+                            isEditMode = !isEditMode;
+                            _textController.clear();
+                          });
+                        },
+                        child: const Icon(Icons.cancel),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          const Divider(),
+          Text(
+            " ${widget.entity?.email ?? ''}",
+            textAlign: TextAlign.start,
           ),
           const Gap(AppDimensions.d20),
           Align(
@@ -98,6 +179,9 @@ class _BodyState extends State<_Body> {
           ),
           const Divider(),
           const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               ProgressContainer(
                 information: 'Ukończone foldery',
@@ -123,47 +207,51 @@ class _BodyState extends State<_Body> {
             ),
           ),
           const Divider(),
-          const CustomSettingsTile(
-            title: 'Twój język ojczysty',
-          ),
-          const Gap(AppDimensions.d10),
-          const CustomSettingsTile(
-            title: 'Twój język do nauki',
-          ),
-          const Gap(AppDimensions.d10),
-          const CustomSettingsTile(
-            title: 'Język splikacji',
-          ),
-          const Gap(AppDimensions.d50),
-          Padding(
-            padding: const EdgeInsets.all(AppDimensions.d8),
-            child: InkWell(
-              onTap: () {},
-              child: Text(
-                'Wyloguj się',
-                style: context.tht.titleMedium,
+          Column(
+            children: [
+              const CustomSettingsTile(
+                title: 'Twój język ojczysty',
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(AppDimensions.d8),
-            child: InkWell(
-              onTap: () {},
-              child: Text(
-                'Zmień hasło',
-                style: context.tht.titleMedium,
+              const Gap(AppDimensions.d10),
+              const CustomSettingsTile(
+                title: 'Twój język do nauki',
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(AppDimensions.d8),
-            child: InkWell(
-              onTap: () {},
-              child: const Text(
-                'Usuń konto',
-                style: TextStyle(color: Colors.red),
+              const Gap(AppDimensions.d10),
+              const CustomSettingsTile(
+                title: 'Język splikacji',
               ),
-            ),
+              const Gap(AppDimensions.d50),
+              Padding(
+                padding: const EdgeInsets.all(AppDimensions.d8),
+                child: InkWell(
+                  onTap: () => context.read<UserProfileCubit>().onSignOutButton(),
+                  child: Text(
+                    'Wyloguj się',
+                    style: context.tht.titleMedium,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(AppDimensions.d8),
+                child: InkWell(
+                  onTap: () {},
+                  child: Text(
+                    'Zmień hasło',
+                    style: context.tht.titleMedium,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(AppDimensions.d8),
+                child: InkWell(
+                  onTap: () {},
+                  child: const Text(
+                    'Usuń konto',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

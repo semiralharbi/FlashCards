@@ -8,22 +8,28 @@ class ProgressContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(AppDimensions.d8),
+    return Expanded(
       child: Column(
         children: [
           Container(
             alignment: Alignment.center,
-            decoration:  BoxDecoration(color:AppColors.buttonInactive, borderRadius: BorderRadius.circular(10)),
-            width: AppDimensions.d80,
-            height: AppDimensions.d80,
+            constraints: const BoxConstraints(minHeight: AppDimensions.d80),
+            decoration: BoxDecoration(
+              color: AppColors.buttonInactive,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            width: AppDimensions.d86,
             child: Text(
               progress.toString(),
               style: context.tht.titleMedium,
               textAlign: TextAlign.center,
             ),
           ),
-          Text(information, style: context.tht.titleSmall),
+          Text(
+            information,
+            style: context.tht.labelSmall,
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );

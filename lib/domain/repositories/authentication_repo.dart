@@ -12,7 +12,7 @@ abstract class AuthenticationRepo {
     CreateUserEntity entity,
   );
 
-  Future<Either<Failure, User>> login(
+  Future<Either<Failure, Success>> login(
     LoginEntity entity,
   );
 
