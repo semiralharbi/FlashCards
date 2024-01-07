@@ -77,6 +77,7 @@ class _BodyState extends State<_Body> {
           const Gap(AppDimensions.d100),
           CustomTextField(
             controller: _usernameController,
+            maxLength: 10,
             hintText: context.tr.username,
             error: widget.usernameError?.errorText(context),
           ),
