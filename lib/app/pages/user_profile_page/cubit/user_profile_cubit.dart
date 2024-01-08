@@ -34,8 +34,12 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     );
   }
 
-  Future<void> onUpdateNameButton(
-      {String? username, String? nativeLanguage, String? appLanguage, String? languageToLearn}) async {
+  Future<void> onUpdateNameButton({
+    String? username,
+    String? nativeLanguage,
+    String? appLanguage,
+    String? languageToLearn,
+  }) async {
     await _updateUserProfileUseCase(
       UserProfileEntity(
         name: username ?? '',
