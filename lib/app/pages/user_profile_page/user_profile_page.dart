@@ -107,7 +107,7 @@ class _BodyState extends State<_Body> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 25.0),
                     child: Text(
-                      "${context.tr.hi}, ${widget.entity?.name ?? ''}",
+                      "${context.tr.userProfilePage_header}, ${widget.entity?.name ?? ''}",
                       style: context.tht.labelLarge,
                       textAlign: TextAlign.start,
                     ),
@@ -134,7 +134,7 @@ class _BodyState extends State<_Body> {
                   width: 260,
                   height: 80,
                   child: TextField(
-                    decoration: const InputDecoration(labelText: 'Wpisz swoje nowe imię'),
+                    decoration: InputDecoration(labelText: context.tr.userProfilePage_textField),
                     textAlign: TextAlign.center,
                     controller: _textController,
                     maxLength: 10,
@@ -181,27 +181,27 @@ class _BodyState extends State<_Body> {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Twój progres:',
+              context.tr.userProfilePage_resume,
               textAlign: TextAlign.left,
               style: context.tht.displayMedium,
             ),
           ),
           const Divider(),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               ProgressContainer(
-                information: 'Ukończone foldery',
+                information: context.tr.userProfilePage_progressContainer_foldersDone,
                 progress: 10,
               ),
               ProgressContainer(
-                information: '% postępu',
+                information: context.tr.userProfilePage_progressContainer_percentProgress,
                 progress: 7,
               ),
               ProgressContainer(
-                information: 'Utworzonych słów',
+                information: context.tr.userProfilePage_progressContainer_wordsCreated,
                 progress: 1000,
               ),
             ],
@@ -218,16 +218,16 @@ class _BodyState extends State<_Body> {
           const Divider(),
           Column(
             children: [
-              const CustomSettingsTile(
-                title: 'Twój język ojczysty',
+              CustomSettingsTile(
+                title: context.tr.userProfilePage_progressContainer_yourNativeLanguage,
               ),
               const Gap(AppDimensions.d10),
-              const CustomSettingsTile(
-                title: 'Twój język do nauki',
+              CustomSettingsTile(
+                title: context.tr.userProfilePage_progressContainer_appLanguage,
               ),
               const Gap(AppDimensions.d10),
-              const CustomSettingsTile(
-                title: 'Język splikacji',
+              CustomSettingsTile(
+                title: context.tr.userProfilePage_progressContainer_languageToLearn,
               ),
               const Gap(AppDimensions.d50),
               Padding(
@@ -235,7 +235,7 @@ class _BodyState extends State<_Body> {
                 child: InkWell(
                   onTap: () => context.read<UserProfileCubit>().onSignOutButton(),
                   child: Text(
-                    'Wyloguj się',
+                    context.tr.userProfilePage_logoutButton,
                     style: context.tht.titleMedium,
                   ),
                 ),
@@ -254,7 +254,7 @@ class _BodyState extends State<_Body> {
                     ),
                   ),
                   child: Text(
-                    'Zmień hasło',
+                    context.tr.userProfilePage_changePasswordButton,
                     style: context.tht.titleMedium,
                   ),
                 ),
@@ -265,9 +265,9 @@ class _BodyState extends State<_Body> {
                   onTap: () {
                     context.read<UserProfileCubit>().onDeleteAccount();
                   },
-                  child: const Text(
-                    'Usuń konto',
-                    style: TextStyle(color: Colors.red),
+                  child: Text(
+                    context.tr.userProfilePage_deleteAccount,
+                    style: const TextStyle(color: Colors.red),
                   ),
                 ),
               ),
