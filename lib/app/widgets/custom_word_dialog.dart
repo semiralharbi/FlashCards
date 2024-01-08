@@ -4,7 +4,7 @@ import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
 import '../utils/enums/context_extension.dart';
 import '../utils/enums/errors.dart';
-import 'custom_textfield.dart';
+import 'custom_text_field.dart';
 import 'rounded_icon_button.dart';
 
 class CustomWordDialog extends StatelessWidget {

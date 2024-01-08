@@ -4,6 +4,7 @@ import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
+import '../../widgets/custom_dialog_with_text_field.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 import '../../widgets/custom_settings_tile.dart';
 import '../../widgets/progress_conrainer.dart';
@@ -38,8 +39,10 @@ class UserProfilePage extends StatelessWidget {
             ),
             loading: () => const AppProgressIndicator(),
             orElse: () => const AppProgressIndicator(),
-            fail: (error) => showAppSnackBar(context, context.tr.unknownError),
-            success: () => context.router.push(LoginRoute()),
+            fail: (error) => showAppSnackBar(context, error.errorText(context)),
+            success: () => context.router.push(
+              LoginRoute(),
+            ),
           ),
           builder: (context, state) => state.maybeWhen(
             loaded: (entity, error) => _Body(
@@ -56,7 +59,10 @@ class UserProfilePage extends StatelessWidget {
 }
 
 class _Body extends StatefulWidget {
-  const _Body({this.usernameError, this.entity});
+  const _Body({
+    this.usernameError,
+    this.entity,
+  });
 
   final UserProfileEntity? entity;
   final Errors? usernameError;
@@ -68,16 +74,19 @@ class _Body extends StatefulWidget {
 class _BodyState extends State<_Body> {
   bool isEditMode = false;
   late final TextEditingController _textController;
+  late final TextEditingController _emailToChangePassword;
 
   @override
   void initState() {
     super.initState();
     _textController = TextEditingController();
+    _emailToChangePassword = TextEditingController();
   }
 
   @override
   void dispose() {
     _textController.dispose();
+    _emailToChangePassword.dispose();
     super.dispose();
   }
 
@@ -128,7 +137,7 @@ class _BodyState extends State<_Body> {
                     decoration: const InputDecoration(labelText: 'Wpisz swoje nowe imię'),
                     textAlign: TextAlign.center,
                     controller: _textController,
-                    maxLength: 11,
+                    maxLength: 10,
                   ),
                 ),
                 Column(
@@ -234,7 +243,16 @@ class _BodyState extends State<_Body> {
               Padding(
                 padding: const EdgeInsets.all(AppDimensions.d8),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (_) => CustomDialogWithTextField(
+                      controller: _emailToChangePassword,
+                      onPressed: () {
+                        context.read<UserProfileCubit>().onResetPassword(_emailToChangePassword.text);
+                        context.router.pop();
+                      },
+                    ),
+                  ),
                   child: Text(
                     'Zmień hasło',
                     style: context.tht.titleMedium,
@@ -244,7 +262,9 @@ class _BodyState extends State<_Body> {
               Padding(
                 padding: const EdgeInsets.all(AppDimensions.d8),
                 child: InkWell(
-                  onTap: () => context.read<UserProfileCubit>().onDeleteAccount(),
+                  onTap: () {
+                    context.read<UserProfileCubit>().onDeleteAccount();
+                  },
                   child: const Text(
                     'Usuń konto',
                     style: TextStyle(color: Colors.red),

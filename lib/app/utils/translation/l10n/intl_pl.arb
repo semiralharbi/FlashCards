@@ -19,6 +19,7 @@
   "welcomeUser": "Cześć, mistrzu FlashCards! Zanim rozpoczniesz swoją misję zdobywania wiedzy, zdradź nam kod dostępu - Twoje imię!",
   "somethingWentWrong": "Coś poszło nie tak!",
   "unknownError": "Wystąpił nieznany błąd",
+  "wrongEmail": "Podany zły e-mail",
   "tryAgainLater": "Spróbuj ponownie później",
   "checkInternetConnetction": "Sprawdź połączenie internetowe",
   "emailInUse": "Użytkownik z tym adresem e-mail już istnieje",

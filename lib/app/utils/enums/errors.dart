@@ -18,6 +18,7 @@ enum Errors {
   wrongPassword,
   lackOfFolderDescription,
   wordNotFound,
+  wrongEmail
 }
 
 extension ErrorsExtension on Errors {
@@ -53,6 +54,8 @@ extension ErrorsExtension on Errors {
         return context.tr.lackOfFolderDescription;
       case Errors.wordNotFound:
         return context.tr.wordNotFound;
+      case Errors.wrongEmail:
+        return context.tr.wrongEmail;
       default:
         return context.tr.unknownError;
     }

@@ -164,4 +164,14 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       throw ApiException(Errors.somethingWentWrong);
     }
   }
+
+  @override
+  Future<Success> resetPassword(String email) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+      return const Success();
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
 }

@@ -98,4 +98,13 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
       return const Left(Failure(error: Errors.unknownError));
     }
   }
+
+  @override
+  Future<Either<Failure, Success>> resetPassword(String email) async {
+    try {
+      return Right(await _remoteSource.resetPassword(email));
+    } catch (e) {
+      return const Left(Failure(error: Errors.unknownError));
+    }
+  }
 }

@@ -4,7 +4,7 @@ import '../../utils/enums/errors.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
-import '../../widgets/custom_textfield.dart';
+import '../../widgets/custom_text_field.dart';
 import '../../widgets/progress_indicator.dart';
 import 'cubit/username_cubit.dart';
 import 'cubit/username_state.dart';
