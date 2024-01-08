@@ -13,6 +13,9 @@ class UserProfileEntity with _$UserProfileEntity {
     required String initialLanguage,
     required String email,
     required List<FolderDto> userFolders,
+    required String appLanguage,
+    required String nativeLanguage,
+    required String languageToLearn,
   }) = _UserProfileEntity;
 
   factory UserProfileEntity.fromDto(UserProfileDto dto) {
@@ -22,6 +25,9 @@ class UserProfileEntity with _$UserProfileEntity {
       initialLanguage: dto.initialLanguage,
       userFolders: dto.userFolders,
       email: dto.email,
+      appLanguage: dto.appLanguage,
+      nativeLanguage: dto.nativeLanguage,
+      languageToLearn: dto.languageToLearn,
     );
   }
 }

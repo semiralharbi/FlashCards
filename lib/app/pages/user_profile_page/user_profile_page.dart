@@ -93,187 +93,212 @@ class _BodyState extends State<_Body> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          if (!isEditMode)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 260,
-                  height: 80,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 25.0),
-                    child: Text(
-                      "${context.tr.userProfilePage_header}, ${widget.entity?.name ?? ''}",
-                      style: context.tht.labelLarge,
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isEditMode = !isEditMode;
-                      });
-                    },
-                    child: const Icon(Icons.draw_outlined),
-                  ),
-                ),
-              ],
-            )
-          else
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 260,
-                  height: 80,
-                  child: TextField(
-                    decoration: InputDecoration(labelText: context.tr.userProfilePage_textField),
-                    textAlign: TextAlign.center,
-                    controller: _textController,
-                    maxLength: 10,
-                  ),
-                ),
-                Column(
+      child: SizedBox(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            if (!isEditMode)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: AppDimensions.d26),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          context.read<UserProfileCubit>().onUpdateNameButton(_textController.text);
-                          setState(() {
-                            isEditMode = !isEditMode;
-                            _textController.clear();
-                          });
-                        },
-                        child: const Icon(Icons.check),
+                    Flexible(
+                      child: Text(
+                        "${context.tr.userProfilePage_hi}, ${widget.entity?.name ?? ''}",
+                        style: context.tht.labelLarge,
+                        textAlign: TextAlign.start,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(3.0),
+                      padding: const EdgeInsets.only(bottom: AppDimensions.d10),
                       child: GestureDetector(
                         onTap: () {
-                          context.read<UserProfileCubit>().onUpdateNameButton(_textController.text);
                           setState(() {
                             isEditMode = !isEditMode;
-                            _textController.clear();
                           });
                         },
-                        child: const Icon(Icons.cancel),
+                        child: const Icon(Icons.draw_outlined),
                       ),
                     ),
                   ],
                 ),
-              ],
-            ),
-          const Divider(),
-          Text(
-            " ${widget.entity?.email ?? ''}",
-            textAlign: TextAlign.start,
-          ),
-          const Gap(AppDimensions.d20),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              context.tr.userProfilePage_resume,
-              textAlign: TextAlign.left,
-              style: context.tht.displayMedium,
-            ),
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ProgressContainer(
-                information: context.tr.userProfilePage_progressContainer_foldersDone,
-                progress: 10,
-              ),
-              ProgressContainer(
-                information: context.tr.userProfilePage_progressContainer_percentProgress,
-                progress: 7,
-              ),
-              ProgressContainer(
-                information: context.tr.userProfilePage_progressContainer_wordsCreated,
-                progress: 1000,
-              ),
-            ],
-          ),
-          const Gap(AppDimensions.d30),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Ustawienia:',
-              textAlign: TextAlign.left,
-              style: context.tht.displayMedium,
-            ),
-          ),
-          const Divider(),
-          Column(
-            children: [
-              CustomSettingsTile(
-                title: context.tr.userProfilePage_progressContainer_yourNativeLanguage,
-              ),
-              const Gap(AppDimensions.d10),
-              CustomSettingsTile(
-                title: context.tr.userProfilePage_progressContainer_appLanguage,
-              ),
-              const Gap(AppDimensions.d10),
-              CustomSettingsTile(
-                title: context.tr.userProfilePage_progressContainer_languageToLearn,
-              ),
-              const Gap(AppDimensions.d50),
-              Padding(
-                padding: const EdgeInsets.all(AppDimensions.d8),
-                child: InkWell(
-                  onTap: () => context.read<UserProfileCubit>().onSignOutButton(),
-                  child: Text(
-                    context.tr.userProfilePage_logoutButton,
-                    style: context.tht.titleMedium,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(AppDimensions.d8),
-                child: InkWell(
-                  onTap: () => showDialog(
-                    context: context,
-                    builder: (_) => CustomDialogWithTextField(
-                      controller: _emailToChangePassword,
-                      onPressed: () {
-                        context.read<UserProfileCubit>().onResetPassword(_emailToChangePassword.text);
-                        context.router.pop();
-                      },
+              )
+            else
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: TextField(
+                      decoration:
+                          InputDecoration(labelText: context.tr.userProfilePage_textField, alignLabelWithHint: true),
+                      textAlign: TextAlign.center,
+                      controller: _textController,
+                      maxLength: 10,
                     ),
                   ),
-                  child: Text(
-                    context.tr.userProfilePage_changePasswordButton,
-                    style: context.tht.titleMedium,
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(AppDimensions.d3),
+                        child: GestureDetector(
+                          onTap: () {
+                            context.read<UserProfileCubit>().onUpdateNameButton(username: _textController.text);
+                            setState(() {
+                              isEditMode = !isEditMode;
+                              _textController.clear();
+                            });
+                          },
+                          child: const Icon(Icons.check),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(AppDimensions.d3),
+                        child: GestureDetector(
+                          onTap: () {
+                            context.read<UserProfileCubit>().onUpdateNameButton(username: _textController.text);
+                            setState(() {
+                              isEditMode = !isEditMode;
+                              _textController.clear();
+                            });
+                          },
+                          child: const Icon(Icons.cancel),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            const Divider(),
+            Text(
+              " ${widget.entity?.email ?? ''}",
+              textAlign: TextAlign.start,
+            ),
+            const Gap(AppDimensions.d20),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                context.tr.userProfilePage_resume,
+                textAlign: TextAlign.left,
+                style: context.tht.displayMedium,
+              ),
+            ),
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ProgressContainer(
+                  information: context.tr.userProfilePage_progressContainer_foldersDone,
+                  progress: 10,
+                ),
+                ProgressContainer(
+                  information: context.tr.userProfilePage_progressContainer_percentProgress,
+                  progress: 7,
+                ),
+                ProgressContainer(
+                  information: context.tr.userProfilePage_progressContainer_wordsCreated,
+                  progress: 1000,
+                ),
+              ],
+            ),
+            const Gap(AppDimensions.d30),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Ustawienia:',
+                textAlign: TextAlign.left,
+                style: context.tht.displayMedium,
+              ),
+            ),
+            const Divider(),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(AppDimensions.d8),
+                  child: FlagTile(
+                    title: context.tr.userProfilePage_progressContainer_yourNativeLanguage,
+                    countryCode: widget.entity?.nativeLanguage ?? 'pl',
+                    onSelect: (countryCode) =>
+                        context.read<UserProfileCubit>().onUpdateNameButton(nativeLanguage: countryCode),
+                    flagWidth: AppDimensions.d60,
+                    flagHeight: AppDimensions.d60,
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(AppDimensions.d8),
-                child: InkWell(
-                  onTap: () {
-                    context.read<UserProfileCubit>().onDeleteAccount();
-                  },
-                  child: Text(
-                    context.tr.userProfilePage_deleteAccount,
-                    style: const TextStyle(color: Colors.red),
+                const Gap(AppDimensions.d10),
+                Padding(
+                  padding: const EdgeInsets.all(AppDimensions.d8),
+                  child: FlagTile(
+                    title: context.tr.userProfilePage_progressContainer_appLanguage,
+                    countryCode: widget.entity?.nativeLanguage ?? 'pl',
+                    onSelect: (countryCode) =>
+                        context.read<UserProfileCubit>().onUpdateNameButton(appLanguage: countryCode),
+                    flagWidth: AppDimensions.d60,
+                    flagHeight: AppDimensions.d60,
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                const Gap(AppDimensions.d10),
+                Padding(
+                  padding: const EdgeInsets.all(AppDimensions.d8),
+                  child: FlagTile(
+                    flagWidth: AppDimensions.d60,
+                    flagHeight: AppDimensions.d60,
+                    title: context.tr.userProfilePage_progressContainer_languageToLearn,
+                    countryCode: widget.entity?.nativeLanguage ?? 'pl',
+                    onSelect: (countryCode) =>
+                        context.read<UserProfileCubit>().onUpdateNameButton(languageToLearn: countryCode),
+                  ),
+                ),
+                const Gap(AppDimensions.d50),
+                Padding(
+                  padding: const EdgeInsets.all(AppDimensions.d8),
+                  child: InkWell(
+                    onTap: () => context.read<UserProfileCubit>().onSignOutButton(),
+                    child: Text(
+                      context.tr.userProfilePage_logoutButton,
+                      style: context.tht.titleMedium,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(AppDimensions.d8),
+                  child: InkWell(
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (_) => CustomDialogWithTextField(
+                        controller: _emailToChangePassword,
+                        onPressed: () {
+                          context.read<UserProfileCubit>().onResetPassword(_emailToChangePassword.text);
+                          context.router.pop();
+                        },
+                      ),
+                    ),
+                    child: Text(
+                      context.tr.userProfilePage_changePasswordButton,
+                      style: context.tht.titleMedium,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(AppDimensions.d8),
+                  child: InkWell(
+                    onTap: () {
+                      context.read<UserProfileCubit>().onDeleteAccount();
+                    },
+                    child: Text(
+                      context.tr.userProfilePage_deleteAccount,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

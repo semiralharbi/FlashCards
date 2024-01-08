@@ -22,6 +22,9 @@ class UsernameCubit extends Cubit<UsernameState> {
           initialLanguage: '',
           userFolders: [],
           email: '',
+          appLanguage: 'pl',
+          nativeLanguage: 'pl',
+          languageToLearn: 'en',
         ),
       );
       result.fold(

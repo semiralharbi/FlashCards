@@ -33,6 +33,9 @@ const mockedUserProfileDto = UserProfileDto(
   initialLanguage: 'pl',
   userFolders: [],
   email: 'email',
+  appLanguage: 'pl',
+  nativeLanguage: 'pl',
+  languageToLearn: 'en',
 );
 const mockedUserProfileEntity = UserProfileEntity(
   name: 'aaa',
@@ -40,13 +43,19 @@ const mockedUserProfileEntity = UserProfileEntity(
   initialLanguage: 'pl',
   userFolders: [],
   email: 'email',
+  appLanguage: 'pl',
+  nativeLanguage: 'pl',
+  languageToLearn: 'pl',
 );
 const mockedUserProfileEntityWithoutUsername = UserProfileEntity(
   name: '',
   userId: 'userId',
   initialLanguage: 'pl',
   userFolders: [],
-  email: 'email',
+  email: 'email@email.com',
+  appLanguage: 'pl',
+  nativeLanguage: 'pl',
+  languageToLearn: 'an',
 );
 
 const List<FolderEntity> mockedFoldersList = [mockedFolderEntityV1, mockedFolderEntityV2];

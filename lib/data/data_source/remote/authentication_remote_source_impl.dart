@@ -33,6 +33,9 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
           initialLanguage: 'pl',
           userFolders: [],
           email: firebaseAuth.currentUser?.email ?? '',
+          appLanguage: 'pl',
+          nativeLanguage: 'pl',
+          languageToLearn: 'en',
         );
         await firestore.collection("users").doc(userId).set(dto.toJson());
       }
@@ -120,6 +123,9 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
             name: dto.name.isNotEmpty ? dto.name : existingUserDoc.name,
             userId: dto.userId.isNotEmpty ? dto.userId : existingUserDoc.userId,
             initialLanguage: dto.initialLanguage.isNotEmpty ? dto.initialLanguage : existingUserDoc.initialLanguage,
+            nativeLanguage: dto.nativeLanguage.isNotEmpty ? dto.nativeLanguage : existingUserDoc.nativeLanguage,
+            appLanguage: dto.appLanguage.isNotEmpty ? dto.appLanguage : existingUserDoc.appLanguage,
+            languageToLearn: dto.languageToLearn.isNotEmpty ? dto.languageToLearn : existingUserDoc.languageToLearn,
             userFolders: dto.userFolders.isNotEmpty ? dto.userFolders : existingUserDoc.userFolders,
             email: dto.email.isNotEmpty ? dto.email : existingUserDoc.email,
           );
