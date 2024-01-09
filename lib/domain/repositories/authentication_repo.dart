@@ -12,14 +12,19 @@ abstract class AuthenticationRepo {
     CreateUserEntity entity,
   );
 
-  Future<Either<Failure, User>> login(
+  Future<Either<Failure, Success>> login(
     LoginEntity entity,
   );
-
 
   Future<Either<Failure, User>> getCurrentUser();
 
   Future<Either<Failure, Success>> signOut();
+
+  Future<Either<Failure, Success>> deleteAccount();
+
+  Future<Either<Failure, Success>> resetPassword(String email);
+
   Future<Either<Failure, Success>> updateUserProfile(UserProfileEntity entity);
 
+  Future<Either<Failure, UserProfileEntity>> getUserProfile();
 }

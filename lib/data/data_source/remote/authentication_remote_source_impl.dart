@@ -16,6 +16,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
 
   final FirebaseFirestore firestore;
   final FirebaseAuth firebaseAuth;
+
   String? get userId => firebaseAuth.currentUser?.uid;
 
   @override
@@ -25,11 +26,18 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
         email: dto.email,
         password: dto.password,
       );
-      if (user.user != null) {
-        final userId = user.user!.uid;
-        await firestore.collection("users").doc(userId).set(
-              UserProfileDto(name: '', userId: user.user!.uid, initialLanguage: 'pl', userFolders: []).toJson(),
-            );
+      if (userId != null) {
+        final dto = UserProfileDto(
+          name: '',
+          userId: userId!,
+          initialLanguage: 'pl',
+          userFolders: [],
+          email: firebaseAuth.currentUser?.email ?? '',
+          appLanguage: 'pl',
+          nativeLanguage: 'pl',
+          languageToLearn: 'en',
+        );
+        await firestore.collection("users").doc(userId).set(dto.toJson());
       }
       return user;
     } on FirebaseAuthException catch (e) {
@@ -53,18 +61,13 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
   }
 
   @override
-  Future<User> login(LoginDto dto) async {
+  Future<Success> login(LoginDto dto) async {
     try {
       await firebaseAuth.signInWithEmailAndPassword(
         email: dto.email,
         password: dto.password,
       );
-      final user = firebaseAuth.currentUser;
-      if (user != null) {
-        return user;
-      } else {
-        throw ApiException(Errors.unknownError);
-      }
+      return const Success();
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'user-disabled':
@@ -120,7 +123,11 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
             name: dto.name.isNotEmpty ? dto.name : existingUserDoc.name,
             userId: dto.userId.isNotEmpty ? dto.userId : existingUserDoc.userId,
             initialLanguage: dto.initialLanguage.isNotEmpty ? dto.initialLanguage : existingUserDoc.initialLanguage,
+            nativeLanguage: dto.nativeLanguage.isNotEmpty ? dto.nativeLanguage : existingUserDoc.nativeLanguage,
+            appLanguage: dto.appLanguage.isNotEmpty ? dto.appLanguage : existingUserDoc.appLanguage,
+            languageToLearn: dto.languageToLearn.isNotEmpty ? dto.languageToLearn : existingUserDoc.languageToLearn,
             userFolders: dto.userFolders.isNotEmpty ? dto.userFolders : existingUserDoc.userFolders,
+            email: dto.email.isNotEmpty ? dto.email : existingUserDoc.email,
           );
           await firestore.collection("users").doc(userId).set(updatedUserDoc.toJson());
         } else {
@@ -130,6 +137,45 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       } else {
         throw ApiException(Errors.userNotFound);
       }
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+
+  @override
+  Future<UserProfileDto> getUserProfile() async {
+    try {
+      if (userId != null) {
+        final doc = await firestore.collection("users").doc(userId).get();
+        if (doc.exists) {
+          final UserProfileDto userDoc = UserProfileDto.fromJson(doc.data()!);
+          return userDoc;
+        } else {
+          throw ApiException(Errors.somethingWentWrong);
+        }
+      } else {
+        throw ApiException(Errors.userNotFound);
+      }
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+
+  @override
+  Future<Success> deleteAccount() async {
+    try {
+      await firebaseAuth.currentUser?.delete();
+      return const Success();
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+
+  @override
+  Future<Success> resetPassword(String email) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+      return const Success();
     } catch (e) {
       throw ApiException(Errors.somethingWentWrong);
     }

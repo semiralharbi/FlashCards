@@ -4,7 +4,7 @@ import '../../utils/enums/errors.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
-import '../../widgets/custom_textfield.dart';
+import '../../widgets/custom_text_field.dart';
 import '../../widgets/progress_indicator.dart';
 import 'cubit/username_cubit.dart';
 import 'cubit/username_state.dart';
@@ -77,6 +77,7 @@ class _BodyState extends State<_Body> {
           const Gap(AppDimensions.d100),
           CustomTextField(
             controller: _usernameController,
+            maxLength: 10,
             hintText: context.tr.username,
             error: widget.usernameError?.errorText(context),
           ),

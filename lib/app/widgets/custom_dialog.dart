@@ -1,6 +1,6 @@
 import '../theme/global_imports.dart';
 import 'app_snackbar.dart';
-import 'custom_textfield.dart';
+import 'custom_text_field.dart';
 
 class CreateFolderDialog extends StatelessWidget {
   const CreateFolderDialog({

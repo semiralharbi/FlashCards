@@ -36,14 +36,10 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
   }
 
   @override
-  Future<Either<Failure, User>> login(LoginEntity entity) async {
+  Future<Either<Failure, Success>> login(LoginEntity entity) async {
     try {
-      final user = await _remoteSource.login(LoginDto.fromEntity(entity));
-      if (user != null) {
-        return Right(user);
-      } else {
-        return const Left(Failure(error: Errors.userNotFound));
-      }
+      final result = await _remoteSource.login(LoginDto.fromEntity(entity));
+      return Right(result);
     } on ApiException catch (e) {
       return Left(Failure(error: e.failure));
     } catch (e) {
@@ -79,6 +75,34 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
       return const Right(Success());
     } on ApiException catch (e) {
       return Left(Failure(error: e.failure));
+    } catch (e) {
+      return const Left(Failure(error: Errors.unknownError));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserProfileEntity>> getUserProfile() async {
+    try {
+      final doc = await _remoteSource.getUserProfile();
+      return Right(UserProfileEntity.fromDto(doc));
+    } catch (e) {
+      return const Left(Failure(error: Errors.unknownError));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Success>> deleteAccount() async {
+    try {
+      return Right(await _remoteSource.deleteAccount());
+    } catch (e) {
+      return const Left(Failure(error: Errors.unknownError));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Success>> resetPassword(String email) async {
+    try {
+      return Right(await _remoteSource.resetPassword(email));
     } catch (e) {
       return const Left(Failure(error: Errors.unknownError));
     }

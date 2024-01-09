@@ -5,6 +5,7 @@ import 'package:flash_cards/app/pages/folder_content_page/cubit/folder_content_c
 import 'package:flash_cards/app/pages/home_page/cubit/home_cubit.dart';
 import 'package:flash_cards/app/pages/login_page/cubit/login_cubit.dart';
 import 'package:flash_cards/app/pages/registration_page/cubit/registration_cubit.dart';
+import 'package:flash_cards/app/pages/user_profile_page/cubit/user_profile_cubit.dart';
 import 'package:flash_cards/app/pages/username_page/cubit/username_cubit.dart';
 import 'package:flash_cards/domain/data_source/remote/authentication_remote_source.dart';
 import 'package:flash_cards/domain/data_source/remote/database_remote_source.dart';
@@ -15,6 +16,7 @@ import 'package:flash_cards/domain/use_case/delete_folder_use_case.dart';
 import 'package:flash_cards/domain/use_case/delete_word_use_case.dart';
 import 'package:flash_cards/domain/use_case/get_currect_user_use_case.dart';
 import 'package:flash_cards/domain/use_case/get_folders_use_case.dart';
+import 'package:flash_cards/domain/use_case/get_user_profile_use_case.dart';
 import 'package:flash_cards/domain/use_case/login_use_case.dart';
 import 'package:flash_cards/domain/use_case/new_data_folder_use_case.dart';
 import 'package:flash_cards/domain/use_case/sign_out_use_case.dart';
@@ -41,6 +43,8 @@ import 'package:mockito/mockito.dart';
   AuthenticationRepo,
   AuthenticationRemoteSource,
   UpdateUserProfileUseCase,
+  UserProfileCubit,
+  GetUserProfileUseCase,
 ])
 void main() {}
 
