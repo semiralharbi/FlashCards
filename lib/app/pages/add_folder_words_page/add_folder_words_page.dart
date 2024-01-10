@@ -136,8 +136,7 @@ class _BodyState extends State<_Body> {
 
   Future<void> _onTranslateTap() async {
     //TODO(): Add proper lang handling
-    final translation =
-        await getIt<GoogleTranslator>().translate(_initialWordController.text, from: 'pl'); // from: "entity.language"
+    final translation = await getIt<GoogleTranslator>().translate(_initialWordController.text, from: 'pl');
     setState(() {
       _translatedWordController.text = translation.text;
     });
@@ -151,13 +150,11 @@ class _BodyState extends State<_Body> {
             child: widget.wordsList.isNotEmpty ? AddedWordsGrid(wordsList: widget.wordsList) : null,
           ),
           CustomTextField(
-            prefix: Padding(
-              padding: const EdgeInsets.only(top: AppDimensions.d8, right: AppDimensions.d8),
-              child: CountryFlag.fromLanguageCode(
-                'de',
-                height: AppDimensions.d26,
-                width: AppDimensions.d26,
-              ), //TODO:Add flag
+            autofocus: true,
+            leading: CountryFlag.fromLanguageCode(
+              'de',
+              height: AppDimensions.d26,
+              width: AppDimensions.d26,
             ),
             error: _initialWordError,
             controller: _initialWordController,
@@ -166,13 +163,10 @@ class _BodyState extends State<_Body> {
           ).animate().slideX().fade(),
           if (_isInitialWordNotEmpty)
             CustomTextField(
-              prefix: Padding(
-                padding: const EdgeInsets.only(top: AppDimensions.d10, right: AppDimensions.d8),
-                child: CountryFlag.fromLanguageCode(
-                  'en',
-                  height: AppDimensions.d26,
-                  width: AppDimensions.d26,
-                ), //entity.language
+              leading: CountryFlag.fromLanguageCode(
+                'en',
+                height: AppDimensions.d26,
+                width: AppDimensions.d26,
               ),
               error: _translatedWordError,
               onChanged: _onChangedTranslatedWord,
