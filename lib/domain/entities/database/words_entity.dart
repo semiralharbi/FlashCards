@@ -7,7 +7,7 @@ part 'words_entity.freezed.dart';
 @freezed
 class WordsEntity with _$WordsEntity {
   const factory WordsEntity({
-    required String enWord,
+    required String wordToTranslate,
     required String translatedWord,
     bool? correctAnswer,
     required int nrRepeated,
@@ -15,7 +15,7 @@ class WordsEntity with _$WordsEntity {
 
   factory WordsEntity.fromDto(WordsDto dto) {
     return WordsEntity(
-      enWord: dto.enWord,
+      wordToTranslate: dto.wordToTranslate,
       translatedWord: dto.translatedWord,
       correctAnswer: dto.correctAnswer,
       nrRepeated: dto.nrRepeated,

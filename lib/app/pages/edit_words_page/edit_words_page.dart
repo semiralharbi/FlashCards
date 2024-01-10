@@ -143,7 +143,7 @@ class _Body extends StatelessWidget {
                 penIconTap: () => showDialog(
                   context: context,
                   builder: (dialog) {
-                    enWordController.text = flashcardEntity.words[index].enWord;
+                    enWordController.text = flashcardEntity.words[index].wordToTranslate;
                     translatedWordController.text = flashcardEntity.words[index].translatedWord;
                     return CustomWordDialog(
                       enWordController: enWordController,

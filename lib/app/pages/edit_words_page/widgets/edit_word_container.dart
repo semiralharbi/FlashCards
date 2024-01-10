@@ -87,7 +87,7 @@ class EditWordContainer extends StatelessWidget {
                   width: context.mqs.width * 0.187,
                   child: Center(
                     child: Text(
-                      flashcardEntity.words[index].enWord.capitalize(),
+                      flashcardEntity.words[index].wordToTranslate.capitalize(),
                       style: context.tht.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: AppDimensions.d14,

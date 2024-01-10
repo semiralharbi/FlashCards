@@ -2,7 +2,6 @@ import 'package:country_flags/country_flags.dart';
 import 'package:translator_plus/translator_plus.dart';
 
 import '../../../domain/entities/database/words_entity.dart';
-
 import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
@@ -118,7 +117,7 @@ class _BodyState extends State<_Body> {
     if (_validateFields()) {
       context.read<AddFolderWordsCubit>().addWord(
             WordsEntity(
-              enWord: _initialWordController.text,
+              wordToTranslate: _initialWordController.text,
               translatedWord: _translatedWordController.text,
               nrRepeated: 0,
             ),

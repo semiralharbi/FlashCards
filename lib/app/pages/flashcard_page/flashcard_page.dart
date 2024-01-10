@@ -87,7 +87,7 @@ class _Body extends HookWidget {
               GestureDetector(
                 onTap: () => context.read<FlashcardCubit>().animate(controller),
                 child: FlashcardContainer(
-                  text: flashcardEntity.words[index].enWord,
+                  text: flashcardEntity.words[index].wordToTranslate,
                 ),
               ),
               GestureDetector(

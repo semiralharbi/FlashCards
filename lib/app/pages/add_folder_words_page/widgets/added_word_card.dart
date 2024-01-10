@@ -19,7 +19,7 @@ class AddedWordCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              wordsEntity.enWord,
+              wordsEntity.wordToTranslate,
               overflow: TextOverflow.ellipsis,
             ),
             const Divider(height: 10, color: AppColors.daintree),

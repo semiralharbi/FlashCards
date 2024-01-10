@@ -54,7 +54,7 @@ class WordsContainer extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    wordsEntity.enWord.capitalize(),
+                    wordsEntity.wordToTranslate.capitalize(),
                     style: context.tht.titleSmall,
                     textAlign: TextAlign.center,
                   ),
