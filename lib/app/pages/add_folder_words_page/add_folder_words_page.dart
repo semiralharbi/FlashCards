@@ -19,10 +19,14 @@ class AddFolderWordsPage extends StatelessWidget {
     super.key,
     required this.folderName,
     @visibleForTesting this.cubit,
+    required this.targetLanguage,
+    required this.sourceLanguage,
   });
 
   final AddFolderWordsCubit? cubit;
   final String folderName;
+  final String sourceLanguage;
+  final String targetLanguage;
 
   @override
   Widget build(BuildContext context) => BlocProvider(
@@ -40,6 +44,8 @@ class AddFolderWordsPage extends StatelessWidget {
               loaded: (wordsList) => _Body(
                 folderName: folderName,
                 wordsList: wordsList,
+                targetLanguage: targetLanguage,
+                sourceLanguage: sourceLanguage,
               ),
               orElse: () => const AppProgressIndicator(),
             ),
@@ -52,10 +58,14 @@ class _Body extends StatefulWidget {
   const _Body({
     required this.folderName,
     required this.wordsList,
+    required this.sourceLanguage,
+    required this.targetLanguage,
   });
 
   final String folderName;
   final List<WordsEntity> wordsList;
+  final String sourceLanguage;
+  final String targetLanguage;
 
   //TODO:Add entity, which contains language
 
@@ -64,30 +74,30 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-  late TextEditingController _initialWordController;
-  late TextEditingController _translatedWordController;
-  late bool _isInitialWordNotEmpty = false;
-  String? _initialWordError;
-  String? _translatedWordError;
+  late TextEditingController _sourceWordController;
+  late TextEditingController _targetWordController;
+  late bool _isSourceWordNotEmpty = false;
+  String? _sourceWordError;
+  String? _targetWordError;
 
   @override
   void initState() {
-    _initialWordController = TextEditingController();
-    _translatedWordController = TextEditingController();
+    _sourceWordController = TextEditingController();
+    _targetWordController = TextEditingController();
     super.initState();
   }
 
   void _onChangedInitialWord(String? text) {
     setState(() {
-      _isInitialWordNotEmpty = text?.isNotEmpty ?? false;
-      _initialWordError = null;
+      _isSourceWordNotEmpty = text?.isNotEmpty ?? false;
+      _sourceWordError = null;
     });
   }
 
   void _onChangedTranslatedWord(String? text) {
     if (text?.isNotEmpty ?? false) {
       setState(() {
-        _translatedWordError = null;
+        _targetWordError = null;
       });
     }
   }
@@ -95,19 +105,19 @@ class _BodyState extends State<_Body> {
   bool _validateFields() {
     bool isValid = true;
     setState(() {
-      if (_initialWordController.text.isEmpty) {
-        _initialWordError = context.tr.addWordFolderPage_textFieldError;
-        _translatedWordError = context.tr.addWordFolderPage_textFieldError;
+      if (_sourceWordController.text.isEmpty) {
+        _sourceWordError = context.tr.addWordFolderPage_textFieldError;
+        _targetWordError = context.tr.addWordFolderPage_textFieldError;
         isValid = false;
       } else {
-        _initialWordError = null;
+        _sourceWordError = null;
       }
 
-      if (_translatedWordController.text.isEmpty) {
-        _translatedWordError = context.tr.addWordFolderPage_textFieldError;
+      if (_targetWordController.text.isEmpty) {
+        _targetWordError = context.tr.addWordFolderPage_textFieldError;
         isValid = false;
       } else {
-        _translatedWordError = null;
+        _targetWordError = null;
       }
     });
     return isValid;
@@ -117,8 +127,8 @@ class _BodyState extends State<_Body> {
     if (_validateFields()) {
       context.read<AddFolderWordsCubit>().addWord(
             WordsEntity(
-              wordToTranslate: _initialWordController.text,
-              translatedWord: _translatedWordController.text,
+              wordToTranslate: _sourceWordController.text,
+              translatedWord: _targetWordController.text,
               nrRepeated: 0,
             ),
           );
@@ -127,18 +137,18 @@ class _BodyState extends State<_Body> {
   }
 
   void _resetState() {
-    _initialWordController.clear();
-    _translatedWordController.clear();
+    _sourceWordController.clear();
+    _targetWordController.clear();
     setState(() {
-      _isInitialWordNotEmpty = false;
+      _isSourceWordNotEmpty = false;
     });
   }
 
   Future<void> _onTranslateTap() async {
-    //TODO(): Add proper lang handling
-    final translation = await getIt<GoogleTranslator>().translate(_initialWordController.text, from: 'pl');
+    final translation = await getIt<GoogleTranslator>()
+        .translate(_sourceWordController.text, from: 'pl'); //TODO:Add entity, which contains language
     setState(() {
-      _translatedWordController.text = translation.text;
+      _targetWordController.text = translation.text;
     });
   }
 
@@ -152,23 +162,23 @@ class _BodyState extends State<_Body> {
           CustomTextField(
             autofocus: true,
             leading: CountryFlag.fromLanguageCode(
-              'de',
+              widget.sourceLanguage,
               height: AppDimensions.d26,
               width: AppDimensions.d26,
             ),
-            error: _initialWordError,
-            controller: _initialWordController,
+            error: _sourceWordError,
+            controller: _sourceWordController,
             hintText: context.tr.translationWordDesc,
             onChanged: _onChangedInitialWord,
           ).animate().slideX().fade(),
-          if (_isInitialWordNotEmpty)
+          if (_isSourceWordNotEmpty)
             CustomTextField(
               leading: CountryFlag.fromLanguageCode(
-                'en',
+                widget.targetLanguage,
                 height: AppDimensions.d26,
                 width: AppDimensions.d26,
               ),
-              error: _translatedWordError,
+              error: _targetWordError,
               onChanged: _onChangedTranslatedWord,
               suffixIcon: IconButton(
                 icon: const Icon(
@@ -177,7 +187,7 @@ class _BodyState extends State<_Body> {
                 ),
                 onPressed: _onTranslateTap,
               ),
-              controller: _translatedWordController,
+              controller: _targetWordController,
               hintText: context.tr.translatedWordDesc,
             ).animate().slideX().fade(),
           const Spacer(),
@@ -194,7 +204,11 @@ class _BodyState extends State<_Body> {
               TextButton(
                 onPressed: () {
                   _validateAndAddWord();
-                  context.read<AddFolderWordsCubit>().createFolder(folderName: widget.folderName);
+                  context.read<AddFolderWordsCubit>().createFolder(
+                        folderName: widget.folderName,
+                        sourceLanguage: widget.sourceLanguage,
+                        targetLanguage: widget.targetLanguage,
+                      );
                 },
                 child: Text(
                   context.tr.addWordFolderPage_finishButtonText,
@@ -208,8 +222,8 @@ class _BodyState extends State<_Body> {
 
   @override
   void dispose() {
-    _translatedWordController.dispose();
-    _initialWordController.dispose();
+    _targetWordController.dispose();
+    _sourceWordController.dispose();
     super.dispose();
   }
 }

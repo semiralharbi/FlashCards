@@ -7,9 +7,9 @@ import '../../../../domain/use_case/new_data_folder_use_case.dart';
 import '../../../theme/global_imports.dart';
 import '../../../utils/enums/errors.dart';
 
-part 'add_folder_words_state.dart';
-
 part 'add_folder_words_cubit.freezed.dart';
+
+part 'add_folder_words_state.dart';
 
 @injectable
 class AddFolderWordsCubit extends Cubit<AddFolderWordsState> {
@@ -18,15 +18,16 @@ class AddFolderWordsCubit extends Cubit<AddFolderWordsState> {
   final CreateFolderUseCase _createFolderUseCase;
   final List<WordsEntity> wordsList = [];
 
-  Future<void> createFolder({
-    required String folderName,
-  }) async {
+  Future<void> createFolder({String? folderName, String? sourceLanguage, String? targetLanguage}) async {
     emit(const AddFolderWordsState.loading());
     final result = await _createFolderUseCase(
       FolderEntity(
-        folderName: folderName,
+        folderName: folderName ?? '',
         correctAnswers: 0,
         words: wordsList,
+        sourceLanguage: sourceLanguage ?? 'US',
+        targetLanguage: targetLanguage ?? "PL",
+        //TODO:Add entity, which contains language
       ),
     );
     result.fold(

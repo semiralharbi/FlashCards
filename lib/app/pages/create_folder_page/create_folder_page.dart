@@ -4,14 +4,32 @@ import '../../widgets/custom_drawer/custom_drawer.dart';
 import 'widgets/country_button.dart';
 
 @RoutePage()
-class CreateFolderPage extends StatelessWidget {
-  const CreateFolderPage({super.key, required this.folderName});
+class CreateFolderPage extends StatefulWidget {
+  const CreateFolderPage(
+      {super.key, required this.folderName, required this.sourceCountryCode, required this.targetCountryCode});
 
   final String folderName;
+  final String sourceCountryCode;
+  final String targetCountryCode;
+
+  @override
+  State<CreateFolderPage> createState() => _CreateFolderPageState();
+}
+
+class _CreateFolderPageState extends State<CreateFolderPage> {
+  late String _sourceCountryCode;
+  late String _targetCountryCode;
+
+  @override
+  void initState() {
+    _sourceCountryCode = widget.sourceCountryCode;
+    _targetCountryCode = widget.targetCountryCode;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => AppScaffold(
-        appBarTitle: folderName,
+        appBarTitle: widget.folderName,
         drawer: const CustomDrawer(),
         onlyBottomWood: true,
         child: Column(
@@ -30,16 +48,32 @@ class CreateFolderPage extends StatelessWidget {
                 context.tr.createFolderPage_sourceLanguageText,
                 style: context.tht.displaySmall,
               ),
-              const CountryButton(initialCountryCode: 'US'),
+              CountryButton(
+                initialCountryCode: _sourceCountryCode,
+                onSelect: (countryCode) {
+                  _sourceCountryCode = countryCode;
+                },
+              ),
               Text(
                 context.tr.createFolderPage_targetLanguageText,
                 style: context.tht.displaySmall,
               ),
-              const CountryButton(initialCountryCode: 'PL'),
+              CountryButton(
+                initialCountryCode: _targetCountryCode,
+                onSelect: (countryCode) {
+                  _targetCountryCode = countryCode;
+                },
+              ),
             ].animate().slideX().fade(),
             const Gap(AppDimensions.d20),
             TextButton(
-              onPressed: () => context.router.push(AddFolderWordsRoute(folderName: folderName)),
+              onPressed: () => context.router.push(
+                AddFolderWordsRoute(
+                  folderName: widget.folderName,
+                  sourceLanguage: _sourceCountryCode,
+                  targetLanguage: _targetCountryCode,
+                ),
+              ),
               child: Text(
                 context.tr.createFolderPage_continueButtonText,
                 style: context.tht.displayMedium,

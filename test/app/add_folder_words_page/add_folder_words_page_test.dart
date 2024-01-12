@@ -18,6 +18,8 @@ void main() {
     testedPage = AddFolderWordsPage(
       folderName: 'folderName',
       cubit: mockAddFolderWordsCubit,
+      targetLanguage: 'pl',
+      sourceLanguage: 'US',
     );
   });
 
@@ -43,8 +45,8 @@ void main() {
       whenListen(
         mockAddFolderWordsCubit,
         Stream.fromIterable(
-          const [
-            AddFolderWordsState.loaded([mockedWordEntityV1]),
+          [
+            const AddFolderWordsState.loaded([mockedWordEntityV1]),
           ],
         ),
         initialState: const AddFolderWordsState.loaded([]),

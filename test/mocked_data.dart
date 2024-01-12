@@ -17,11 +17,15 @@ const WordsEntity mockedWordEntityV2 = WordsEntity(
 
 const FolderEntity mockedFolderEntityV1 = FolderEntity(
   folderName: 'folderNameV1',
+  targetLanguage: 'US',
+  sourceLanguage: 'PL',
   words: [mockedWordEntityV1, mockedWordEntityV2],
 );
 
 const FolderEntity mockedFolderEntityV2 = FolderEntity(
   folderName: 'folderNameV2folderNameV2',
+  targetLanguage: 'US',
+  sourceLanguage: 'PL',
   words: [mockedWordEntityV1, mockedWordEntityV2],
 );
 

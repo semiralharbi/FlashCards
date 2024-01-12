@@ -10,6 +10,8 @@ class FolderEntity with _$FolderEntity {
   const factory FolderEntity({
     required String folderName,
     required List<WordsEntity> words,
+    required String sourceLanguage,
+    required String targetLanguage,
     int? correctAnswers,
   }) = _FolderEntity;
 
@@ -17,5 +19,7 @@ class FolderEntity with _$FolderEntity {
         folderName: dto.folderName,
         words: dto.words.map((dto) => WordsEntity.fromDto(dto)).toList(),
         correctAnswers: dto.correctAnswers,
+        sourceLanguage: dto.sourceLanguage,
+        targetLanguage: dto.targetLanguage,
       );
 }

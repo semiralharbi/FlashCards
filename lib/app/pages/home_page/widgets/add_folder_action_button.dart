@@ -12,6 +12,9 @@ class AddFolderActionButton extends StatefulWidget {
 class _AddFolderActionButtonState extends State<AddFolderActionButton> {
   late final TextEditingController folderController;
 
+  //TODO: take targetLanguage it from UserProfileEntity
+//TODO: take  sourceLanguage it from UserProfileEntity
+
   @override
   void initState() {
     super.initState();
@@ -26,7 +29,9 @@ class _AddFolderActionButtonState extends State<AddFolderActionButton> {
         ) ??
         false;
     if (createFolder && mounted) {
-      context.router.push(CreateFolderRoute(folderName: folderController.text));
+      context.router.push(
+        CreateFolderRoute(folderName: folderController.text, targetCountryCode: 'US', sourceCountryCode: 'PL'),
+      ); //TODO: take it from UserProfileEntity
     }
   }
 
