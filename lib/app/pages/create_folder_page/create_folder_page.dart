@@ -5,8 +5,12 @@ import 'widgets/country_button.dart';
 
 @RoutePage()
 class CreateFolderPage extends StatefulWidget {
-  const CreateFolderPage(
-      {super.key, required this.folderName, required this.sourceCountryCode, required this.targetCountryCode});
+  const CreateFolderPage({
+    super.key,
+    required this.folderName,
+    required this.sourceCountryCode,
+    required this.targetCountryCode,
+  });
 
   final String folderName;
   final String sourceCountryCode;
