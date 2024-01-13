@@ -1,8 +1,12 @@
 import '../theme/global_imports.dart';
 
 class ChangeUserNameTile extends StatelessWidget {
-  const ChangeUserNameTile(
-      {super.key, required this.buttonToApprove, required this.textField, required this.buttonToPop});
+  const ChangeUserNameTile({
+    super.key,
+    required this.buttonToApprove,
+    required this.textField,
+    required this.buttonToPop,
+  });
 
   final Widget buttonToApprove;
   final Widget buttonToPop;
