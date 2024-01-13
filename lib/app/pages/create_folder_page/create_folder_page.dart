@@ -7,7 +7,11 @@ import 'widgets/country_button.dart';
 
 @RoutePage()
 class CreateFolderPage extends StatelessWidget {
-  const CreateFolderPage({super.key, required this.folderName, this.cubit});
+  const CreateFolderPage({
+    super.key,
+    required this.folderName,
+    this.cubit,
+  });
 
   final String folderName;
   final UserProfileCubit? cubit;
@@ -36,9 +40,11 @@ class CreateFolderPage extends StatelessWidget {
                   style: context.tht.displaySmall,
                 ),
                 CountryButton(
+                  width: AppDimensions.d10,
+                  height: AppDimensions.d10,
                   initialCountryCode: 'US',
                   onSelect: (countryCode) =>
-                      context.read<UserProfileCubit>().onUpdateNameButton(nativeLanguage: countryCode),
+                      context.read<UserProfileCubit>().onUpdateUserProfileButton(nativeLanguage: countryCode),
                 ),
                 Text(
                   context.tr.createFolderPage_targetLanguageText,
@@ -47,7 +53,9 @@ class CreateFolderPage extends StatelessWidget {
                 CountryButton(
                   initialCountryCode: 'PL',
                   onSelect: (countryCode) =>
-                      context.read<UserProfileCubit>().onUpdateNameButton(languageToLearn: countryCode),
+                      context.read<UserProfileCubit>().onUpdateUserProfileButton(languageToLearn: countryCode),
+                  width: AppDimensions.d10,
+                  height: AppDimensions.d10,
                 ),
               ].animate().slideX().fade(),
               const Gap(AppDimensions.d20),

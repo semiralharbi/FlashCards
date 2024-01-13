@@ -27,17 +27,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
         password: dto.password,
       );
       if (userId != null) {
-        final dto = UserProfileDto(
-          name: '',
-          userId: userId!,
-          initialLanguage: 'pl',
-          userFolders: [],
-          email: firebaseAuth.currentUser?.email ?? '',
-          appLanguage: 'pl',
-          nativeLanguage: 'pl',
-          languageToLearn: 'en',
-        );
-        await firestore.collection("users").doc(userId).set(dto.toJson());
+        _createUserDoc(user);
       }
       return user;
     } on FirebaseAuthException catch (e) {
@@ -58,6 +48,19 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
     } on ApiException catch (e) {
       throw ApiException(e.failure);
     }
+  }
+
+  Future<void> _createUserDoc(UserCredential user) async {
+    final dto = UserProfileDto(
+      userId: userId!,
+      initialLanguage: 'pl',
+      //TODO: add values from phone language
+      email: user.user?.email ?? '',
+      appLanguage: 'pl',
+      nativeLanguage: 'pl',
+      languageToLearn: 'en',
+    );
+    await firestore.collection("users").doc(userId).set(dto.toJson());
   }
 
   @override
@@ -120,14 +123,13 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
         if (doc.exists) {
           final UserProfileDto existingUserDoc = UserProfileDto.fromJson(doc.data()!);
           final updatedUserDoc = existingUserDoc.copyWith(
-            name: dto.name.isNotEmpty ? dto.name : existingUserDoc.name,
-            userId: dto.userId.isNotEmpty ? dto.userId : existingUserDoc.userId,
-            initialLanguage: dto.initialLanguage.isNotEmpty ? dto.initialLanguage : existingUserDoc.initialLanguage,
-            nativeLanguage: dto.nativeLanguage.isNotEmpty ? dto.nativeLanguage : existingUserDoc.nativeLanguage,
-            appLanguage: dto.appLanguage.isNotEmpty ? dto.appLanguage : existingUserDoc.appLanguage,
-            languageToLearn: dto.languageToLearn.isNotEmpty ? dto.languageToLearn : existingUserDoc.languageToLearn,
-            userFolders: dto.userFolders.isNotEmpty ? dto.userFolders : existingUserDoc.userFolders,
-            email: dto.email.isNotEmpty ? dto.email : existingUserDoc.email,
+            name: dto.name ?? existingUserDoc.name,
+            userId: dto.userId ?? existingUserDoc.userId,
+            initialLanguage: dto.initialLanguage ?? existingUserDoc.initialLanguage,
+            nativeLanguage: dto.nativeLanguage ?? existingUserDoc.nativeLanguage,
+            appLanguage: dto.appLanguage ?? existingUserDoc.appLanguage,
+            languageToLearn: dto.languageToLearn ?? existingUserDoc.languageToLearn,
+            email: dto.email ?? existingUserDoc.email,
           );
           await firestore.collection("users").doc(userId).set(updatedUserDoc.toJson());
         } else {
@@ -151,7 +153,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
           final UserProfileDto userDoc = UserProfileDto.fromJson(doc.data()!);
           return userDoc;
         } else {
-          throw ApiException(Errors.somethingWentWrong);
+          throw ApiException(Errors.documentForThisUserNotFound);
         }
       } else {
         throw ApiException(Errors.userNotFound);

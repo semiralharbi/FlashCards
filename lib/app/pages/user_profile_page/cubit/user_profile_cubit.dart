@@ -26,7 +26,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
   final DeleteAccountUseCase _deleteAccountUseCase;
   final ResetPasswordUseCase _resetPasswordUseCase;
 
-  Future<void> init() async {
+  Future<void> getUserProfile() async {
     final userProfile = await _getUserProfileUseCase();
     userProfile.fold(
       (l) => emit(const UserProfileState.fail(error: Errors.unknownError)),
@@ -34,7 +34,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     );
   }
 
-  Future<void> onUpdateNameButton({
+  Future<void> onUpdateUserProfileButton({
     String? username,
     String? nativeLanguage,
     String? appLanguage,
@@ -42,14 +42,10 @@ class UserProfileCubit extends Cubit<UserProfileState> {
   }) async {
     await _updateUserProfileUseCase(
       UserProfileEntity(
-        name: username ?? '',
-        userId: '',
-        initialLanguage: '',
-        nativeLanguage: nativeLanguage ?? '',
-        appLanguage: appLanguage ?? '',
-        userFolders: [],
-        email: '',
-        languageToLearn: languageToLearn ?? '',
+        name: username,
+        nativeLanguage: nativeLanguage,
+        appLanguage: appLanguage,
+        languageToLearn: languageToLearn,
       ),
     );
     final userProfile = await _getUserProfileUseCase();

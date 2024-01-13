@@ -4,11 +4,16 @@ import '../../theme/global_imports.dart';
 import '../../utils/enums/errors.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
-import '../../widgets/custom_dialog_with_text_field.dart';
+import '../../widgets/category_text_widget.dart';
+import '../../widgets/change_user_name_tile.dart';
+import '../../widgets/confirm_dialog.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
 import '../../widgets/custom_settings_tile.dart';
+import '../../widgets/custom_text_button.dart';
+import '../../widgets/custom_text_field.dart';
 import '../../widgets/progress_conrainer.dart';
 import '../../widgets/progress_indicator.dart';
+import '../../widgets/user_name_tile.dart';
 import 'cubit/user_profile_cubit.dart';
 import 'cubit/user_profile_state.dart';
 
@@ -25,30 +30,25 @@ class UserProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScaffold(
       onlyBottomWood: true,
-      drawer: const CustomDrawer(
-        title: 'Twój profil',
-      ),
+      drawer: const CustomDrawer(),
       child: BlocProvider(
         create: (context) => cubit ?? getIt<UserProfileCubit>()
-          ..init(),
+          ..getUserProfile(),
         child: BlocConsumer<UserProfileCubit, UserProfileState>(
-          listener: (context, state) => state.maybeWhen(
-            loaded: (entity, error) => _Body(
-              usernameError: error,
+          listener: (context, state) => state.whenOrNull(
+            loaded: (entity) => _Body(
               entity: entity,
             ),
-            loading: () => const AppProgressIndicator(),
-            orElse: () => const AppProgressIndicator(),
             fail: (error) => showAppSnackBar(context, error.errorText(context)),
             success: () => context.router.push(
               LoginRoute(),
             ),
           ),
           builder: (context, state) => state.maybeWhen(
-            loaded: (entity, error) => _Body(
-              usernameError: error,
+            loaded: (entity) => _Body(
               entity: entity,
             ),
+            loading: () => const AppProgressIndicator(),
             orElse: () => const AppProgressIndicator(),
             fail: (error) => const _Body(),
           ),
@@ -60,12 +60,10 @@ class UserProfilePage extends StatelessWidget {
 
 class _Body extends StatefulWidget {
   const _Body({
-    this.usernameError,
     this.entity,
   });
 
   final UserProfileEntity? entity;
-  final Errors? usernameError;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -73,20 +71,20 @@ class _Body extends StatefulWidget {
 
 class _BodyState extends State<_Body> {
   bool isEditMode = false;
-  late final TextEditingController _textController;
-  late final TextEditingController _emailToChangePassword;
+  late final TextEditingController _usernameTextController;
+  late final TextEditingController _emailChangePassword;
 
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController();
-    _emailToChangePassword = TextEditingController();
+    _usernameTextController = TextEditingController();
+    _emailChangePassword = TextEditingController();
   }
 
   @override
   void dispose() {
-    _textController.dispose();
-    _emailToChangePassword.dispose();
+    _usernameTextController.dispose();
+    _emailChangePassword.dispose();
     super.dispose();
   }
 
@@ -95,82 +93,48 @@ class _BodyState extends State<_Body> {
     return SingleChildScrollView(
       child: SizedBox(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             if (!isEditMode)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: AppDimensions.d26),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        "${context.tr.userProfilePage_hi}, ${widget.entity?.name ?? ''}",
-                        style: context.tht.labelLarge,
-                        textAlign: TextAlign.start,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: AppDimensions.d10),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isEditMode = !isEditMode;
-                          });
-                        },
-                        child: const Icon(Icons.draw_outlined),
-                      ),
-                    ),
-                  ],
+              UserNameTile(
+                userName: "${context.tr.userProfilePage_hi}, ${widget.entity?.name ?? ''}",
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isEditMode = !isEditMode;
+                    });
+                  },
+                  child: const Icon(Icons.draw_outlined),
                 ),
               )
             else
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    fit: FlexFit.tight,
-                    child: TextField(
-                      decoration:
-                          InputDecoration(labelText: context.tr.userProfilePage_textField, alignLabelWithHint: true),
-                      textAlign: TextAlign.center,
-                      controller: _textController,
-                      maxLength: 10,
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(AppDimensions.d3),
-                        child: GestureDetector(
-                          onTap: () {
-                            context.read<UserProfileCubit>().onUpdateNameButton(username: _textController.text);
-                            setState(() {
-                              isEditMode = !isEditMode;
-                              _textController.clear();
-                            });
-                          },
-                          child: const Icon(Icons.check),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(AppDimensions.d3),
-                        child: GestureDetector(
-                          onTap: () {
-                            context.read<UserProfileCubit>().onUpdateNameButton(username: _textController.text);
-                            setState(() {
-                              isEditMode = !isEditMode;
-                              _textController.clear();
-                            });
-                          },
-                          child: const Icon(Icons.cancel),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              ChangeUserNameTile(
+                textField: CustomTextField(
+                  controller: _usernameTextController,
+                  maxLength: 10,
+                  hintText: context.tr.userProfilePage_textField,
+                ),
+                buttonToApprove: GestureDetector(
+                  onTap: () {
+                    context.read<UserProfileCubit>().onUpdateUserProfileButton(username: _usernameTextController.text);
+                    setState(
+                      () {
+                        isEditMode = !isEditMode;
+                        _usernameTextController.clear();
+                      },
+                    );
+                  },
+                  child: const Icon(Icons.check),
+                ),
+                buttonToPop: GestureDetector(
+                  onTap: () {
+                    context.router.pop();
+                    setState(() {
+                      isEditMode = !isEditMode;
+                      _usernameTextController.clear();
+                    });
+                  },
+                  child: const Icon(Icons.cancel),
+                ),
               ),
             const Divider(),
             Text(
@@ -178,19 +142,12 @@ class _BodyState extends State<_Body> {
               textAlign: TextAlign.start,
             ),
             const Gap(AppDimensions.d20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                context.tr.userProfilePage_resume,
-                textAlign: TextAlign.left,
-                style: context.tht.displayMedium,
-              ),
+            CategoryTextWidget(
+              categoryText: context.tr.userProfilePage_yourProgress,
             ),
             const Divider(),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ProgressContainer(
                   information: context.tr.userProfilePage_progressContainer_foldersDone,
@@ -207,13 +164,8 @@ class _BodyState extends State<_Body> {
               ],
             ),
             const Gap(AppDimensions.d30),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Ustawienia:',
-                textAlign: TextAlign.left,
-                style: context.tht.displayMedium,
-              ),
+            CategoryTextWidget(
+              categoryText: context.tr.userProfilePage_settings,
             ),
             const Divider(),
             Column(
@@ -224,7 +176,7 @@ class _BodyState extends State<_Body> {
                     title: context.tr.userProfilePage_progressContainer_yourNativeLanguage,
                     countryCode: widget.entity?.nativeLanguage ?? 'pl',
                     onSelect: (countryCode) =>
-                        context.read<UserProfileCubit>().onUpdateNameButton(nativeLanguage: countryCode),
+                        context.read<UserProfileCubit>().onUpdateUserProfileButton(nativeLanguage: countryCode),
                     flagWidth: AppDimensions.d60,
                     flagHeight: AppDimensions.d60,
                   ),
@@ -236,7 +188,7 @@ class _BodyState extends State<_Body> {
                     title: context.tr.userProfilePage_progressContainer_appLanguage,
                     countryCode: widget.entity?.nativeLanguage ?? 'pl',
                     onSelect: (countryCode) =>
-                        context.read<UserProfileCubit>().onUpdateNameButton(appLanguage: countryCode),
+                        context.read<UserProfileCubit>().onUpdateUserProfileButton(appLanguage: countryCode),
                     flagWidth: AppDimensions.d60,
                     flagHeight: AppDimensions.d60,
                   ),
@@ -250,54 +202,65 @@ class _BodyState extends State<_Body> {
                     title: context.tr.userProfilePage_progressContainer_languageToLearn,
                     countryCode: widget.entity?.nativeLanguage ?? 'pl',
                     onSelect: (countryCode) =>
-                        context.read<UserProfileCubit>().onUpdateNameButton(languageToLearn: countryCode),
+                        context.read<UserProfileCubit>().onUpdateUserProfileButton(languageToLearn: countryCode),
                   ),
                 ),
                 const Gap(AppDimensions.d50),
                 Padding(
                   padding: const EdgeInsets.all(AppDimensions.d8),
-                  child: InkWell(
-                    onTap: () => context.read<UserProfileCubit>().onSignOutButton(),
-                    child: Text(
-                      context.tr.userProfilePage_logoutButton,
-                      style: context.tht.titleMedium,
-                    ),
+                  child: CustomTextButton(
+                    action: () => context.read<UserProfileCubit>().onSignOutButton(),
+                    text: context.tr.userProfilePage_logoutButton,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(AppDimensions.d8),
-                  child: InkWell(
-                    onTap: () => showDialog(
-                      context: context,
-                      builder: (_) => CustomDialogWithTextField(
-                        controller: _emailToChangePassword,
-                        onPressed: () {
-                          context.read<UserProfileCubit>().onResetPassword(_emailToChangePassword.text);
-                          context.router.pop();
-                        },
-                      ),
-                    ),
-                    child: Text(
-                      context.tr.userProfilePage_changePasswordButton,
-                      style: context.tht.titleMedium,
-                    ),
+                  child: CustomTextButton(
+                    action: () => _onTapChangePassword(),
+                    text: context.tr.userProfilePage_changePasswordButton,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(AppDimensions.d8),
-                  child: InkWell(
-                    onTap: () {
-                      context.read<UserProfileCubit>().onDeleteAccount();
-                    },
-                    child: Text(
-                      context.tr.userProfilePage_deleteAccount,
-                      style: const TextStyle(color: Colors.red),
-                    ),
+                  child: CustomTextButton(
+                    action: () => _onDeleteAccountDecision(),
+                    text: context.tr.userProfilePage_deleteAccount,
                   ),
                 ),
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  void _onDeleteAccountDecision() {
+    showDialog(
+      context: context,
+      builder: (_) => ConfirmDialog(
+        onPressed: () {
+          context.read<UserProfileCubit>().onDeleteAccount();
+        },
+        information: context.tr.userProfilePage_deleteAccountDialogInformation,
+        child: Text(context.tr.userProfilePage_deleteAccount),
+      ),
+    );
+  }
+
+  void _onTapChangePassword() {
+    showDialog(
+      context: context,
+      builder: (_) => ConfirmDialog(
+        onPressed: () {
+          context.read<UserProfileCubit>().onResetPassword(_emailChangePassword.text);
+          context.router.pop();
+        },
+        information: context.tr.userProfilePage_changePasswordDialogInformation,
+        child: CustomTextField(
+          textFieldPadding: EdgeInsets.zero,
+          controller: _emailChangePassword,
+          hintText: context.tr.userProfilePage_writeDownYourEmail,
         ),
       ),
     );

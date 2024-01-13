@@ -34,6 +34,8 @@ class FlagTile extends StatelessWidget {
           child: CountryButton(
             initialCountryCode: countryCode,
             onSelect: onSelect,
+            width: AppDimensions.d10,
+            height: AppDimensions.d10,
           ),
         ),
       ],

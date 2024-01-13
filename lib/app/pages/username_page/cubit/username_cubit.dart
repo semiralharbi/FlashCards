@@ -18,13 +18,6 @@ class UsernameCubit extends Cubit<UsernameState> {
       final result = await _updateUserUseCase(
         UserProfileEntity(
           name: username,
-          userId: '',
-          initialLanguage: '',
-          userFolders: [],
-          email: '',
-          appLanguage: 'pl',
-          nativeLanguage: 'pl',
-          languageToLearn: 'en',
         ),
       );
       result.fold(

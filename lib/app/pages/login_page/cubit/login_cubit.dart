@@ -8,7 +8,10 @@ import 'login_state.dart';
 
 @injectable
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(this._loginUseCase, this._getUserProfileUseCase) : super(const LoginState.loaded());
+  LoginCubit(
+    this._loginUseCase,
+    this._getUserProfileUseCase,
+  ) : super(const LoginState.loaded());
 
   final LoginUseCase _loginUseCase;
   final GetUserProfileUseCase _getUserProfileUseCase;
@@ -23,20 +26,24 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginState.loaded(email: email, password: password));
       },
       (r) async {
-        final userProfile = await _getUserProfileUseCase();
-        userProfile.fold(
-          (l) {
-            emit(LoginState.fail(error: l.error));
-            emit(LoginState.loaded(email: email, password: password));
-          },
-          (userProfile) {
-            if (userProfile.name == '') {
-              emit(const LoginState.showUsernamePage());
-            } else {
-              emit(const LoginState.showHomePage());
-            }
-          },
-        );
+        _getUserProfile(email, password);
+      },
+    );
+  }
+
+  Future<void> _getUserProfile(String email, String password) async {
+    final userProfile = await _getUserProfileUseCase();
+    userProfile.fold(
+      (l) {
+        emit(LoginState.fail(error: l.error));
+        emit(LoginState.loaded(email: email, password: password));
+      },
+      (userProfile) {
+        if (userProfile.name == '') {
+          emit(const LoginState.showUsernamePage());
+        } else {
+          emit(const LoginState.showHomePage());
+        }
       },
     );
   }

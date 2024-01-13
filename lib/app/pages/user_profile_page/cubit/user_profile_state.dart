@@ -7,10 +7,7 @@ part 'user_profile_state.freezed.dart';
 
 @freezed
 class UserProfileState with _$UserProfileState {
-  factory UserProfileState.loaded({
-    UserProfileEntity? userProfile,
-    Errors? usernameError,
-  }) = _Loaded;
+  factory UserProfileState.loaded({UserProfileEntity? userProfile}) = _Loaded;
 
   const factory UserProfileState.loading() = _Loading;
 

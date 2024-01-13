@@ -27,9 +27,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AppScaffold(
         onlyBottomWood: true,
-        drawer: const CustomDrawer(
-          title: 'Twoje teczki',
-        ),
+        drawer: const CustomDrawer(),
         enableBackArrow: false,
         floatingActionButton: const AddFolderActionButton(),
         child: BlocProvider<HomeCubit>(

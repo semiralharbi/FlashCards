@@ -18,7 +18,8 @@ enum Errors {
   wrongPassword,
   lackOfFolderDescription,
   wordNotFound,
-  wrongEmail
+  wrongEmail,
+  documentForThisUserNotFound
 }
 
 extension ErrorsExtension on Errors {
@@ -26,6 +27,8 @@ extension ErrorsExtension on Errors {
     switch (this) {
       case Errors.unknownError:
         return context.tr.unknownError;
+      case Errors.documentForThisUserNotFound:
+        return context.tr.documentForThisUserNotFound;
       case Errors.tryAgainLater:
         return context.tr.tryAgainLater;
       case Errors.checkInternetConnection:

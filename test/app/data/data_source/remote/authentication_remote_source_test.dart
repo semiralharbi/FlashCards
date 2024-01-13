@@ -27,7 +27,6 @@ void main() {
       final dto = UserProfileDto(
         name: mockedUserProfileDto.name,
         userId: fakeUser.uid,
-        userFolders: mockedUserProfileDto.userFolders,
         initialLanguage: mockedUserProfileDto.initialLanguage,
         email: mockedUserProfileDto.email,
         appLanguage: mockedUserProfileDto.appLanguage,

@@ -14,9 +14,7 @@ import 'drawer_icon_button.dart';
 class CustomDrawer extends Drawer {
   const CustomDrawer({
     super.key,
-    this.title = '',
   });
-  final String? title;
 
   @override
   Widget build(BuildContext context) => BlocProvider(
@@ -25,14 +23,14 @@ class CustomDrawer extends Drawer {
           listener: (context, state) => state.whenOrNull(
             logout: () => context.router.replaceAll([LoginRoute()]),
           ),
-          child: _Body(title),
+          child: const _Body(),
         ),
       );
 }
 
 class _Body extends Drawer {
-  const _Body(this.title);
-  final String? title;
+  const _Body();
+
   @override
   Widget build(BuildContext context) => Drawer(
         backgroundColor: AppColors.whiteSmoke,
@@ -43,7 +41,7 @@ class _Body extends Drawer {
               right: 0,
               left: 0,
               child: Container(
-                height: context.mqs.height * 0.35,
+                height: context.mqs.height * 0.30,
                 decoration: const BoxDecoration(
                   color: AppColors.daintree,
                 ),
@@ -54,7 +52,7 @@ class _Body extends Drawer {
               right: 0,
               left: 0,
               child: SizedBox(
-                height: context.mqs.height * 0.55,
+                height: context.mqs.height * 0.60,
                 child: DrawerHeader(
                   padding: const EdgeInsets.symmetric(
                     horizontal: AppDimensions.d16,
@@ -73,7 +71,7 @@ class _Body extends Drawer {
                         onTap: () => context.router.push(
                           HomeRoute(),
                         ),
-                        text: title ?? '',
+                        text: context.tr.yourFolders,
                         textPadding: const EdgeInsets.only(top: AppDimensions.d24),
                         iconData: Icons.folder_copy_outlined,
                       ),
