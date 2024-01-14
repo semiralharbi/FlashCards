@@ -1,3 +1,4 @@
+import '../../../domain/entities/user/user_profile_entity.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
 import '../../widgets/app_scaffold.dart';
@@ -42,9 +43,10 @@ class CreateFolderPage extends StatelessWidget {
                 CountryButton(
                   width: AppDimensions.d10,
                   height: AppDimensions.d10,
-                  initialCountryCode: 'US',
-                  onSelect: (countryCode) =>
-                      context.read<UserProfileCubit>().onUpdateUserProfileButton(nativeLanguage: countryCode),
+                  initialCountryCode: 'US', //TODO: TAKE IT FROM ENTITY
+                  onSelect: (countryCode) => context
+                      .read<UserProfileCubit>()
+                      .onUpdateUserProfileButton(entity: UserProfileEntity(nativeLanguage: countryCode)),
                 ),
                 Text(
                   context.tr.createFolderPage_targetLanguageText,
@@ -52,8 +54,11 @@ class CreateFolderPage extends StatelessWidget {
                 ),
                 CountryButton(
                   initialCountryCode: 'PL',
-                  onSelect: (countryCode) =>
-                      context.read<UserProfileCubit>().onUpdateUserProfileButton(languageToLearn: countryCode),
+                  onSelect: (countryCode) => context.read<UserProfileCubit>().onUpdateUserProfileButton(
+                        entity: UserProfileEntity(
+                          languageToLearn: countryCode,
+                        ),
+                      ),
                   width: AppDimensions.d10,
                   height: AppDimensions.d10,
                 ),

@@ -1,4 +1,4 @@
-import '../theme/global_imports.dart';
+import '../../../theme/global_imports.dart';
 
 class CategoryTextWidget extends StatelessWidget {
   const CategoryTextWidget({super.key, required this.categoryText});

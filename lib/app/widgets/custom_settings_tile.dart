@@ -7,8 +7,8 @@ class FlagTile extends StatelessWidget {
     required this.title,
     required this.countryCode,
     required this.onSelect,
-    required this.flagWidth,
-    required this.flagHeight,
+    this.flagWidth = AppDimensions.d60,
+    this.flagHeight = AppDimensions.d60,
   });
 
   final String title;

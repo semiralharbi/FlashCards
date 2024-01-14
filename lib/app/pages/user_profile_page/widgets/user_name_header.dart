@@ -1,10 +1,14 @@
-import '../theme/global_imports.dart';
+import '../../../theme/global_imports.dart';
 
-class UserNameTile extends StatelessWidget {
-  const UserNameTile({super.key, required this.userName, required this.child});
+class UserNameHeader extends StatelessWidget {
+  const UserNameHeader({
+    super.key,
+    required this.userName,
+    required this.onEditonTap,
+  });
 
   final String userName;
-  final Widget child;
+  final VoidCallback onEditonTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,10 @@ class UserNameTile extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: AppDimensions.d10),
-            child: child,
+            child: GestureDetector(
+              onTap: onEditonTap,
+              child: const Icon(Icons.draw_outlined),
+            ),
           ),
         ],
       ),

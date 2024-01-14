@@ -23,7 +23,7 @@ class ProgressContainer extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  progress.toString(),
+                  '$progress',
                   style: context.tht.titleMedium,
                   textAlign: TextAlign.center,
                 ),

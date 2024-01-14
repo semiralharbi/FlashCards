@@ -16,11 +16,9 @@ class ConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: AppDimensions.d152,
-        left: AppDimensions.d20,
-        right: AppDimensions.d20,
-        bottom: AppDimensions.d152,
+      padding: const EdgeInsets.symmetric(
+        vertical: AppDimensions.d152,
+        horizontal: AppDimensions.d20,
       ),
       child: Dialog(
         child: Padding(
