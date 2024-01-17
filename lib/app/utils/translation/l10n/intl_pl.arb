@@ -92,6 +92,8 @@
   "userProfilePage_areYouSureYourDecision": "Czy jesteś pewny swojej decyzji?",
   "userProfilePage_deleteAccountDialogInformation": "Po kliknięciu w przycisk, twoje konto zostanie usunięte",
   "userProfilePage_changePasswordDialogInformation": "Po kliknięciu w przycisk, na twój email otrzymasz link resetujący obecne hasło",
-  "userProfilePage_writeDownYourEmail": "Wpisz swój email",
+  "userProfilePage_enterYourEmail": "Wpisz swój email",
+  "userProfilePage_resetPassword": "Zresetuj hasło",
+  "confirmDialog_cancel": "Anuluj",
   "homePage_title": "Twoje teczki"
 }

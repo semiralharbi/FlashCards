@@ -5,15 +5,14 @@ import '../../utils/enums/errors.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/app_snackbar.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
-import '../../widgets/custom_text_field.dart';
 import '../../widgets/progress_indicator.dart';
 import 'cubit/user_profile_cubit.dart';
 import 'cubit/user_profile_state.dart';
-import 'widgets/account_managment_widget.dart';
-import 'widgets/change_user_name_tile.dart';
-import 'widgets/progress_section_widget.dart';
-import 'widgets/settings_section_widget.dart';
-import 'widgets/user_name_header.dart';
+import 'widgets/account_section.dart';
+import 'widgets/change_username_header.dart';
+import 'widgets/progress_section.dart';
+import 'widgets/settings_section.dart';
+import 'widgets/username_header.dart';
 
 @RoutePage()
 class UserProfilePage extends StatelessWidget {
@@ -69,22 +68,6 @@ class _Body extends StatefulWidget {
 
 class _BodyState extends State<_Body> {
   bool isEditMode = false;
-  late final TextEditingController _usernameTextController;
-  late final TextEditingController _emailChangePassword;
-
-  @override
-  void initState() {
-    super.initState();
-    _usernameTextController = TextEditingController();
-    _emailChangePassword = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _usernameTextController.dispose();
-    _emailChangePassword.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,14 +85,8 @@ class _BodyState extends State<_Body> {
                 },
               )
             else
-              ChangeUserNameTile(
-                textField: CustomTextField(
-                  controller: _usernameTextController,
-                  maxLength: 10,
-                  hintText: context.tr.userProfilePage_textField,
-                ),
-                nameController: _usernameTextController,
-                function: () {
+              ChangeUsernameHeader(
+                onTap: () {
                   setState(() {
                     isEditMode = !isEditMode;
                   });
@@ -122,14 +99,11 @@ class _BodyState extends State<_Body> {
             ),
             const ProgressSection(),
             SettingsSection(
-              nativeCountryCode: widget.entity?.nativeLanguage,
-              appCountryCode: widget.entity?.appLanguage,
-              languageToLearnCountryCode: widget.entity?.languageToLearn,
+              nativeCountryCode: widget.entity?.nativeLanguage ?? 'pl',
+              appCountryCode: widget.entity?.appLanguage ?? 'pl',
+              languageToLearnCountryCode: widget.entity?.languageToLearn ?? 'pl',
             ),
-            AccountManagement(
-              email: _emailChangePassword.text,
-              controller: _emailChangePassword,
-            ),
+            const AccountSection(),
           ],
         ),
       ),

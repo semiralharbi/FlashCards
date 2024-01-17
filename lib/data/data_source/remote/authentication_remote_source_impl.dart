@@ -27,7 +27,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
         password: dto.password,
       );
       if (userId != null) {
-        _createUserDoc(user);
+        await _createUserDoc(user);
       }
       return user;
     } on FirebaseAuthException catch (e) {
