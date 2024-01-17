@@ -7,9 +7,11 @@ class AppFloatingActionButton extends StatelessWidget {
   const AppFloatingActionButton({
     super.key,
     required this.onPressed,
+    required this.icon,
   });
 
   final VoidCallback onPressed;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -19,7 +21,7 @@ class AppFloatingActionButton extends StatelessWidget {
           splashColor: AppColors.cinnamon,
           elevation: AppDimensions.d10,
           onPressed: onPressed,
-          child: const Icon(Icons.add),
+          child: Icon(icon),
         ),
       );
 }

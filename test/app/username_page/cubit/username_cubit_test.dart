@@ -12,18 +12,18 @@ import '../../../mocked_data.dart';
 import '../../../mocks.mocks.dart';
 
 void main() {
-  late MockUpdateUserUseCase mockUpdateUserUseCase;
-  setUp(() => mockUpdateUserUseCase = MockUpdateUserUseCase());
+  late MockUpdateUserProfileUseCase mockUpdateUserProfileUseCase;
+  setUp(() => mockUpdateUserProfileUseCase = MockUpdateUserProfileUseCase());
 
-  UsernameCubit createCubit() => UsernameCubit(mockUpdateUserUseCase);
+  UsernameCubit createCubit() => UsernameCubit(mockUpdateUserProfileUseCase);
   blocTest(
     'UsernameCubit - Update Username Success',
-    setUp: () => when(mockUpdateUserUseCase(any)).thenAnswer((_) async => const Right(Success())),
+    setUp: () => when(mockUpdateUserProfileUseCase(any)).thenAnswer((_) async => const Right(Success())),
     build: createCubit,
     act: (cubit) => cubit.onUpdateButton(mockedUsername),
     verify: (_) {
-      verify(mockUpdateUserUseCase(any));
-      verifyNoMoreInteractions(mockUpdateUserUseCase);
+      verify(mockUpdateUserProfileUseCase(any));
+      verifyNoMoreInteractions(mockUpdateUserProfileUseCase);
     },
     expect: () => [
       const UsernameState.loading(),
@@ -33,7 +33,7 @@ void main() {
 
   blocTest(
     'UsernameCubit - Failure then Loaded with data',
-    setUp: () => when(mockUpdateUserUseCase(any)).thenAnswer(
+    setUp: () => when(mockUpdateUserProfileUseCase(any)).thenAnswer(
       (_) async => const Left(
         Failure(error: Errors.somethingWentWrong),
       ),
@@ -41,8 +41,8 @@ void main() {
     build: createCubit,
     act: (cubit) => cubit.onUpdateButton(mockedUsername),
     verify: (_) {
-      verify(mockUpdateUserUseCase(any));
-      verifyNoMoreInteractions(mockUpdateUserUseCase);
+      verify(mockUpdateUserProfileUseCase(any));
+      verifyNoMoreInteractions(mockUpdateUserProfileUseCase);
     },
     expect: () => [
       const UsernameState.loading(),
@@ -55,7 +55,7 @@ void main() {
     'UsernameCubit - Validation error',
     build: createCubit,
     act: (cubit) => cubit.onUpdateButton(''),
-    verify: (_) => verifyZeroInteractions(mockUpdateUserUseCase),
+    verify: (_) => verifyZeroInteractions(mockUpdateUserProfileUseCase),
     expect: () => [
       const UsernameState.loading(),
       const UsernameState.loaded(usernameError: Errors.fieldCantBeEmpty),

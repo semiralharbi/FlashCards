@@ -9,10 +9,14 @@ class CountryButton extends StatefulWidget {
     super.key,
     required this.initialCountryCode,
     required this.onSelect,
+    required this.width,
+    required this.height,
   });
 
   final String initialCountryCode;
   final Function(String) onSelect;
+  final double width;
+  final double height;
 
   @override
   State<CountryButton> createState() => _CountryButtonState();
@@ -34,10 +38,8 @@ class _CountryButtonState extends State<CountryButton> {
       onSelect: (country) {
         setState(() {
           _selectedCountryCode = country.countryCode;
+          widget.onSelect(_selectedCountryCode);
         });
-
-        widget.onSelect(_selectedCountryCode);
-        setState(() {});
       },
     );
   }
@@ -47,6 +49,7 @@ class _CountryButtonState extends State<CountryButton> {
     return ElevatedButton(
       style: context.th.elevatedButtonTheme.style?.copyWith(
         backgroundColor: MaterialStateProperty.all(AppColors.buttonInactive),
+        minimumSize: MaterialStateProperty.all(Size(widget.width, widget.height)),
       ),
       onPressed: _showCountryPicker,
       child: CountryFlag.fromCountryCode(

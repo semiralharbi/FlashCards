@@ -16,6 +16,7 @@ import '../../pages/home_page/home_page.dart';
 import '../../pages/login_page/login_page.dart';
 import '../../pages/registration_page/registration_page.dart';
 import '../../pages/result_page/result_page.dart';
+import '../../pages/user_profile_page/user_profile_page.dart';
 import '../../pages/username_page/username_page.dart';
 import 'cubit_imports.dart';
 
@@ -36,5 +37,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: DictionaryRoute.page),
         AutoRoute(page: CreateFolderRoute.page),
         AutoRoute(page: AddFolderWordsRoute.page),
+        AutoRoute(page: UserProfileRoute.page),
       ];
 }

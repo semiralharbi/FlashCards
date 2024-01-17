@@ -1,7 +1,9 @@
+import 'package:flash_cards/data/dto/user/user_profile_dto.dart';
 import 'package:flash_cards/domain/entities/create_user_entity.dart';
 import 'package:flash_cards/domain/entities/database/folder_entity.dart';
 import 'package:flash_cards/domain/entities/database/words_entity.dart';
 import 'package:flash_cards/domain/entities/login_entity.dart';
+import 'package:flash_cards/domain/entities/user/user_profile_entity.dart';
 
 const WordsEntity mockedWordEntityV1 = WordsEntity(
   wordToTranslate: 'enWordV1',
@@ -27,6 +29,34 @@ const FolderEntity mockedFolderEntityV2 = FolderEntity(
   targetLanguage: 'US',
   sourceLanguage: 'PL',
   words: [mockedWordEntityV1, mockedWordEntityV2],
+);
+
+const mockedUserProfileDto = UserProfileDto(
+  name: 'aaa',
+  userId: 'userId',
+  initialLanguage: 'pl',
+  email: 'email',
+  appLanguage: 'pl',
+  nativeLanguage: 'pl',
+  languageToLearn: 'en',
+);
+const mockedUserProfileEntity = UserProfileEntity(
+  name: 'aaa',
+  userId: 'userId',
+  initialLanguage: 'pl',
+  email: 'email',
+  appLanguage: 'pl',
+  nativeLanguage: 'pl',
+  languageToLearn: 'pl',
+);
+const mockedUserProfileEntityWithoutUsername = UserProfileEntity(
+  name: '',
+  userId: 'userId',
+  initialLanguage: 'pl',
+  email: 'email@email.com',
+  appLanguage: 'pl',
+  nativeLanguage: 'pl',
+  languageToLearn: 'an',
 );
 
 const List<FolderEntity> mockedFoldersList = [mockedFolderEntityV1, mockedFolderEntityV2];

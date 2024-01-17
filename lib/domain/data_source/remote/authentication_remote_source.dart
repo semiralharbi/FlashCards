@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../data/dto/user/create_user_dto.dart';
 import '../../../data/dto/user/login_dto.dart';
-import '../../../data/dto/user/update_user_dto.dart';
+import '../../../data/dto/user/user_profile_dto.dart';
 import '../../utils/success.dart';
 
 abstract class AuthenticationRemoteSource {
@@ -10,15 +10,21 @@ abstract class AuthenticationRemoteSource {
     CreateUserDto dto,
   );
 
-  Future<Success> updateUser(
-    UpdateUserDto dto,
-  );
-
-  Future<User?> login(
+  Future<Success> login(
     LoginDto dto,
   );
 
   Future<User> getCurrentUser();
 
   Future<Success> signOut();
+
+  Future<Success> deleteAccount();
+
+  Future<Success> resetPassword(String email);
+
+  Future<Success> updateUser(
+    UserProfileDto dto,
+  );
+
+  Future<UserProfileDto> getUserProfile();
 }

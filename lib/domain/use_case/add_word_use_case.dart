@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../entities/database/words_entity.dart';
-import '../repositories/database_repository.dart';
+import '../repositories/folders_repository.dart';
 import '../utils/failure.dart';
 import '../utils/success.dart';
 import '../utils/use_case.dart';
@@ -12,7 +12,7 @@ import '../utils/use_case.dart';
 class AddWordUseCase implements UseCase<Success, Params> {
   const AddWordUseCase(this._databaseRepository);
 
-  final DatabaseRepository _databaseRepository;
+  final FoldersRepository _databaseRepository;
 
   @override
   Future<Either<Failure, Success>> call(Params params) async {

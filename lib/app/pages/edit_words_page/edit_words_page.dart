@@ -117,6 +117,7 @@ class _Body extends StatelessWidget {
             ),
           );
         },
+        icon: Icons.add,
       ),
       appBarTitlePadding: const EdgeInsets.only(right: AppDimensions.d4),
       onBackPress: () => context.read<EditWordsCubit>().onBackButton(),

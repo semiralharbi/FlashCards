@@ -3,4 +3,5 @@ export '../../pages/folder_content_page/cubit/folder_content_cubit.dart';
 export '../../pages/home_page/cubit/home_cubit.dart';
 export '../../pages/login_page/cubit/login_cubit.dart';
 export '../../pages/registration_page/cubit/registration_cubit.dart';
+export '../../pages/user_profile_page/cubit/user_profile_cubit.dart';
 export '../../pages/username_page/cubit/username_cubit.dart';
