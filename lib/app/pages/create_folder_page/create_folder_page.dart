@@ -19,7 +19,7 @@ class CreateFolderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AppScaffold(
-        appBarTitle: widget.folderName,
+        appBarTitle: folderName,
         drawer: const CustomDrawer(),
         onlyBottomWood: true,
         child: BlocProvider(

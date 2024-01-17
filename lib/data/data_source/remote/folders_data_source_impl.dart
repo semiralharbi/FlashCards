@@ -31,7 +31,7 @@ class FoldersDataSourceImpl implements FoldersDataSource {
   @override
   Future<List<FolderDto>> getCollection() async {
     try {
-      QuerySnapshot<Map<String, dynamic>> collection = await database
+      QuerySnapshot<Map<String, dynamic>> collection = await firestore
           .collection('$userId')
           .get(); //TODO: ADD RIGHT GETTING COLLECTION QuerySnapshot<Map<String, dynamic>> collection = await database.collection("users").doc(userId).get();
 

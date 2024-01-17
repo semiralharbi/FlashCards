@@ -31,7 +31,7 @@ class _AddFolderActionButtonState extends State<AddFolderActionButton> {
         false;
     if (createFolder && mounted) {
       context.router.push(
-        CreateFolderRoute(folderName: folderController.text, targetCountryCode: 'US', sourceCountryCode: 'PL'),
+        CreateFolderRoute(folderName: folderController.text),
       ); //TODO: take it from UserProfileEntity
     }
   }
