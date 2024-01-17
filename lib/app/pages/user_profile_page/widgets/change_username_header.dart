@@ -57,19 +57,10 @@ class _ChangeUsernameHeaderState extends State<ChangeUsernameHeader> {
             Padding(
               padding: const EdgeInsets.all(AppDimensions.d3),
               child: GestureDetector(
-                onTap: _isButtonEnabled
-                    ? () {
-                        context.read<UserProfileCubit>().onUpdateUserProfileButton(
-                              entity: UserProfileEntity(
-                                name: _controller.text.trim(),
-                              ),
-                            );
-                        widget.onTap();
-                      }
-                    : null,
+                onTap: _isButtonEnabled ? _onCheckIconTap : null,
                 child: Icon(
                   Icons.check,
-                  color: _isButtonEnabled ? AppColors.daintree : AppColors.silverOpacity,
+                  color: _isButtonEnabled ? AppColors.daintree : AppColors.painGrey,
                 ),
               ),
             ),
@@ -86,5 +77,14 @@ class _ChangeUsernameHeaderState extends State<ChangeUsernameHeader> {
         ),
       ],
     );
+  }
+
+  _onCheckIconTap() {
+    context.read<UserProfileCubit>().onUpdateUserProfileButton(
+          entity: UserProfileEntity(
+            name: _controller.text.trim(),
+          ),
+        );
+    widget.onTap();
   }
 }

@@ -50,10 +50,8 @@ class _AccountSectionState extends State<AccountSection> {
                   controller: _changePasswordController,
                   descriptionText: context.tr.userProfilePage_changePasswordDialogInformation,
                   acceptButtonText: context.tr.userProfilePage_resetPassword,
-                  onAcceptPressed: () {
-                    context.read<UserProfileCubit>().onResetPassword(_changePasswordController.text);
-                    context.router.pop();
-                  },
+                  onAcceptPressed: () =>
+                      context.read<UserProfileCubit>().onResetPassword(_changePasswordController.text),
                 ),
               ),
               child: Text(

@@ -35,7 +35,10 @@ class ChoiceDialog extends StatelessWidget {
         ),
         actions: [
           TextButton(
-            onPressed: onCancelPressed ?? context.router.pop,
+            onPressed: () {
+              onCancelPressed?.call();
+              context.router.pop();
+            },
             child: Text(
               cancelButtonText ?? context.tr.confirmDialog_cancel,
               style: context.tht.titleMedium,
@@ -45,7 +48,10 @@ class ChoiceDialog extends StatelessWidget {
             style: context.th.textButtonTheme.style?.copyWith(
               backgroundColor: MaterialStatePropertyAll(acceptButtonColor),
             ),
-            onPressed: onAcceptPressed,
+            onPressed: () {
+              onAcceptPressed.call();
+              context.router.pop();
+            },
             child: Text(
               acceptButtonText,
               style: context.tht.titleMedium?.copyWith(color: AppColors.red),
