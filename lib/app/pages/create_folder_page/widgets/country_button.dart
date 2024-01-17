@@ -5,9 +5,18 @@ import '../../../theme/global_imports.dart';
 import '../../../theme/theme_manager.dart';
 
 class CountryButton extends StatefulWidget {
-  const CountryButton({super.key, required this.initialCountryCode});
+  const CountryButton({
+    super.key,
+    required this.initialCountryCode,
+    required this.onSelect,
+    required this.width,
+    required this.height,
+  });
 
   final String initialCountryCode;
+  final Function(String) onSelect;
+  final double width;
+  final double height;
 
   @override
   State<CountryButton> createState() => _CountryButtonState();
@@ -30,25 +39,24 @@ class _CountryButtonState extends State<CountryButton> {
         setState(() {
           _selectedCountryCode = country.countryCode;
         });
+
+        widget.onSelect(_selectedCountryCode);
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: AppDimensions.d120,
-      height: AppDimensions.d80,
-      child: ElevatedButton(
-        style: context.th.elevatedButtonTheme.style?.copyWith(
-          backgroundColor: MaterialStateProperty.all(AppColors.buttonInactive),
-        ),
-        onPressed: _showCountryPicker,
-        child: CountryFlag.fromCountryCode(
-          _selectedCountryCode,
-          height: AppDimensions.d60,
-          width: AppDimensions.d60,
-        ),
+    return ElevatedButton(
+      style: context.th.elevatedButtonTheme.style?.copyWith(
+        backgroundColor: MaterialStateProperty.all(AppColors.buttonInactive),
+        minimumSize: MaterialStateProperty.all(Size(widget.width, widget.height)),
+      ),
+      onPressed: _showCountryPicker,
+      child: CountryFlag.fromCountryCode(
+        _selectedCountryCode,
+        height: AppDimensions.d60,
+        width: AppDimensions.d60,
       ),
     );
   }

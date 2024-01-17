@@ -1,6 +1,6 @@
 import '../../../theme/global_imports.dart';
 import '../../../widgets/app_floating_action_button.dart';
-import '../../../widgets/custom_dialog.dart';
+import '../../../widgets/custom_create_folder_dialog.dart';
 
 class AddFolderActionButton extends StatefulWidget {
   const AddFolderActionButton({super.key});
@@ -11,6 +11,7 @@ class AddFolderActionButton extends StatefulWidget {
 
 class _AddFolderActionButtonState extends State<AddFolderActionButton> {
   late final TextEditingController folderController;
+  final IconData icon = Icons.add;
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _AddFolderActionButtonState extends State<AddFolderActionButton> {
   Widget build(BuildContext context) {
     return AppFloatingActionButton(
       onPressed: _onFloatingActionButtonTapped,
+      icon: icon,
     );
   }
 }

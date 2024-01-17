@@ -24,7 +24,7 @@ class CustomTextField extends StatefulWidget {
   });
 
   final TextEditingController? controller;
-  final String hintText;
+  final String? hintText;
   final String? error;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;

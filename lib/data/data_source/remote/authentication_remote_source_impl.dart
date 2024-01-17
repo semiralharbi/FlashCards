@@ -16,6 +16,7 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
 
   final FirebaseFirestore firestore;
   final FirebaseAuth firebaseAuth;
+
   String? get userId => firebaseAuth.currentUser?.uid;
 
   @override
@@ -25,11 +26,8 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
         email: dto.email,
         password: dto.password,
       );
-      if (user.user != null) {
-        final userId = user.user!.uid;
-        await firestore.collection("users").doc(userId).set(
-              UserProfileDto(name: '', userId: user.user!.uid, initialLanguage: 'pl', userFolders: []).toJson(),
-            );
+      if (userId != null) {
+        await _createUserDoc(user);
       }
       return user;
     } on FirebaseAuthException catch (e) {
@@ -52,19 +50,27 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
     }
   }
 
+  Future<void> _createUserDoc(UserCredential user) async {
+    final dto = UserProfileDto(
+      userId: userId!,
+      initialLanguage: 'pl',
+      //TODO: add values from phone language
+      email: user.user?.email ?? '',
+      appLanguage: 'pl',
+      nativeLanguage: 'pl',
+      languageToLearn: 'en',
+    );
+    await firestore.collection("users").doc(userId).set(dto.toJson());
+  }
+
   @override
-  Future<User> login(LoginDto dto) async {
+  Future<Success> login(LoginDto dto) async {
     try {
       await firebaseAuth.signInWithEmailAndPassword(
         email: dto.email,
         password: dto.password,
       );
-      final user = firebaseAuth.currentUser;
-      if (user != null) {
-        return user;
-      } else {
-        throw ApiException(Errors.unknownError);
-      }
+      return const Success();
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'user-disabled':
@@ -117,10 +123,13 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
         if (doc.exists) {
           final UserProfileDto existingUserDoc = UserProfileDto.fromJson(doc.data()!);
           final updatedUserDoc = existingUserDoc.copyWith(
-            name: dto.name.isNotEmpty ? dto.name : existingUserDoc.name,
-            userId: dto.userId.isNotEmpty ? dto.userId : existingUserDoc.userId,
-            initialLanguage: dto.initialLanguage.isNotEmpty ? dto.initialLanguage : existingUserDoc.initialLanguage,
-            userFolders: dto.userFolders.isNotEmpty ? dto.userFolders : existingUserDoc.userFolders,
+            name: dto.name ?? existingUserDoc.name,
+            userId: dto.userId ?? existingUserDoc.userId,
+            initialLanguage: dto.initialLanguage ?? existingUserDoc.initialLanguage,
+            nativeLanguage: dto.nativeLanguage ?? existingUserDoc.nativeLanguage,
+            appLanguage: dto.appLanguage ?? existingUserDoc.appLanguage,
+            languageToLearn: dto.languageToLearn ?? existingUserDoc.languageToLearn,
+            email: dto.email ?? existingUserDoc.email,
           );
           await firestore.collection("users").doc(userId).set(updatedUserDoc.toJson());
         } else {
@@ -130,6 +139,45 @@ class AuthenticationRemoteSourceImpl implements AuthenticationRemoteSource {
       } else {
         throw ApiException(Errors.userNotFound);
       }
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+
+  @override
+  Future<UserProfileDto> getUserProfile() async {
+    try {
+      if (userId != null) {
+        final doc = await firestore.collection("users").doc(userId).get();
+        if (doc.exists) {
+          final UserProfileDto userDoc = UserProfileDto.fromJson(doc.data()!);
+          return userDoc;
+        } else {
+          throw ApiException(Errors.documentForThisUserNotFound);
+        }
+      } else {
+        throw ApiException(Errors.userNotFound);
+      }
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+
+  @override
+  Future<Success> deleteAccount() async {
+    try {
+      await firebaseAuth.currentUser?.delete();
+      return const Success();
+    } catch (e) {
+      throw ApiException(Errors.somethingWentWrong);
+    }
+  }
+
+  @override
+  Future<Success> resetPassword(String email) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+      return const Success();
     } catch (e) {
       throw ApiException(Errors.somethingWentWrong);
     }

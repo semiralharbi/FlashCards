@@ -12,7 +12,9 @@ import '../../utils/router/app_router.dart';
 import 'drawer_icon_button.dart';
 
 class CustomDrawer extends Drawer {
-  const CustomDrawer({super.key});
+  const CustomDrawer({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) => BlocProvider(
@@ -39,7 +41,7 @@ class _Body extends Drawer {
               right: 0,
               left: 0,
               child: Container(
-                height: context.mqs.height * 0.3,
+                height: context.mqs.height * 0.30,
                 decoration: const BoxDecoration(
                   color: AppColors.daintree,
                 ),
@@ -50,7 +52,7 @@ class _Body extends Drawer {
               right: 0,
               left: 0,
               child: SizedBox(
-                height: context.mqs.height * 0.6,
+                height: context.mqs.height * 0.60,
                 child: DrawerHeader(
                   padding: const EdgeInsets.symmetric(
                     horizontal: AppDimensions.d16,
@@ -80,9 +82,7 @@ class _Body extends Drawer {
                         iconData: Icons.abc,
                       ),
                       DrawerIconButton(
-                        onTap: () => context.router.push(
-                          HomeRoute(),
-                        ),
+                        onTap: () => context.router.push(UserProfileRoute()),
                         text: context.tr.profile,
                         textPadding: const EdgeInsets.only(top: AppDimensions.d16),
                         iconData: Icons.person_outline,
