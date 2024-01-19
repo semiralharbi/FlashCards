@@ -38,7 +38,6 @@ class _CountryButtonState extends State<CountryButton> {
       onSelect: (country) {
         setState(() {
           _selectedCountryCode = country.countryCode;
-          widget.onSelect(_selectedCountryCode);
         });
       },
     );

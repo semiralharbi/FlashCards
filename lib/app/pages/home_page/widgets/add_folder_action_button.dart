@@ -14,8 +14,6 @@ class _AddFolderActionButtonState extends State<AddFolderActionButton> {
   final IconData icon = Icons.add;
 
   //TODO: take targetLanguage it from UserProfileEntity
-//TODO: take  sourceLanguage it from UserProfileEntity
-
   @override
   void initState() {
     super.initState();

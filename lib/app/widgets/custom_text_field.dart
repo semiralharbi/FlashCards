@@ -21,7 +21,6 @@ class CustomTextField extends StatefulWidget {
     super.key,
     this.onChanged,
     this.hasPassword = false,
-    this.prefix,
     this.autofocus = false,
   });
 
@@ -38,7 +37,6 @@ class CustomTextField extends StatefulWidget {
   final EdgeInsets? textFieldPadding;
   final Function(String?)? onChanged;
   final bool hasPassword;
-  final Widget? prefix;
   final bool autofocus;
 
   @override
@@ -57,7 +55,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          widget.leading ?? const SizedBox.shrink(),
+          if (widget.leading != null) widget.leading!,
           Flexible(
             child: Padding(
               padding: widget.textFieldPadding ??
@@ -79,7 +77,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 controller: widget.controller,
                 style: const TextStyle(color: AppColors.daintree),
                 decoration: InputDecoration(
-                  prefix: widget.prefix,
                   suffixIcon: widget.hasPassword
                       ? IconButton(
                           onPressed: () => setState(() => _obscurePassword = !_obscurePassword),

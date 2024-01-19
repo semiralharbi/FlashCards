@@ -29,7 +29,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: RegistrationRoute.page),
         AutoRoute(page: UsernameRoute.page),
-        AutoRoute(page: HomeRoute.page, initial: true),
+        AutoRoute(page: HomeRoute.page),
         AutoRoute(page: FolderContentRoute.page),
         AutoRoute(page: FlashcardRoute.page),
         AutoRoute(page: ResultRoute.page),
@@ -37,6 +37,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: DictionaryRoute.page),
         AutoRoute(page: CreateFolderRoute.page),
         AutoRoute(page: AddFolderWordsRoute.page),
-        AutoRoute(page: UserProfileRoute.page),
+        AutoRoute(page: UserProfileRoute.page, initial: true),
       ];
 }
