@@ -7,7 +7,7 @@ import '../user_profile_page/cubit/user_profile_cubit.dart';
 import 'widgets/country_button.dart';
 
 @RoutePage()
-class CreateFolderPage extends StatefulWidget {
+class CreateFolderPage extends StatelessWidget {
   const CreateFolderPage({
     super.key,
     required this.folderName,
@@ -18,26 +18,21 @@ class CreateFolderPage extends StatefulWidget {
   final UserProfileCubit? cubit;
 
   @override
-  State<CreateFolderPage> createState() => _CreateFolderPageState();
-}
-
-class _CreateFolderPageState extends State<CreateFolderPage> {
-  @override
   Widget build(BuildContext context) => AppScaffold(
-        appBarTitle: widget.folderName,
+        appBarTitle: folderName,
         drawer: const CustomDrawer(),
         onlyBottomWood: true,
         child: BlocProvider(
-          create: (context) => widget.cubit ?? getIt<UserProfileCubit>(),
-          child: _Body(widget: widget),
+          create: (context) => cubit ?? getIt<UserProfileCubit>(),
+          child: _Body(folderName),
         ),
       );
 }
 
 class _Body extends StatelessWidget {
-  const _Body({required this.widget});
+  const _Body(this.folderName);
 
-  final CreateFolderPage widget;
+  final String folderName;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +83,7 @@ class _Body extends StatelessWidget {
         TextButton(
           onPressed: () => context.router.push(
             AddFolderWordsRoute(
-              folderName: widget.folderName,
+              folderName: folderName,
               targetLanguage: 'en',
               sourceLanguage: 'pl',
             ), //TODO: Take languages from entity
