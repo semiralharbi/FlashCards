@@ -71,6 +71,6 @@
   "addWordFolderPage_finishButtonText": "Zakończ",
   "addWordFolderPage_textFieldError": "Ups! Chyba coś tutaj zabrakło",
   "folderContent_editWords": "Tryb edycji",
-  "your_native_language" : "Twój język ojczysty",
-  "language_to_learn" : "Język do nauki"
+  "createFolderName_your_native_language": "Twój język ojczysty",
+  "createFolderName_language_to_learn": "Język do nauki"
 }
