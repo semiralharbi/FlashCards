@@ -1,9 +1,8 @@
-import '../../../domain/entities/user/user_profile_entity.dart';
 import '../../../injectable/injectable.dart';
 import '../../theme/global_imports.dart';
 import '../../widgets/app_scaffold.dart';
 import '../../widgets/custom_drawer/custom_drawer.dart';
-import '../user_profile_page/cubit/user_profile_cubit.dart';
+import '../add_folder_words_page/cubit/add_folder_words_cubit.dart';
 import 'widgets/country_button.dart';
 
 @RoutePage()
@@ -15,7 +14,7 @@ class CreateFolderPage extends StatelessWidget {
   });
 
   final String folderName;
-  final UserProfileCubit? cubit;
+  final AddFolderWordsCubit? cubit;
 
   @override
   Widget build(BuildContext context) => AppScaffold(
@@ -23,16 +22,32 @@ class CreateFolderPage extends StatelessWidget {
         drawer: const CustomDrawer(),
         onlyBottomWood: true,
         child: BlocProvider(
-          create: (context) => cubit ?? getIt<UserProfileCubit>(),
-          child: _Body(folderName),
+          create: (context) => cubit ?? getIt<AddFolderWordsCubit>(),
+          child: _Body(folderName, 'pl'),
         ),
       );
 }
 
-class _Body extends StatelessWidget {
-  const _Body(this.folderName);
+class _Body extends StatefulWidget {
+  const _Body(this.folderName, this.initialCountryCode);
 
   final String folderName;
+  final String initialCountryCode;
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  late String _targetLanguage;
+  late String _sourceLanguage;
+
+  @override
+  void initState() {
+    _targetLanguage = widget.initialCountryCode;
+    _sourceLanguage = widget.initialCountryCode;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +72,13 @@ class _Body extends StatelessWidget {
             height: AppDimensions.d10,
             initialCountryCode: 'US', //TODO: TAKE IT FROM ENTITY
             onSelect: (countryCode) {
-              return context.read<UserProfileCubit>().onUpdateUserProfileButton(
-                    entity: UserProfileEntity(nativeLanguage: countryCode),
-                  );
+              setState(() {
+                _targetLanguage = countryCode;
+              });
+              // final String sourceLanguage = countryCode;
+              // return context.read<AddFolderWordsCubit>().createFolder(
+              //       sourceLanguage: sourceLanguage, folderName: widget.folderName,
+              //     );
             },
           ),
           Text(
@@ -69,11 +88,9 @@ class _Body extends StatelessWidget {
           CountryButton(
             initialCountryCode: 'PL',
             onSelect: (countryCode) {
-              context.read<UserProfileCubit>().onUpdateUserProfileButton(
-                    entity: UserProfileEntity(
-                      languageToLearn: countryCode,
-                    ),
-                  );
+              setState(() {
+                _sourceLanguage = countryCode;
+              });
             },
             width: AppDimensions.d10,
             height: AppDimensions.d10,
@@ -81,13 +98,20 @@ class _Body extends StatelessWidget {
         ].animate().slideX().fade(),
         const Gap(AppDimensions.d20),
         TextButton(
-          onPressed: () => context.router.push(
-            AddFolderWordsRoute(
-              folderName: folderName,
-              targetLanguage: 'en',
-              sourceLanguage: 'pl',
-            ), //TODO: Take languages from entity
-          ),
+          onPressed: () {
+            context.read<AddFolderWordsCubit>().createFolder(
+                  sourceLanguage: _sourceLanguage,
+                  targetLanguage: _targetLanguage,
+                  folderName: widget.folderName,
+                );
+            context.router.push(
+              AddFolderWordsRoute(
+                folderName: widget.folderName,
+                targetLanguage: _targetLanguage,
+                sourceLanguage: _sourceLanguage,
+              ), //TODO: Take languages from entity
+            );
+          },
           child: Text(
             context.tr.createFolderPage_continueButtonText,
             style: context.tht.displayMedium,
