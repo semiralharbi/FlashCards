@@ -15,7 +15,6 @@ class FoldersDataSourceImpl implements FoldersDataSource {
 
   final FirebaseFirestore firestore;
   final FirebaseAuth firebaseAuth;
-  String users = 'users';
 
   String? get userId => firebaseAuth.currentUser?.uid;
 
