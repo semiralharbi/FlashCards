@@ -79,7 +79,7 @@ class _Body extends StatelessWidget {
               onPressed: () => context.router.push(
                 EditWordsRoute(flashcardEntity: folder),
               ),
-              text: context.tr.folderContent_editWords,
+              text: context.tr.folderContentPage_editWords,
             ),
             const Gap(AppDimensions.d20),
             AppElevatedButton(

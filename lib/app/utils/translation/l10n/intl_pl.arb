@@ -64,13 +64,11 @@
   "typeOf": "Rodzaj słowa",
   "examples": "Przykłady",
   "createFolderPage_welcomeText": "Wybierzmy języki dla Twojego nowego folderu",
-  "createFolderPage_sourceLanguageText": "Z jakiego języka zaczynamy?",
-  "createFolderPage_targetLanguageText": "A na jaki przetłumaczymy?",
+  "createFolderPage_sourceLanguageText": "Twój język ojczysty",
+  "createFolderPage_targetLanguageText": "Język do nauki",
   "createFolderPage_continueButtonText": "Gotowe!",
   "addWordFolderPage_addButtonText": "Dodaj",
   "addWordFolderPage_finishButtonText": "Zakończ",
   "addWordFolderPage_textFieldError": "Ups! Chyba coś tutaj zabrakło",
-  "folderContent_editWords": "Tryb edycji",
-  "createFolderName_your_native_language": "Twój język ojczysty",
-  "createFolderName_language_to_learn": "Język do nauki"
+  "folderContentPage_editWords": "Tryb edycji"
 }
