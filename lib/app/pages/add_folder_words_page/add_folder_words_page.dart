@@ -161,7 +161,7 @@ class _BodyState extends State<_Body> {
           ),
           CustomTextField(
             autofocus: true,
-            leading: CountryFlag.fromLanguageCode(
+            leading: CountryFlag.fromCountryCode(
               widget.sourceLanguage,
               height: AppDimensions.d26,
               width: AppDimensions.d26,
@@ -173,7 +173,7 @@ class _BodyState extends State<_Body> {
           ).animate().slideX().fade(),
           if (_isSourceWordNotEmpty)
             CustomTextField(
-              leading: CountryFlag.fromLanguageCode(
+              leading: CountryFlag.fromCountryCode(
                 widget.targetLanguage,
                 height: AppDimensions.d26,
                 width: AppDimensions.d26,

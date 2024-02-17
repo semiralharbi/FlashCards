@@ -44,7 +44,7 @@ class _BodyState extends State<_Body> {
 
   @override
   void initState() {
-    _targetLanguage = widget.initialCountryCode;
+    _targetLanguage = 'US';
     _sourceLanguage = widget.initialCountryCode;
     super.initState();
   }
@@ -70,10 +70,10 @@ class _BodyState extends State<_Body> {
           CountryButton(
             width: AppDimensions.d10,
             height: AppDimensions.d10,
-            initialCountryCode: 'US', //TODO: TAKE IT FROM ENTITY
+            initialCountryCode: widget.initialCountryCode, //TODO: TAKE IT FROM ENTITY
             onSelect: (countryCode) {
               setState(() {
-                _targetLanguage = countryCode;
+                _sourceLanguage = countryCode;
               });
             },
           ),
@@ -82,10 +82,10 @@ class _BodyState extends State<_Body> {
             style: context.tht.displaySmall,
           ),
           CountryButton(
-            initialCountryCode: 'PL',
+            initialCountryCode: 'US',
             onSelect: (countryCode) {
               setState(() {
-                _sourceLanguage = countryCode;
+                _targetLanguage = countryCode;
               });
             },
             width: AppDimensions.d10,
@@ -105,7 +105,7 @@ class _BodyState extends State<_Body> {
                 folderName: widget.folderName,
                 targetLanguage: _targetLanguage,
                 sourceLanguage: _sourceLanguage,
-              ), //TODO: Take languages from entity
+              ),
             );
           },
           child: Text(
