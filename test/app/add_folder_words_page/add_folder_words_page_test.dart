@@ -45,8 +45,8 @@ void main() {
       whenListen(
         mockAddFolderWordsCubit,
         Stream.fromIterable(
-          [
-            const AddFolderWordsState.loaded([mockedWordEntityV1]),
+          const [
+            AddFolderWordsState.loaded([mockedWordEntityV1]),
           ],
         ),
         initialState: const AddFolderWordsState.loaded([]),
