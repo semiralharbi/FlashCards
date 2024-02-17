@@ -59,12 +59,7 @@ class FoldersDataSourceImpl implements FoldersDataSource {
   @override
   Future<Success> deleteCollection(FolderDto dto) async {
     try {
-      await firestore
-          .collection('collections')
-          .doc(userId)
-          .collection('userCollections')
-          .doc(dto.folderName.toUpperCase())
-          .delete();
+      await firestore.collection(userId!).doc(dto.folderName.toUpperCase()).delete();
       return const Success();
     } catch (e) {
       throw ApiException(Errors.somethingWentWrong);
@@ -74,12 +69,7 @@ class FoldersDataSourceImpl implements FoldersDataSource {
   @override
   Future<Success> deleteWord(FolderDto dto, int index) async {
     try {
-      await firestore
-          .collection('collections')
-          .doc(userId)
-          .collection('userCollections')
-          .doc(dto.folderName.toUpperCase())
-          .update({
+      await firestore.collection(userId!).doc(dto.folderName.toUpperCase()).update({
         "words": FieldValue.arrayRemove([dto.words[index].toJson()]),
       });
       return const Success();

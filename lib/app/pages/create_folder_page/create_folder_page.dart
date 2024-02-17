@@ -75,10 +75,6 @@ class _BodyState extends State<_Body> {
               setState(() {
                 _targetLanguage = countryCode;
               });
-              // final String sourceLanguage = countryCode;
-              // return context.read<AddFolderWordsCubit>().createFolder(
-              //       sourceLanguage: sourceLanguage, folderName: widget.folderName,
-              //     );
             },
           ),
           Text(
