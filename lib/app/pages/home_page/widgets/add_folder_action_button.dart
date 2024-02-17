@@ -13,6 +13,7 @@ class _AddFolderActionButtonState extends State<AddFolderActionButton> {
   late final TextEditingController folderController;
   final IconData icon = Icons.add;
 
+  //TODO: take targetLanguage it from UserProfileEntity
   @override
   void initState() {
     super.initState();
@@ -27,7 +28,9 @@ class _AddFolderActionButtonState extends State<AddFolderActionButton> {
         ) ??
         false;
     if (createFolder && mounted) {
-      context.router.push(CreateFolderRoute(folderName: folderController.text));
+      context.router.push(
+        CreateFolderRoute(folderName: folderController.text),
+      ); //TODO: take it from UserProfileEntity
     }
   }
 

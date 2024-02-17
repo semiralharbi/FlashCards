@@ -3,7 +3,7 @@ import '../../../data/dto/database/words_dto.dart';
 import '../../utils/success.dart';
 
 abstract class FoldersDataSource {
-  Future<Success> newFolder(FolderDto dto);
+  Future<Success> createCollection(FolderDto dto);
 
   Future<List<FolderDto>> getCollection();
 

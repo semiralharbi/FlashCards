@@ -19,9 +19,9 @@ class FoldersDataSourceImpl implements FoldersDataSource {
   String? get userId => firebaseAuth.currentUser?.uid;
 
   @override
-  Future<Success> newFolder(FolderDto dto) async {
+  Future<Success> createCollection(FolderDto dto) async {
     if (userId != null) {
-      await firestore.collection("$userId").doc(dto.folderName.toUpperCase()).set(dto.toJson());
+      await firestore.collection(userId!).doc(dto.folderName.toUpperCase()).set(dto.toJson());
       return const Success();
     } else {
       throw ApiException(Errors.somethingWentWrong);
@@ -31,7 +31,8 @@ class FoldersDataSourceImpl implements FoldersDataSource {
   @override
   Future<List<FolderDto>> getCollection() async {
     try {
-      QuerySnapshot<Map<String, dynamic>> collection = await firestore.collection('$userId').get();
+      QuerySnapshot<Map<String, dynamic>> collection = await firestore.collection(userId!).get();
+
       List<Map<String, dynamic>> allData = collection.docs.map((e) => e.data()).toList();
       if (allData.isNotEmpty) {
         List<FolderDto> dto = allData.map((e) => FolderDto.fromJson(e)).toList();
@@ -48,7 +49,7 @@ class FoldersDataSourceImpl implements FoldersDataSource {
   @override
   Future<Success> updateCollection(FolderDto dto) async {
     try {
-      firestore.collection("$userId").doc(dto.folderName.toUpperCase()).set(dto.toJson());
+      firestore.collection(userId!).doc(dto.folderName.toUpperCase()).set(dto.toJson());
       return const Success();
     } catch (e) {
       throw ApiException(Errors.somethingWentWrong);
@@ -58,7 +59,7 @@ class FoldersDataSourceImpl implements FoldersDataSource {
   @override
   Future<Success> deleteCollection(FolderDto dto) async {
     try {
-      await firestore.collection("$userId").doc(dto.folderName.toUpperCase()).delete();
+      await firestore.collection(userId!).doc(dto.folderName.toUpperCase()).delete();
       return const Success();
     } catch (e) {
       throw ApiException(Errors.somethingWentWrong);
@@ -68,7 +69,7 @@ class FoldersDataSourceImpl implements FoldersDataSource {
   @override
   Future<Success> deleteWord(FolderDto dto, int index) async {
     try {
-      await firestore.collection("$userId").doc(dto.folderName.toUpperCase()).update({
+      await firestore.collection(userId!).doc(dto.folderName.toUpperCase()).update({
         "words": FieldValue.arrayRemove([dto.words[index].toJson()]),
       });
       return const Success();
@@ -80,7 +81,7 @@ class FoldersDataSourceImpl implements FoldersDataSource {
   @override
   Future<Success> addWord(WordsDto dto, String folderName) async {
     try {
-      await firestore.collection("$userId").doc(folderName.toUpperCase()).update({
+      await firestore.collection(userId!).doc(folderName.toUpperCase()).update({
         "words": FieldValue.arrayUnion([dto.toJson()]),
       });
       return const Success();
@@ -92,7 +93,7 @@ class FoldersDataSourceImpl implements FoldersDataSource {
   @override
   Future<Success> editWord(WordsDto dto, String folderName) async {
     try {
-      await firestore.collection("$userId").doc(folderName.toUpperCase()).update({
+      await firestore.collection(userId!).doc(folderName.toUpperCase()).update({
         "words": FieldValue.arrayUnion([dto.toJson()]),
       });
       return const Success();

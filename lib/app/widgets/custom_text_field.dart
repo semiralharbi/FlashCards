@@ -16,11 +16,12 @@ class CustomTextField extends StatefulWidget {
     this.textCapitalization = TextCapitalization.none,
     this.suffixIcon,
     this.textInputAction,
-    this.iconData,
+    this.leading,
     this.textFieldPadding,
     super.key,
     this.onChanged,
     this.hasPassword = false,
+    this.autofocus = false,
   });
 
   final TextEditingController? controller;
@@ -32,10 +33,11 @@ class CustomTextField extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final Widget? suffixIcon;
   final TextInputAction? textInputAction;
-  final IconData? iconData;
+  final Widget? leading;
   final EdgeInsets? textFieldPadding;
   final Function(String?)? onChanged;
   final bool hasPassword;
+  final bool autofocus;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -53,11 +55,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          Icon(
-            widget.iconData,
-            size: widget.iconData != null ? AppDimensions.d50 : 0,
-            color: AppColors.daintree,
-          ),
+          if (widget.leading != null) widget.leading!,
           Flexible(
             child: Padding(
               padding: widget.textFieldPadding ??
@@ -68,6 +66,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     left: AppDimensions.d12,
                   ),
               child: TextField(
+                autofocus: widget.autofocus,
                 onChanged: widget.onChanged,
                 textInputAction: widget.textInputAction,
                 textCapitalization: widget.textCapitalization,

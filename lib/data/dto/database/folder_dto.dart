@@ -4,7 +4,6 @@ import '../../../domain/entities/database/folder_entity.dart';
 import 'words_dto.dart';
 
 part 'folder_dto.freezed.dart';
-
 part 'folder_dto.g.dart';
 
 @freezed
@@ -13,6 +12,8 @@ class FolderDto with _$FolderDto {
     required String folderName,
     required List<WordsDto> words,
     int? correctAnswers,
+    required String sourceLanguage,
+    required String targetLanguage,
   }) = _FolderDto;
 
   factory FolderDto.fromJson(Map<String, dynamic> json) => _$FolderDtoFromJson(json);
@@ -22,6 +23,8 @@ class FolderDto with _$FolderDto {
       folderName: entity.folderName,
       words: entity.words.map((entity) => WordsDto.fromEntity(entity)).toList(),
       correctAnswers: entity.correctAnswers,
+      sourceLanguage: entity.sourceLanguage,
+      targetLanguage: entity.targetLanguage,
     );
   }
 }

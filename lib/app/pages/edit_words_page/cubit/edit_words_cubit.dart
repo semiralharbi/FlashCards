@@ -78,7 +78,7 @@ class EditWordsCubit extends Cubit<EditWordsState> {
         final result = await _addWordUseCase(
           add_word.Params(
             WordsEntity(
-              enWord: enWord,
+              wordToTranslate: enWord,
               translatedWord: translatedWord,
               nrRepeated: 0,
             ),
@@ -95,7 +95,7 @@ class EditWordsCubit extends Cubit<EditWordsState> {
         final result = await _editWordUseCase(
           edit_word.Params(
             WordsEntity(
-              enWord: enWord,
+              wordToTranslate: enWord,
               translatedWord: translatedWord,
               nrRepeated: 0,
             ),

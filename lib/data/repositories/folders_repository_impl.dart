@@ -21,7 +21,7 @@ class FoldersRepositoryImpl implements FoldersRepository {
   @override
   Future<Either<Failure, Success>> newFolder(FolderEntity entity) async {
     try {
-      await _remoteSource.newFolder(FolderDto.fromEntity(entity));
+      await _remoteSource.createCollection(FolderDto.fromEntity(entity));
       return const Right(Success());
     } on ApiException catch (e) {
       return Left(Failure(error: e.failure));
